@@ -1,10 +1,15 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/core-image/core-image.html">
 
 <polymer-element name="gallery-tiles" attributes="">
     <template>
         <link rel="stylesheet" href="gallery-tiles.css">
+        <template repeat="{{thumb, i in thumbs}}">
+            <div>{{i}}, {{thumb.name}}</div>
+            <core-image class="sized gallary-tile" sizing="cover"
+                        src="http://lorempixel.com/200/400/sports/3"></core-image>
 
-        <core-image class="sized gallary-tile" sizing="cover" src="http://lorempixel.com/200/400/sports/3"></core-image>
+        </template>
 
     </template>
     <script>
@@ -13,14 +18,14 @@
                 thumbs: [
                     {
                         name: 'test',
-                        image: 'http://lorempixel.com/200/400/sports/3'
-                        price: '$12.32'
+                        image: 'http://lorempixel.com/200/400/sports/3',
+                        price: '$12.32',
                         description: 'test'
                     },
                     {
                         name: 'asdf',
-                        image: 'http://lorempixel.com/200/400/sports/3'
-                        price: '$12.32'
+                        image: 'http://lorempixel.com/200/400/sports/3',
+                        price: '$12.32',
                         description: 'test'
                     }
                 ]

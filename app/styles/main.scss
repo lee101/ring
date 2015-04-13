@@ -15,10 +15,8 @@ body {
   padding: 60px;
 }
 
-.hero-unit h1 {
-  font-size: 60px;
-  line-height: 1;
-  letter-spacing: -1px;
+h1 {
+  color: #FFC107;
 }
 
 .browsehappy {
@@ -33,6 +31,6 @@ body {
 }
 
 core-toolbar {
-  color: #FAFAFA;
-  background-color: #009688;
+  //  color: #FAFAFA;
+  background-color: #fff;
 }
