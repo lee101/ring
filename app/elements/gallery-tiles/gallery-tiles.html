@@ -1,29 +1,74 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/core-image/core-image.html">
 
+<script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+
+<link rel="stylesheet" href="../../bower_components/Justified-Gallery/dist/css/justifiedGallery.css">
+<script src="../../bower_components/Justified-Gallery/dist/js/jquery.justifiedGallery.js"></script>
+
 <polymer-element name="gallery-tiles" attributes="">
     <template>
         <link rel="stylesheet" href="gallery-tiles.css">
-        <template repeat="{{thumb, i in thumbs}}">
-            <div>{{i}}, {{thumb.name}}</div>
-            <core-image class="sized gallary-tile" sizing="cover"
-                        src="http://lorempixel.com/200/400/sports/3"></core-image>
-
-        </template>
+        <div id="gallery-tiles">
+            <template repeat="{{thumb, i in thumbs}}">
+                <a href="{{thumb.image}}" title="{{thumb.title}}">
+                    <img alt="{{thumb.title}}" src="{{thumb.image}}"/>
+                </a>
+            </template>
+        </div>
 
     </template>
     <script>
         (function () {
             Polymer({
+                domReady: function () {
+                    $('#gallery-tiles').justifiedGallery();
+                },
                 thumbs: [
                     {
-                        name: 'test',
+                        title: 'test',
                         image: 'http://lorempixel.com/200/400/sports/3',
                         price: '$12.32',
                         description: 'test'
                     },
                     {
-                        name: 'asdf',
+                        title: 'test',
+                        image: 'http://lorempixel.com/200/400/sports/3',
+                        price: '$12.32',
+                        description: 'test'
+                    },
+                    {
+                        title: 'test',
+                        image: 'http://lorempixel.com/200/400/sports/3',
+                        price: '$12.32',
+                        description: 'test'
+                    },
+                    {
+                        title: 'test',
+                        image: 'http://lorempixel.com/200/400/sports/3',
+                        price: '$12.32',
+                        description: 'test'
+                    },
+                    {
+                        title: 'test',
+                        image: 'http://lorempixel.com/200/400/sports/3',
+                        price: '$12.32',
+                        description: 'test'
+                    },
+                    {
+                        title: 'test',
+                        image: 'http://lorempixel.com/200/400/sports/3',
+                        price: '$12.32',
+                        description: 'test'
+                    },
+                    {
+                        title: 'test',
+                        image: 'http://lorempixel.com/200/400/sports/3',
+                        price: '$12.32',
+                        description: 'test'
+                    },
+                    {
+                        title: 'asdf',
                         image: 'http://lorempixel.com/200/400/sports/3',
                         price: '$12.32',
                         description: 'test'

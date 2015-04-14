@@ -6,7 +6,8 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ring.nz</title>
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
@@ -25,6 +26,7 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/mstile-144x144.png">
     <meta name="theme-color" content="#ffffff">
+
     <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild-->
@@ -48,7 +50,10 @@
         <core-header-panel drawer>
 
             <!-- Drawer Toolbar -->
-            <core-toolbar>Menu</core-toolbar>
+            <core-toolbar>
+                <img src="/mstile-70x70.png" width="70" height="70" alt="Ring Logo">
+                <h1>Ring</h1>
+            </core-toolbar>
 
             <!-- Drawer Content -->
             <core-menu selected="0">
@@ -63,11 +68,9 @@
         <core-header-panel main>
 
             <!-- Main Toolbar -->
-            <core-toolbar>
+            <core-toolbar class="main-core-toolbar">
                 <paper-icon-button icon="menu" core-drawer-toggle></paper-icon-button>
-                <img src="/mstile-70x70.png" width="70" height="70" alt="Ring Logo">
-
-                <h1>Ring</h1>
+                <h2>All Rings</h2>
             </core-toolbar>
 
             <!-- Main Content -->
