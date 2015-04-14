@@ -27,6 +27,7 @@
     <meta name="msapplication-TileImage" content="/mstile-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
+
     <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild-->
@@ -34,6 +35,13 @@
     <!-- build:js bower_components/webcomponentsjs/webcomponents.min.js -->
     <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
     <!-- endbuild -->
+
+    <link rel="import" href="/bower_components/core-image/core-image.html">
+
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="/bower_components/Justified-Gallery/dist/css/justifiedGallery.css">
+    <script src="/bower_components/Justified-Gallery/dist/js/jquery.justifiedGallery.js"></script>
 
     <!-- will be replaced with elements/elements.vulcanized.html -->
     <link rel="import" href="elements/elements.html">
@@ -74,7 +82,11 @@
             </core-toolbar>
 
             <!-- Main Content -->
-            <gallery-tiles></gallery-tiles>
+            <div id="gallery-tiles">
+                <!--<a href="{{thumb.image}}" title="{{thumb.title}}">
+                    <img alt="{{thumb.title}}" src="{{thumb.image}}"/>
+                </a>-->
+            </div>
         </core-header-panel>
     </core-drawer-panel>
 
