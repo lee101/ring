@@ -1,4 +1,3 @@
-
 (function (document) {
     'use strict';
 
@@ -8,9 +7,14 @@
     // have resolved and content has been stamped to the page
     app.addEventListener('template-bound', function () {
         //console.log('Our app is ready to rock!');
+        $('#gallery-tiles').justifiedGallery({
+            rowHeight: 300,
+            lastRow: 'nojustify',
+            margins: 3
+        });
     });
 
-    $('#gallery-tiles').justifiedGallery();
+
 
 // wrap document so it plays nice with other libraries
 // http://www.polymer-project.org/platform/shadow-dom.html#wrappers
