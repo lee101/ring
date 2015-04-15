@@ -10,7 +10,7 @@
         $('#gallery-tiles').justifiedGallery({
             rowHeight: 300,
             lastRow: 'nojustify',
-            margins: 3
+            margins: 2
         });
     });
 
