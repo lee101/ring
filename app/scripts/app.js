@@ -17,8 +17,8 @@
             "right_grip_selector": ".rightGrip",
             "value_bar_selector": ".bar",
             "value_changed_callback": function (cause, leftValue, rightValue) {
-                $(this).parent().find('.leftLabel').text( '$ ' + leftValue);
-                $(this).parent().find('.rightLabel').text( '$ ' + rightValue);
+                $(this).parent().find('.leftLabel').attr('label', '$ ' + leftValue);
+                $(this).parent().find('.rightLabel').attr('label', '$ ' + rightValue);
             }
         });
     });

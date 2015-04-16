@@ -29,6 +29,7 @@
 
 
     <link rel="stylesheet" href="/bower_components/Justified-Gallery/dist/css/justifiedGallery.css">
+    <link rel="stylesheet" href="/bower_components/jquery-nstSlider/dist/jquery.nstSlider.min.css">
     <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild-->
@@ -37,11 +38,12 @@
     <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
     <!-- endbuild -->
 
-    <link rel="import" href="/bower_components/core-image/core-image.html">
+    <link rel="import" href="/bower_components/core-tooltip/core-tooltip.html">
 
     <script src="/bower_components/jquery/dist/jquery.min.js"></script>
 
     <script src="/bower_components/Justified-Gallery/dist/js/jquery.justifiedGallery.js"></script>
+    <script src="/bower_components/jquery-nstSlider/dist/jquery.nstSlider.js"></script>
 
     <!-- will be replaced with elements/elements.vulcanized.html -->
     <link rel="import" href="elements/elements.html">
@@ -74,16 +76,19 @@
 
             <h4>Price</h4>
 
-            <div class="nstSlider" data-range_min="0" data-range_max="100"
-                 data-cur_min="20" data-cur_max="80">
+            <div class="nstSlider" data-range_min="0" data-range_max="5000"
+                 data-cur_min="20" data-cur_max="5000">
 
                 <div class="bar"></div>
-                <div class="leftGrip"></div>
-                <div class="rightGrip"></div>
+                <div class="leftGrip">
+                <core-tooltip class="grip-label leftLabel" label="text" position="top" role="tooltip" tabindex="0" show large>
+                </core-tooltip>
+                </div>
+                <div class="rightGrip">
+                    <core-tooltip class="grip-label rightLabel" label="text" position="top" role="tooltip" tabindex="0" show large>
+                    </core-tooltip>
+                </div>
             </div>
-            <div class="leftLabel"/>
-            <div class="rightLabel"/>
-
 
         </core-header-panel>
 
