@@ -23,7 +23,7 @@
                 }
                 $(this).parent().find('.rightLabel').attr('label', '$ ' + rightValue);
             }
-        });
+        }).set_step_histogram([10,20,50,99,500,5000]);
     });
 
 
