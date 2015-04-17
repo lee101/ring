@@ -12,12 +12,15 @@
             lastRow: 'nojustify',
             margins: 2
         });
-        $('.nstSlider').nstSlider({
+        $('#price-range').nstSlider({
             "left_grip_selector": ".leftGrip",
             "right_grip_selector": ".rightGrip",
             "value_bar_selector": ".bar",
             "value_changed_callback": function (cause, leftValue, rightValue) {
                 $(this).parent().find('.leftLabel').attr('label', '$ ' + leftValue);
+                if (rightValue == $('#price-range').data('range_max')) {
+                    rightValue += '+'
+                }
                 $(this).parent().find('.rightLabel').attr('label', '$ ' + rightValue);
             }
         });

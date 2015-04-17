@@ -30,6 +30,7 @@
 
     <link rel="stylesheet" href="/bower_components/Justified-Gallery/dist/css/justifiedGallery.css">
     <link rel="stylesheet" href="/bower_components/jquery-nstSlider/dist/jquery.nstSlider.min.css">
+
     <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild-->
@@ -37,8 +38,6 @@
     <!-- build:js bower_components/webcomponentsjs/webcomponents.min.js -->
     <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
     <!-- endbuild -->
-
-    <link rel="import" href="/bower_components/core-tooltip/core-tooltip.html">
 
     <script src="/bower_components/jquery/dist/jquery.min.js"></script>
 
@@ -49,7 +48,7 @@
     <link rel="import" href="elements/elements.html">
     <!-- endreplace-->
 
-    <link rel="import" href="bower_components/font-roboto/roboto.html">
+
 </head>
 
 <body unresolved fullbleed layout vertical>
@@ -67,16 +66,10 @@
             </core-toolbar>
 
             <!-- Drawer Content -->
-            <h4>Companies</h4>
-            <core-menu selected="0">
-                <core-item label="Any"></core-item>
-                <core-item label="Pascoes"></core-item>
-                <core-item label="Micheal Hill"></core-item>
-            </core-menu>
 
-            <h4>Price</h4>
+            <core-item class="price-range" icon="payment" label="Price range" horizontal="" center="" layout=""></core-item>
 
-            <div class="nstSlider" data-range_min="0" data-range_max="5000"
+            <div id="price-range" class="nstSlider" data-range_min="0" data-range_max="5000"
                  data-cur_min="20" data-cur_max="5000">
 
                 <div class="bar"></div>
@@ -89,6 +82,12 @@
                     </core-tooltip>
                 </div>
             </div>
+
+            <core-submenu icon="account-balance" label="Companies" class="core-selected" active>
+                <core-item label="Pascoes" horizontal="" center="" layout=""></core-item>
+                <core-item label="Micheal Hill" horizontal="" center="" layout=""></core-item>
+            </core-submenu>
+
 
         </core-header-panel>
 
@@ -107,7 +106,7 @@
                     <img alt="{{thumb.title}}" src="{{thumb.image}}"/>
                 </a>-->
                 <a href="#" title="ring title">
-                    <img alt="<div class="">$ 24.32" src="/mstile-310x310.png"/>
+                    <img alt="$ 24.32" src="/mstile-310x310.png"/>
                 </a>
                 <a href="#" title="ring title">
                     <img alt="$ 24.32" src="/mstile-310x310.png"/>
