@@ -34,7 +34,7 @@
             3000,
             4000,
             5000,
-            10000
+            7500
         ];
         $('#price-range').nstSlider({
             "left_grip_selector": ".leftGrip",
