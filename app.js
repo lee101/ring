@@ -12,7 +12,7 @@ var app = express();
 var nunjucks = require('nunjucks');
 
 // view engine setup
-app.set('templates', path.join(__dirname, 'templates'));
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jinja2');
 nunjucks.configure({autoescape: true});
 
