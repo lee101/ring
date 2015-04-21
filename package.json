@@ -2,14 +2,15 @@
   "name": "yo-polymer-test",
   "version": "0.0.0",
   "dependencies": {
-    "debug": "^2.1.3",
-    "delta-e": "0.0.7",
-    "express": "^4.12.3",
     "URIjs": "^1.14.1",
     "body-parser": "~1.8.1",
     "cookie-parser": "~1.3.3",
+    "debug": "^2.1.3",
+    "delta-e": "0.0.7",
+    "express": "^4.12.3",
     "less-middleware": "1.0.x",
     "morgan": "~1.3.0",
+    "nunjucks": "^1.3.3",
     "pg": "2.x",
     "serve-favicon": "~2.1.3"
   },

@@ -9,10 +9,17 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+var nunjucks = require('nunjucks');
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('templates', path.join(__dirname, 'templates'));
+app.set('view engine', 'jinja2');
+nunjucks.configure({autoescape: true});
+
+nunjucks.configure('views', {
+    autoescape: true,
+    express: app
+});
 
 // uncomment after placing your favicon in /public
 app.use(favicon(__dirname + '/app/favicon.ico'));

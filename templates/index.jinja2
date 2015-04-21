@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ring.nz</title>
+
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/favicon-194x194.png" sizes="194x194">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+
+    <link rel="stylesheet" href="/bower_components/Justified-Gallery/dist/css/justifiedGallery.css">
+    <link rel="stylesheet" href="/bower_components/jquery-nstSlider/dist/jquery.nstSlider.min.css">
+
+    <!-- build:css styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild-->
+
+    <!-- build:js bower_components/webcomponentsjs/webcomponents.min.js -->
+    <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
+    <!-- endbuild -->
+
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+
+    <script src="/bower_components/Justified-Gallery/dist/js/jquery.justifiedGallery.js"></script>
+    <script src="/bower_components/jquery-nstSlider/dist/jquery.nstSlider.js"></script>
+
+    <!-- will be replaced with elements/elements.vulcanized.html -->
+    <link rel="import" href="elements/elements.html">
+    <!-- endreplace-->
+
+
+</head>
+
+<body unresolved fullbleed layout vertical>
+<template is="auto-binding" id="app">
+
+    <core-drawer-panel>
+
+        <!-- Drawer -->
+        <core-header-panel drawer>
+
+            <!-- Drawer Toolbar -->
+            <core-toolbar>
+                <img src="/mstile-70x70.png" width="70" height="70" alt="Ring Logo">
+                <h1>Ring</h1>
+            </core-toolbar>
+
+            <!-- Drawer Content -->
+
+            <core-item class="price-range" icon="payment" label="Price range" horizontal="" center="" layout=""></core-item>
+
+            <div id="price-range" class="nstSlider" data-range_min="0" data-range_max="20"
+                 data-cur_min="0" data-cur_max="20">
+
+                <div class="bar"></div>
+                <core-tooltip class="grip-label leftLabel" label="text" position="top" role="tooltip" tabindex="0" show
+                              large>
+                </core-tooltip>
+                <div class="leftGrip">
+
+                </div>
+                <core-tooltip class="grip-label rightLabel" label="text" position="top" role="tooltip" tabindex="0" show large>
+                </core-tooltip>
+                <div class="rightGrip">
+                </div>
+            </div>
+
+            <core-submenu icon="account-balance" label="Companies" class="core-selected" active>
+                <core-item label="Pascoes" horizontal="" center="" layout=""></core-item>
+                <core-item label="Micheal Hill" horizontal="" center="" layout=""></core-item>
+            </core-submenu>
+
+
+        </core-header-panel>
+
+        <!-- Main -->
+        <core-header-panel main>
+
+            <!-- Main Toolbar -->
+            <core-toolbar class="main-core-toolbar">
+                <paper-icon-button icon="menu" core-drawer-toggle></paper-icon-button>
+                <h2>All Rings</h2>
+            </core-toolbar>
+
+            <!-- Main Content -->
+            <div id="gallery-tiles">
+                <!--<a href="{{thumb.image}}" title="{{thumb.title}}">
+                    <img alt="{{thumb.title}}" src="{{thumb.image}}"/>
+                </a>-->
+                <a href="#" title="ring title">
+                    <img alt="$ 24.32" src="/mstile-310x310.png"/>
+                </a>
+                <a href="#" title="ring title">
+                    <img alt="$ 24.32" src="/mstile-310x310.png"/>
+                </a>
+                <a href="#" title="ring title">
+                    <img alt="" src="/mstile-310x310.png"/>
+                </a>
+                <a href="#" title="ring title">
+                    <img alt="$ 24.32" src="/mstile-310x310.png"/>
+                </a>
+                <a href="#" title="ring title">
+                    <img alt="$ 24.32" src="/mstile-310x310.png"/>
+                </a>
+                <a href="#" title="ring title">
+                    <img alt="$ 24.32" src="/mstile-310x310.png"/>
+                </a>
+                <a href="#" title="ring title">
+                    <img alt="$ 24.32" src="/mstile-310x310.png"/>
+                </a>
+            </div>
+        </core-header-panel>
+    </core-drawer-panel>
+
+</template>
+
+<!-- build:js scripts/app.js -->
+<script src="scripts/app.js"></script>
+<!-- endbuild-->
+</body>
+
+</html>
