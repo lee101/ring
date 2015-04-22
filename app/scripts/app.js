@@ -41,13 +41,13 @@
             "right_grip_selector": ".rightGrip",
             "value_bar_selector": ".bar",
             "value_changed_callback": function (cause, leftValue, rightValue) {
-                $(this).parent().find('.leftLabel').attr('label', '$ ' + priceHistogram[leftValue]);
-                var rightText = priceHistogram[rightValue];
+                $(this).parent().find('.leftLabel').attr('label', zutils.numberToCurrency(priceHistogram[leftValue]));
+                var rightText = zutils.numberToCurrency(priceHistogram[rightValue]);
                 if (rightValue == $('#price-range').data('range_max')) {
                     rightText += '+'
                 }
 
-                $(this).parent().find('.rightLabel').attr('label', '$ ' + rightText);
+                $(this).parent().find('.rightLabel').attr('label', rightText);
             }
         });
     });
