@@ -190,9 +190,15 @@ gulp.task('default', ['clean'], function (cb) {
     runSequence(
         ['copy', 'styles'],
         'elements',
-        ['images', 'fonts', 'html'],
+        ['images', 'fonts'],
         //'vulcanize',
         cb);
+
+    gulp.watch(['app/styles/**/*.{scss,css}'], ['styles']);
+    gulp.watch(['app/elements/**/*.{scss,css}'], ['elements']);
+    gulp.watch(['app/{scripts,elements}/**/*.js'], ['copy']);
+    gulp.watch(['app/images/**/*'], ['images']);
+    gulp.watch(['app/fonts/**/*'], ['fonts']);
 });
 
 // Load tasks for web-component-tester

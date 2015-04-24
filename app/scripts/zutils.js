@@ -13,11 +13,13 @@ var zutils = (function () {
         if (!(num instanceof Number)) {
             num = Number(num);
         }
-        return num.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",").replace(/^/g, "$");
+        return num.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",").replace(/^/g, "$ ");
     };
 
     return self;
 })();
 
-module = module || {};
+if (typeof module == 'undefined') {
+    module = {};
+}
 module.exports = zutils;

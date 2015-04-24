@@ -1,5 +1,17 @@
-(function (document) {
+APP = (function (document) {
     'use strict';
+    var self = {};
+
+    self.searchChanged = function () {
+        var searchData = {};
+        if (self.minPrice !== 0) {
+            searchData.minPrice = self.minPrice;
+        }
+        if (self.maxPrice !== priceHistogram[priceHistogram.length - 1]) {
+            searchData.maxPrice = self.maxPrice;
+        }
+
+    };
 
     var app = document.querySelector('#app');
 
@@ -36,24 +48,33 @@
             5000,
             7500
         ];
+        self.minPrice = 0;
+        self.maxPrice = priceHistogram[priceHistogram.length - 1];
+
         $('#price-range').nstSlider({
             "left_grip_selector": ".leftGrip",
             "right_grip_selector": ".rightGrip",
             "value_bar_selector": ".bar",
             "value_changed_callback": function (cause, leftValue, rightValue) {
-                $(this).parent().find('.leftLabel').attr('label', zutils.numberToCurrency(priceHistogram[leftValue]));
-                var rightText = zutils.numberToCurrency(priceHistogram[rightValue]);
-                if (rightValue == $('#price-range').data('range_max')) {
+                self.minPrice = priceHistogram[leftValue];
+                self.maxPrice = priceHistogram[rightValue];
+
+                $(this).parent().find('.leftLabel').attr('label', zutils.numberToCurrency(self.minPrice));
+                var rightText = zutils.numberToCurrency(self.maxPrice);
+                if (self.maxPrice == priceHistogram[priceHistogram.length - 1]) {
                     rightText += '+'
                 }
 
                 $(this).parent().find('.rightLabel').attr('label', rightText);
+
+                $.debounce(self.searchChanged, 250);
             }
         });
+
     });
 
 
-
+    return self;
 // wrap document so it plays nice with other libraries
 // http://www.polymer-project.org/platform/shadow-dom.html#wrappers
 })(wrap(document));
