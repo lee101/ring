@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
+var rings = require('./routes/rings');
 
 var app = express();
 var nunjucks = require('nunjucks');
@@ -30,7 +30,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'dist')));
 
 app.use('/', routes);
-app.use('/users', users);
+app.use('/rings', rings);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

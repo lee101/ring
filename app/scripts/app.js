@@ -10,7 +10,6 @@ APP = (function (document) {
         if (self.maxPrice !== priceHistogram[priceHistogram.length - 1]) {
             searchData.maxPrice = self.maxPrice;
         }
-
     };
 
     var app = document.querySelector('#app');
