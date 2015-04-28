@@ -3,12 +3,18 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res) {
-    var rings = [{
-        'urltitle':
-    }];
+    var ring = {
+        urltitle: 'asdf-asdf',
+        title: 'asdf asdf',
+        price: '$ 20',
+        image: '/mstile-310x310.png',
+        description: 'some description',
+        tags: ['ring', 'gold', 'diamond']
+    };
+    var rings = [ring, ring, ring];
 
 
-    res.send(rings);
+    res.json(rings);
 });
 
 module.exports = router;
