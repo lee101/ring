@@ -185,15 +185,27 @@ gulp.task('serve:dist', ['default'], function () {
     });
 });
 
+gulp.task('nunjucks', function () {
+    gulp.src('./views/shared/**/*.jinja2')
+        .pipe($.htmlmin())
+        .pipe($.nunjucks()).on('error', function (err) {
+            gutil.log(err.message);
+        })
+        .pipe($.sourcemaps.write())
+        .pipe($.concat('templates.js'))
+        .pipe(gulp.dest('./static/js/templates'));
+});
+
 // Build Production Files, the Default Task
 gulp.task('default', ['clean'], function (cb) {
     runSequence(
+        ['nunjucks'],
         ['copy', 'styles'],
         'elements',
         ['images', 'fonts'],
         //'vulcanize',
         cb);
-
+    gulp.watch('./views/shared/**/*.jinja2', ['nunjucks']);
     gulp.watch(['app/styles/**/*.{scss,css}'], ['styles']);
     gulp.watch(['app/elements/**/*.{scss,css}'], ['elements']);
     gulp.watch(['app/{scripts,elements}/**/*.js'], ['copy']);
