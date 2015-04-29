@@ -9,7 +9,8 @@ router.get('/', function(req, res) {
         price: '$ 20',
         image: '/mstile-310x310.png',
         description: 'some description',
-        tags: ['ring', 'gold', 'diamond']
+        tags: ['ring', 'gold', 'diamond'],
+        url: 'http://asdfasdfasdf.originalsite'
     };
     var rings = [ring, ring, ring];
 
