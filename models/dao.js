@@ -12,6 +12,9 @@ var dao = (function () {
             url: 'http://asdfasdfasdf.originalsite'
         };
     };
+    self.getRings = function () {
+        ;
+    }
 
     return self;
 })();
@@ -49,7 +52,6 @@ sequelize.sync().then(function () {
         price: '$ 20',
         image: '/mstile-310x310.png',
         description: 'some description',
-        tags: ['ring', 'gold', 'diamond'],
         url: 'http://asdfasdfasdf.originalsite'
     });
 }).then(function (jane) {

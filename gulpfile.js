@@ -2,6 +2,7 @@
 
 // Include Gulp & Tools We'll Use
 var gulp = require('gulp');
+var gutil = require('gulp-util');
 var $ = require('gulp-load-plugins')();
 var del = require('del');
 var runSequence = require('run-sequence');
@@ -187,13 +188,16 @@ gulp.task('serve:dist', ['default'], function () {
 
 gulp.task('nunjucks', function () {
     gulp.src('./views/shared/**/*.jinja2')
-        .pipe($.htmlmin())
+        .pipe($.minifyHtml({
+            quotes: true,
+            empty: true,
+            spare: true
+        }))
         .pipe($.nunjucks()).on('error', function (err) {
             gutil.log(err.message);
         })
-        .pipe($.sourcemaps.write())
         .pipe($.concat('templates.js'))
-        .pipe(gulp.dest('./static/js/templates'));
+        .pipe(gulp.dest('./app/scripts/templates'));
 });
 
 // Build Production Files, the Default Task

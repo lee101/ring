@@ -68,6 +68,8 @@ APP = (function (document) {
 
                 $.debounce(self.searchChanged, 250);
             }
+        }).on('touchstart mousedown', function () {
+            return false;
         });
 
     });
