@@ -35,6 +35,20 @@ var zutils = (function () {
         };
     })();
 
+    self.render = function (template, opts) {
+//TODO on load?
+        if (typeof opts === 'undefined') {
+            opts = {};
+        }
+        $.extend(opts, {
+            url: window.location.href,
+            urlencode: encodeURIComponent,
+            window: window,
+            client_side: true
+        });
+        return nunjucks.render(template, opts);
+    };
+
     return self;
 })();
 

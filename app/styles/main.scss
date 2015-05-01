@@ -127,7 +127,9 @@ core-submenu {
   margin-left: 20px;
 }
 
-
+paper-spinner.yellow::shadow .circle {
+  border-color: $main-color;
+}
 // load more
 .gallery-load-more {
   text-align: center;
