@@ -12,11 +12,21 @@ APP = (function (document) {
         }
     };
 
+    self.nextPage = function (evt) {
+        $('.load-more').addClass('disabled');
+
+        $('.load-more').val('disabled');
+
+    }
+
+
     var app = document.querySelector('#app');
 
     // Listen for template bound event to know when bindings
     // have resolved and content has been stamped to the page
     app.addEventListener('template-bound', function () {
+
+        $('.load-more').click(self.nextPage);
 
         $('#gallery-tiles').justifiedGallery({
             rowHeight: 300,

@@ -13,7 +13,9 @@ var dao = (function () {
         };
     };
     self.getRings = function () {
-        ;
+        var ring = self.getRing();
+        var rings = [ring, ring, ring];
+        return rings;
     }
 
     return self;

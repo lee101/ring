@@ -36,6 +36,18 @@ core-toolbar {
   background-color: #fff;
 }
 
+paper-button {
+  background-color: $secondary-color;
+  color: #FAFAFA;
+}
+
+paper-button[disabled] {
+  background-color: lighten($secondary-color, 30%);
+  color: #FAFAFA;
+  cursor: auto;
+  pointer-events: none;
+}
+
 .main-core-toolbar {
   color: #FAFAFA;
   background-color: $secondary-color;
@@ -113,4 +125,10 @@ core-tooltip::shadow .top::after,
 
 core-submenu {
   margin-left: 20px;
+}
+
+
+// load more
+.gallery-load-more {
+  text-align: center;
 }
