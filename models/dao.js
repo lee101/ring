@@ -35,6 +35,7 @@ var sequelize = new Sequelize('ring', 'postgres', 'postgres', {
 var Ring = sequelize.define('ring', {
     title: Sequelize.STRING,
     urltitle: Sequelize.STRING,
+    company_id: Sequelize.INTEGER,
     price: Sequelize.STRING,
     image: Sequelize.STRING,
     description: Sequelize.STRING,
