@@ -10,6 +10,9 @@ var fixtures = (function () {
             name: 'Pascoes'
         }
     ];
+    self.tags = [
+
+    ]
     return self;
 })();
 
