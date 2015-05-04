@@ -1,4 +1,5 @@
 var fs = require('fs');
+var expect = require('chai').expect;
 var crawlers = require('../../crawlers/crawlers');
 
 var mHillDetailRingSilver;
@@ -13,7 +14,7 @@ describe('crawlers', function () {
         var title = crawlers.getTitle(mHillDetailRingSilver);
 
         it('should use og:title', function () {
-            assert.equal(title, 'Ring with Enhanced Black Diamonds in Sterling Silver')
+            expect(title).to.equal('Ring with Enhanced Black Diamonds in Sterling Silver')
         })
     })
 });
