@@ -1,16 +1,19 @@
 var fs = require('fs');
+var crawlers = require('../../crawlers/crawlers');
 
+var mHillDetailRingSilver;
 fs.readFile('./test/crawlers/micheall-hill-detail-ring-silver.html', 'utf8', function (err, data) {
     if (err) {
         return console.log(err);
     }
-    //console.log(data);
+    mHillDetailRingSilver = data;
 });
-describe('Array', function () {
-    describe('#indexOf()', function () {
-        it('should return -1 when the value is not present', function () {
-            [1, 2, 3].indexOf(5).should.equal(-1);
-            [1, 2, 3].indexOf(0).should.equal(-1);
+describe('crawlers', function () {
+    describe('#getTitle(dom)', function () {
+        var title = crawlers.getTitle(mHillDetailRingSilver);
+
+        it('should use og:title', function () {
+            assert.equal(title, 'Ring with Enhanced Black Diamonds in Sterling Silver')
         })
     })
-})
+});

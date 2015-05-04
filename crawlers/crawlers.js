@@ -1,4 +1,7 @@
-var crawlers = (function ($) {
+var $ = require('cheerio');
+
+
+var crawlers = (function () {
     "use strict";
     var self = {};
 
@@ -17,4 +20,6 @@ var crawlers = (function ($) {
 
 
     return self;
-})(jQuery);
+})();
+
+module.exports = crawlers;
