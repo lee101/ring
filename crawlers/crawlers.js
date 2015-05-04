@@ -1,4 +1,4 @@
-var $ = require('cheerio');
+var cheerio = require('cheerio');
 
 
 var crawlers = (function () {
@@ -15,7 +15,8 @@ var crawlers = (function () {
         ;
     };
     self.getTitle = function (dom) {
-        ;
+        var title = dom('[property="og:title"]').attr('content');
+        return title;
     };
 
 
