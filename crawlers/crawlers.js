@@ -30,12 +30,26 @@ var crawlers = (function () {
                     }
                 } else {
                     return console.log(error);
-
                 }
             })
         };
 
-        mHillSelf.parsePageUrls = function ($page) {}
+        mHillSelf.parsePageUrls = function (pageUrls) {
+            for (var i = 0; i < pageUrls.length; i++) {
+                var url = pageUrls[i];
+                request(url, function (error, response, body) {
+                    if (!error && response.statusCode == 200) {
+                        var $content = cheerio.load(body);
+                        mHillSelf.parseDetailPage($content)
+                    } else {
+                        return console.log(error);
+                    }
+                })
+            }
+        };
+        mHillSelf.parseDetailPage = function ($page) {
+            
+        }
         mHillSelf.getPageUrls = function ($page) {
             var pageUrls = [];
             $page('li').each(function (i, obj) {
