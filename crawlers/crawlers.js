@@ -8,6 +8,13 @@ var crawlers = (function ($) {
      bump start by sz (size) to paginate
       */
 
+    self.michealHill = function () {
+        ;
+    };
+    self.getTitle = function (dom) {
+        ;
+    };
+
 
     return self;
 })(jQuery);
