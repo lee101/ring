@@ -10,23 +10,22 @@ var crawlers = (function () {
      http://www.michaelhill.co.nz/jewellery/rings/diamond?start=1&format=page-element&sz=40&
      http://www.michaelhill.co.nz/jewellery/rings?start=1&format=page-element&sz=40&
      bump start by sz (size) to paginate
-      */
+     */
 
     self.michealHill = (function () {
         var mHillSelf = {};
-        var pagesProductsCount = 0;
         var start = 1;
         var step = 40;
 
-        mHillSelf.getPages = function (){
-            request('http://www.michaelhill.co.nz/jewellery/rings?start='+start+'&format=page-element&sz=40&', function (error, response, body) {
+        mHillSelf.getPages = function () {
+            request('http://www.michaelhill.co.nz/jewellery/rings?start=' + start + '&format=page-element&sz=40&', function (error, response, body) {
                 if (!error && response.statusCode == 200) {
                     var $content = cheerio.load(body);
-                    var pageUrls = mHillSelf.getPageUrls(body);
-                    mHillSelf.parsePageUrls(body);
+                    var pageUrls = mHillSelf.getPageUrls($content);
+                    mHillSelf.parsePageUrls(pageUrls);
                     if (pageUrls.length == step) {
                         start += step;
-                        getPages();
+                        mHillSelf.getPages();
                     }
                 } else {
                     return console.log(error);
@@ -50,12 +49,11 @@ var crawlers = (function () {
         mHillSelf.parseDetailPage = function ($page) {
             var ring = {
                 title: self.getTitle($page),
-
                 description: self.getDescription($page),
-
+                imageUrl: self.getImage($page)
             };
             dao.createRing(ring);
-        }
+        };
         mHillSelf.getPageUrls = function ($page) {
             var pageUrls = [];
             $page('li').each(function (i, obj) {
@@ -66,16 +64,16 @@ var crawlers = (function () {
         return mHillSelf;
     })();
 
-    self.getTitle = function (dom) {
-        var title = dom('[property="og:title"]').attr('content');
+    self.getTitle = function ($dom) {
+        var title = $dom('[property="og:title"]').attr('content');
         return title;
     };
-    self.getDescription = function (dom) {
-        var ogDescription = dom('[property="og:description"]').attr('content');
+    self.getDescription = function ($dom) {
+        var ogDescription = $dom('[property="og:description"]').attr('content');
         return ogDescription;
     };
-    self.getImage = function (dom) {
-        var ogImage = dom('[property="og:image"]').attr('content');
+    self.getImage = function ($dom) {
+        var ogImage = $dom('[property="og:image"]').attr('content');
         return ogImage;
     };
 
