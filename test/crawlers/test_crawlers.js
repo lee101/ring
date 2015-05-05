@@ -39,7 +39,7 @@ describe('crawlers', function () {
     it('#getImage(dom) should use og:image', function () {
         var title = crawlers.getImage(mHillDetailRingSilver);
         expect(title).to.equal('http://demandware.edgesuite.net/aanc_prd/on/demandware.static/Sites-MichaelHillNZ-Site/Sites-MHJ_Master/en_NZ/v1430441345851/hi-res/12322275_1.jpg')
-    })
+    });
     describe('micheal hill', function () {
 
         it('#getPageUrls(dom) should use og:image', function () {

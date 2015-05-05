@@ -48,7 +48,14 @@ var crawlers = (function () {
             }
         };
         mHillSelf.parseDetailPage = function ($page) {
-            
+            var ring = {
+                title: self.getTitle($page),
+
+                description: self.getDescription($page),
+                title: self.getTitle($page),
+
+            };
+            dao.createRing(ring);
         }
         mHillSelf.getPageUrls = function ($page) {
             var pageUrls = [];

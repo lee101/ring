@@ -52,7 +52,7 @@ var zutils = (function () {
     return self;
 })();
 
-nunjucks.configure({autoescape: true});
+//nunjucks.configure({autoescape: true});
 
 if (typeof module == 'undefined') {
     module = {};

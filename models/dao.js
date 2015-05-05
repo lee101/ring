@@ -1,3 +1,5 @@
+var zutils = require('../app/scripts/zutils');
+
 var dao = (function () {
     var self = {};
 
@@ -16,6 +18,11 @@ var dao = (function () {
         var ring = self.getRing();
         var rings = [ring, ring, ring];
         return rings;
+    }
+
+    self.createRing = function (config) {
+        config.urltitle = zutils.urlencode(config.title);
+
     }
 
     return self;
