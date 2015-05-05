@@ -18,12 +18,22 @@ var dao = (function () {
         var ring = self.getRing();
         var rings = [ring, ring, ring];
         return rings;
-    }
+    };
 
     self.createRing = function (config) {
         config.urltitle = zutils.urlencode(config.title);
+        var words = (config.title+' '+config.description).lower().split(/\s\s*/);
+        var keywordsMap = {};
+        for (var wordIdx = 0; wordIdx < words.length; wordIdx++) {
+            var word = words[wordIdx];
+            if (word in ) {
+                ;
+            }
+            keywordsMap;
+        }
 
-    }
+        return Ring.create(config)
+    };
 
     return self;
 })();

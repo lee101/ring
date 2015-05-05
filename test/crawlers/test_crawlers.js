@@ -46,6 +46,10 @@ describe('crawlers', function () {
             var pageUrls = crawlers.michealHill.getPageUrls(mHillRingGalleryPage)
             expect(pageUrls.length).to.equal(12)
         })
+        it('#parseDetailPage(dom) should create a ring', function () {
+            var ring = crawlers.michealHill.parseDetailPage(mHillDetailRingSilver)
+            expect(ring.get().title).to.equal('Ring with Enhanced Black Diamonds in Sterling Silver')
+        })
     });
 });
 

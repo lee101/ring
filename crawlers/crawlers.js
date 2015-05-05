@@ -1,5 +1,6 @@
 var cheerio = require('cheerio');
 var request = require('request');
+var dao = require('../models/dao');
 
 
 var crawlers = (function () {
@@ -50,9 +51,9 @@ var crawlers = (function () {
             var ring = {
                 title: self.getTitle($page),
                 description: self.getDescription($page),
-                imageUrl: self.getImage($page)
+                image: self.getImage($page)
             };
-            dao.createRing(ring);
+            return dao.createRing(ring);
         };
         mHillSelf.getPageUrls = function ($page) {
             var pageUrls = [];

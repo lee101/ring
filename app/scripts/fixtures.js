@@ -11,7 +11,13 @@ var fixtures = (function () {
         }
     ];
     self.tags = [
-
+        'ring',
+        'gold',
+        'silver',
+        'diamond',
+        'topaz',
+        'aquamarine',
+        'ruby',
     ]
     return self;
 })();
