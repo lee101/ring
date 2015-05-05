@@ -52,7 +52,6 @@ var crawlers = (function () {
                 title: self.getTitle($page),
 
                 description: self.getDescription($page),
-                title: self.getTitle($page),
 
             };
             dao.createRing(ring);
