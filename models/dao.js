@@ -23,7 +23,7 @@ var dao = (function () {
 
     self.createRing = function (config) {
         config.urltitle = zutils.urlencode(config.title);
-        var words = (config.title+' '+config.description).toLowerCase().split(/\s\s*/);
+        var words = (config.title + ' ' + config.description).toLowerCase().split(/\s\s*/);
         var keywords = [];
         for (var wordIdx = 0; wordIdx < words.length; wordIdx++) {
             var word = words[wordIdx];
@@ -32,7 +32,7 @@ var dao = (function () {
             }
         }
 
-        var savedRing = Ring.create(config).get({plain:true})
+        var savedRing = Ring.create(config).get({plain: true})
 
         for (var i = 0; i < words.length; i++) {
             var obj = words[i];
@@ -60,7 +60,7 @@ var Ring = sequelize.define('ring', {
     title: Sequelize.STRING,
     urltitle: Sequelize.STRING,
     company_id: Sequelize.INTEGER,
-    price: Sequelize.STRING,
+    price: Sequelize.INTEGER,
     image: Sequelize.STRING,
     description: Sequelize.STRING,
     url: Sequelize.STRING
