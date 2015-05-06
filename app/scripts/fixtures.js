@@ -17,12 +17,17 @@ var fixtures = (function () {
         'diamond',
         'topaz',
         'aquamarine',
-        'ruby',
+        'ruby'
     ]
+    self.tagMap = {};
+    for (var i = 0; i < self.tags.length; i++) {
+        var tag = self.tags[i];
+        self.tagMap[tag] = 1;
+    }
     return self;
 })();
 
 if (typeof module == 'undefined') {
     module = {};
 }
-module.exports = zutils;
+module.exports = fixtures;

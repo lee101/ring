@@ -1,4 +1,5 @@
 var zutils = require('../app/scripts/zutils');
+var fixtures = require('../app/scripts/fixtures');
 
 var dao = (function () {
     var self = {};
@@ -22,17 +23,23 @@ var dao = (function () {
 
     self.createRing = function (config) {
         config.urltitle = zutils.urlencode(config.title);
-        var words = (config.title+' '+config.description).lower().split(/\s\s*/);
-        var keywordsMap = {};
+        var words = (config.title+' '+config.description).toLowerCase().split(/\s\s*/);
+        var keywords = [];
         for (var wordIdx = 0; wordIdx < words.length; wordIdx++) {
             var word = words[wordIdx];
-            if (word in ) {
-                ;
+            if (fixtures.tagMap[word] === 1) {
+                keywords.push(word)
             }
-            keywordsMap;
         }
 
-        return Ring.create(config)
+        var savedRing = Ring.create(config).get({plain:true})
+
+        for (var i = 0; i < words.length; i++) {
+            var obj = words[i];
+
+        }
+        return savedRing;
+
     };
 
     return self;
