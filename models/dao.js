@@ -22,15 +22,21 @@ var dao = (function () {
         var rings = Ring.findAll({
             limit: 50,
             offset: config.offset || 0
-        })
+        });
         return rings;
     };
 
     self.createRing = function (config) {
         config.urltitle = zutils.urlencode(config.title);
+        if (config.price >= 29) {
+            var priceStr = '' + config.price;
+            if (priceStr[priceStr.length - 1] == '9') {
+                config.price += 1;
+            }
+        }
 
 
-        var savedRing = Ring.create(config).get({plain: true})
+        var savedRing = Ring.create(config).get({plain: true});
 
         return savedRing;
 
@@ -51,13 +57,13 @@ var sequelize = new Sequelize('ring', 'postgres', 'postgres', {
 });
 
 var Ring = sequelize.define('ring', {
-    title: Sequelize.STRING,
-    urltitle: Sequelize.STRING,
+    title: Sequelize.TEXT,
+    urltitle: Sequelize.TEXT,
     company_id: Sequelize.INTEGER,
     price: Sequelize.INTEGER,
-    image: Sequelize.STRING,
-    description: Sequelize.STRING,
-    url: Sequelize.STRING
+    image: Sequelize.TEXT,
+    description: Sequelize.TEXT,
+    url: Sequelize.TEXT
 }, {
     getterMethods: {
         tags: function () {

@@ -28,7 +28,7 @@ APP = (function (document) {
             }
         })
 
-    }
+    };
 
 
     var priceHistogram = [
@@ -65,7 +65,6 @@ APP = (function (document) {
     function initGallery() {
         $('#gallery-tiles').justifiedGallery({
             rowHeight: 300,
-            lastRow: 'nojustify',
             margins: 2
         });
     }

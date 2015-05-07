@@ -1,6 +1,7 @@
 var cheerio = require('cheerio');
 var request = require('request');
 var dao = require('../models/dao');
+var fixtures = require('../app/scripts/fixtures');
 
 
 var crawlers = (function () {

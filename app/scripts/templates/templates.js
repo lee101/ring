@@ -20,7 +20,7 @@ output += " <a href=\"/ring/";
 output += runtime.suppressValue(runtime.memberLookup((t_4),"urltitle", env.opts.autoescape), env.opts.autoescape);
 output += "\" title=\"";
 output += runtime.suppressValue(runtime.memberLookup((t_4),"title", env.opts.autoescape), env.opts.autoescape);
-output += "\"><img alt=\"";
+output += "\"><img alt=\"$ ";
 output += runtime.suppressValue(runtime.memberLookup((t_4),"price", env.opts.autoescape), env.opts.autoescape);
 output += "\" src=\"";
 output += runtime.suppressValue(runtime.memberLookup((t_4),"image", env.opts.autoescape), env.opts.autoescape);
