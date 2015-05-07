@@ -15,14 +15,36 @@ var dao = (function () {
             url: 'http://asdfasdfasdf.originalsite'
         };
     };
+    self.getRingsFromRequest = function (req) {
+        var queryObj = {
+            where: {}
+        };
+        var minPrice = +req.query.minPrice;
+        if (minPrice) {
+            queryObj.where.price = queryObj.where.price || {};
+            queryObj.where.price.$gte = minPrice
+        }
+        var maxPrice = +req.query.maxPrice;
+        if (maxPrice) {
+            queryObj.where.price = queryObj.where.price || {};
+            queryObj.where.price.$lte = maxPrice
+        }
+        var offset = +req.query.offset || 0;
+        if (offset) {
+            queryObj.offset = offset;
+        }
+
+        return dao.getRings(queryObj)
+    };
+
     self.getRings = function (config) {
         if (typeof config === 'undefined') {
             config = {}
         }
-        var rings = Ring.findAll({
-            limit: 50,
-            offset: config.offset || 0
-        });
+        //TODO CHANGE TO 50
+        config.limit = 5;
+        config.offset = config.offset || 0;
+        var rings = Ring.findAll(config);
         return rings;
     };
 

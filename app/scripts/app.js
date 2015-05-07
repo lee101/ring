@@ -4,6 +4,8 @@ APP = (function (document) {
 
 
     self.searchChanged = function () {
+        var $loadMore = $('.load-more');
+
         var searchData = {};
         if (self.minPrice !== 0) {
             searchData.minPrice = self.minPrice;
@@ -11,7 +13,20 @@ APP = (function (document) {
         if (self.maxPrice !== priceHistogram[priceHistogram.length - 1]) {
             searchData.maxPrice = self.maxPrice;
         }
-        $('#main-spinner').attr('active', '')
+        $('#main-spinner').attr('active', '');
+        $.ajax('/rings', {
+            data: searchData,
+            type: 'GET',
+            success: function (data) {
+                $loadMore.removeAttr('disabled');
+                $loadMore.html('Load More');
+                refreshGallery(data);
+            },
+            error: function (data) {
+                $loadMore.attr('disabled', 'disabled');
+                $loadMore.html('No results');
+            }
+        })
     };
 
     self.nextPage = function (evt) {
@@ -26,6 +41,9 @@ APP = (function (document) {
                 $loadMore.removeAttr('disabled');
                 $loadMore.html('Load More');
                 addToGallery(data);
+            },
+            error: function (data) {
+                $loadMore.html('No more results');
             }
         })
 
@@ -75,8 +93,15 @@ APP = (function (document) {
         });
         $('#gallery-tiles').append(domString);
         $('#gallery-tiles').justifiedGallery('norewind');
-        $('#main-spinner').removeAttr('active')
-
+        $('#main-spinner').removeAttr('active');
+    }
+    function refreshGallery(results) {
+        var domString = zutils.render('rings.jinja2', {
+            thumbs: results
+        });
+        $('#gallery-tiles').html(domString);
+        $('#gallery-tiles').justifiedGallery();
+        $('#main-spinner').removeAttr('active');
     }
 
     app.addEventListener('template-bound', function () {

@@ -4,7 +4,7 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res) {
-    var rings = dao.getRings().then(function (rings) {
+    dao.getRingsFromRequest(req).then(function (rings) {
         res.json(rings);
     })
 });
