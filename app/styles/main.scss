@@ -1,56 +1,56 @@
 @import 'variables';
 
 body {
-  background: #fafafa;
-  font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  color: #333;
+    background: #fafafa;
+    font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #333;
 }
 
 .hero-unit {
-  margin: 50px auto 0 auto;
-  width: 300px;
-  font-size: 18px;
-  font-weight: 200;
-  line-height: 30px;
-  background-color: #eee;
-  border-radius: 6px;
-  padding: 60px;
+    margin: 50px auto 0 auto;
+    width: 300px;
+    font-size: 18px;
+    font-weight: 200;
+    line-height: 30px;
+    background-color: #eee;
+    border-radius: 6px;
+    padding: 60px;
 }
 
 h1 {
-  color: $main-color;
+    color: $main-color;
 }
 
 .browsehappy {
-  margin: 0.2em 0;
-  background: #ccc;
-  color: #000;
-  padding: 0.2em 0;
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
 }
 
 [drawer] {
-  background-color: #EEEEEE;
+    background-color: #EEEEEE;
 }
 
 core-toolbar {
-  background-color: #fff;
+    background-color: #fff;
 }
 
 paper-button {
-  background-color: $secondary-color;
-  color: #FAFAFA;
+    background-color: $secondary-color;
+    color: #FAFAFA;
 }
 
 paper-button[disabled] {
-  background-color: lighten($secondary-color, 30%);
-  color: #FAFAFA;
-  cursor: auto;
-  pointer-events: none;
+    background-color: lighten($secondary-color, 30%);
+    color: #FAFAFA;
+    cursor: auto;
+    pointer-events: none;
 }
 
 .main-core-toolbar {
-  color: #FAFAFA;
-  background-color: $secondary-color;
+    color: #FAFAFA;
+    background-color: $secondary-color;
 }
 
 /// Justified Gallery
@@ -58,14 +58,14 @@ paper-button[disabled] {
 .justified-gallery > a > .caption,
 .justified-gallery > div > .caption,
 {
-  opacity: .7 !important;
-  min-height: 32px;
-  padding: 16px 0px 0px 16px;
-  margin: 2px;
-  font-size: 16px;
-  font-weight: 500;
-  font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
-  background-color: $secondary-color;
+    opacity: .7 !important;
+    min-height: 32px;
+    padding: 16px 0px 0px 16px;
+    margin: 2px;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
+    background-color: $secondary-color;
 
 }
 
@@ -73,64 +73,82 @@ paper-button[disabled] {
 $range-slider-width: 195px;
 $range-slider-grip-radius: 10px;
 .nstSlider {
-  width: $range-slider-width;
-  background-color: $secondary-color;
-  border: 2px solid gray;
-  margin: 23px;
+    width: $range-slider-width;
+    background-color: $secondary-color;
+    border: 2px solid gray;
+    margin: 23px;
 
-  .bar,
-  .leftGrip,
-  .rightGrip,
-  {
-    background-color: white;
-  }
-  .leftGrip,
-  .rightGrip,
-  {
-    border: 1px solid gray;
-    top: -1px;
-  }
+    .bar,
+    .leftGrip,
+    .rightGrip,
+    {
+        background-color: white;
+    }
+    .leftGrip,
+    .rightGrip,
+    {
+        border: 1px solid gray;
+        top: -1px;
+    }
 
-  .bar {
-    opacity: 0.7;
-  }
+    .bar {
+        opacity: 0.7;
+    }
 }
 
 // Tooltips
 
 .grip-label {
-  top: -11px;
-  left: $range-slider-grip-radius;
+    top: -11px;
+    left: $range-slider-grip-radius;
 }
 
 .rightLabel {
-  left: $range-slider-width - $range-slider-grip-radius - 4;
+    left: $range-slider-width - $range-slider-grip-radius - 4;
 }
 
 core-tooltip::shadow div,
 {
-  background-color: #607D8B;
+    background-color: #607D8B;
 }
 
 core-tooltip::shadow .top::after,
 {
-  border-top-color: $secondary-color;
+    border-top-color: $secondary-color;
 }
 
 .price-range {
-  margin-bottom: 54px;
-  margin-top: 9px;
-  margin-left: 20px;
+    margin-bottom: 54px;
+    margin-top: 9px;
+    margin-left: 20px;
 }
 
 core-submenu {
-  margin-left: 20px;
+    margin-left: 20px;
 }
 
 paper-spinner.yellow::shadow .circle {
-  border-color: $main-color;
+    border-color: $main-color;
 }
+
 // load more
 .gallery-load-more {
-  text-align: center;
+    text-align: center;
+}
+
+.ring-spinner {
+    position: fixed;
+    z-index: 9999999;
+    margin: 0;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    ::shadow #spinnerContainer {
+        width: 100px;
+        height: 100px;
+        .circle {
+            border-width: 10px;
+        }
+    }
 }
