@@ -11,6 +11,7 @@ APP = (function (document) {
         if (self.maxPrice !== priceHistogram[priceHistogram.length - 1]) {
             searchData.maxPrice = self.maxPrice;
         }
+        $('#main-spinner').attr('active', '')
     };
 
     self.nextPage = function (evt) {
@@ -74,9 +75,13 @@ APP = (function (document) {
         });
         $('#gallery-tiles').append(domString);
         $('#gallery-tiles').justifiedGallery('norewind');
+        $('#main-spinner').removeAttr('active')
+
     }
 
     app.addEventListener('template-bound', function () {
+        self.sliderChange = $.debounce(200, self.searchChanged);
+        var firstCall = true;
 
         $('.load-more').click(self.nextPage);
         initGallery();
@@ -95,8 +100,12 @@ APP = (function (document) {
                 }
 
                 $(this).parent().find('.rightLabel').attr('label', rightText);
-
-                $.debounce(self.searchChanged, 250);
+                if (!firstCall) {
+                    self.sliderChange();
+                }
+                else {
+                    firstCall = false;
+                }
             }
         }).on('touchstart mousedown', function () {
             return false;

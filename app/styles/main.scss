@@ -139,7 +139,12 @@ paper-spinner.yellow::shadow .circle {
 .ring-spinner {
     position: fixed;
     z-index: 9999999;
-    margin: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-left: 128px;
+    margin-bottom: 0;
+    width: 100px;
+    height: 100px;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
