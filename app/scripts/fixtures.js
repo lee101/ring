@@ -1,14 +1,18 @@
 var fixtures = (function () {
     "use strict";
     var self = {};
+    self.michealHill = {
+        name: 'Micheal Hill',
+        id: 0
+    };
+    self.pascoes = {
+        name: 'Micheal Hill',
+        id: 0
+    };
 
     self.companies = [
-        {
-            name: 'Micheal Hill'
-        },
-        {
-            name: 'Pascoes'
-        }
+        self.michealHill,
+        self.pascoes
     ];
     self.tags = [
         'ring',
@@ -18,7 +22,7 @@ var fixtures = (function () {
         'topaz',
         'aquamarine',
         'ruby'
-    ]
+    ];
     self.tagMap = {};
     for (var i = 0; i < self.tags.length; i++) {
         var tag = self.tags[i];

@@ -74,11 +74,7 @@ APP = (function (document) {
             thumbs: results
         });
         $('#gallery-tiles').append(domString);
-        $('#gallery-tiles').justifiedGallery({
-            rowHeight: 300,
-            lastRow: 'nojustify',
-            margins: 2
-        });
+        $('#gallery-tiles').justifiedGallery('norewind');
     }
 
     app.addEventListener('template-bound', function () {

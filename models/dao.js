@@ -16,10 +16,12 @@ var dao = (function () {
         };
     };
     self.getRings = function (config) {
-
+        if (typeof config === 'undefined') {
+            config = {}
+        }
         var rings = Ring.findAll({
             limit: 50,
-            offset: config.offest || 0
+            offset: config.offset || 0
         })
         return rings;
     };

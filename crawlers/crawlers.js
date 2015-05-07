@@ -52,7 +52,8 @@ var crawlers = (function () {
                 title: self.getTitle($page),
                 description: self.getDescription($page),
                 image: self.getImage($page),
-                price: self.getPrice($page('.product-add-to-cart .product-price')),
+                company_id: fixtures.michealHill.id,
+                price: self.getPrice($page('.product-add-to-cart .product-price'))
 
             };
             return dao.createRing(ring);

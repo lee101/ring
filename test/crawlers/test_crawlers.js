@@ -48,7 +48,9 @@ describe('crawlers', function () {
         });
         it('#parseDetailPage(dom) should create a ring', function () {
             var ring = crawlers.michealHill.parseDetailPage(mHillDetailRingSilver);
-            expect(ring.get().title).to.equal('Ring with Enhanced Black Diamonds in Sterling Silver')
+            ring.then(function (ring) {
+                expect(ring.title).to.equal('Ring with Enhanced Black Diamonds in Sterling Silver')
+            })
         })
     });
 });
