@@ -28,6 +28,8 @@ var fixtures = (function () {
         var tag = self.tags[i];
         self.tagMap[tag] = 1;
     }
+
+    self.results_limit = 5;
     return self;
 })();
 

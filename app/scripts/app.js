@@ -2,10 +2,7 @@ APP = (function (document) {
     'use strict';
     var self = {};
 
-
-    self.searchChanged = function () {
-        var $loadMore = $('.load-more');
-
+    self.getSearchData = function () {
         var searchData = {};
         if (self.minPrice !== 0) {
             searchData.minPrice = self.minPrice;
@@ -13,7 +10,17 @@ APP = (function (document) {
         if (self.maxPrice !== priceHistogram[priceHistogram.length - 1]) {
             searchData.maxPrice = self.maxPrice;
         }
+        searchData.offset = self.offset;
+        return searchData;
+    }
+
+
+    self.searchChanged = function () {
+        var $loadMore = $('.load-more');
+        var searchData = self.getSearchData();
+
         $('#main-spinner').attr('active', '');
+        self.offset = 0;
         $.ajax('/rings', {
             data: searchData,
             type: 'GET',
@@ -29,13 +36,18 @@ APP = (function (document) {
         })
     };
 
+    self.offset = 0;
+
+
     self.nextPage = function (evt) {
         var $loadMore = $('.load-more');
         $loadMore.attr('disabled', 'disabled');
         $loadMore.html('<paper-spinner class="yellow" active="" role="progressbar" aria-label="loading"></paper-spinner>');
+        self.offset += fixtures.results_limit
+        var searchData = self.getSearchData();
 
         $.ajax('/rings', {
-            data: {},
+            data: searchData,
             type: 'GET',
             success: function (data) {
                 $loadMore.removeAttr('disabled');

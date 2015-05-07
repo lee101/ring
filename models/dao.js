@@ -41,8 +41,7 @@ var dao = (function () {
         if (typeof config === 'undefined') {
             config = {}
         }
-        //TODO CHANGE TO 50
-        config.limit = 5;
+        config.limit = fixtures.results_limit;
         config.offset = config.offset || 0;
         var rings = Ring.findAll(config);
         return rings;
