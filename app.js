@@ -14,7 +14,6 @@ var nunjucks = require('nunjucks');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jinja2');
-nunjucks.configure({autoescape: true});
 
 nunjucks.configure('views', {
     autoescape: true,
