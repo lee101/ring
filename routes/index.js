@@ -4,8 +4,9 @@ var router = express.Router();
 
 var dao = require('../models/dao');
 router.get('/', function(req, res) {
-
-  res.render('index', { thumbs: dao.getRings() });
+    dao.getRings().then(function (rings) {
+        res.render('index', {thumbs: rings});
+    })
 });
 
 module.exports = router;
