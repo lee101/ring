@@ -23,8 +23,8 @@ var crawlers = (function () {
             request('http://www.michaelhill.co.nz/jewellery/rings?start=' + start + '&format=page-element&sz=40&', function (error, response, body) {
                 if (!error && response.statusCode == 200) {
                     var $content = cheerio.load(body);
-                    var pageUrls = mHillSelf.getPageUrls($content);
-                    mHillSelf.parsePageUrls(pageUrls);
+                    var pageUrls = self.getPageUrls($content, 'li', '.thumb-link');
+                    self.parsePageUrls(pageUrls, mHillSelf.parseDetailPage);
                     if (pageUrls.length == step) {
                         start += step;
                         mHillSelf.getPages();
@@ -35,19 +35,6 @@ var crawlers = (function () {
             })
         };
 
-        mHillSelf.parsePageUrls = function (pageUrls) {
-            for (var i = 0; i < pageUrls.length; i++) {
-                var url = pageUrls[i];
-                request(url, function (error, response, body) {
-                    if (!error && response.statusCode == 200) {
-                        var $content = cheerio.load(body);
-                        mHillSelf.parseDetailPage($content)
-                    } else {
-                        return console.log(error);
-                    }
-                })
-            }
-        };
         mHillSelf.parseDetailPage = function ($page) {
             var ring = {
                 title: self.getTitle($page),
@@ -58,13 +45,6 @@ var crawlers = (function () {
 
             };
             return dao.createRing(ring);
-        };
-        mHillSelf.getPageUrls = function ($page) {
-            var pageUrls = [];
-            $page('li').each(function (i, obj) {
-                pageUrls.push($page(obj).find('.thumb-link').attr('href'));
-            });
-            return pageUrls;
         };
         return mHillSelf;
     })();
@@ -78,8 +58,8 @@ var crawlers = (function () {
             request('http://www.pascoes.co.nz/category/rings?i=8&page=' + page, function (error, response, body) {
                 if (!error && response.statusCode == 200) {
                     var $content = cheerio.load(body);
-                    var pageUrls = paSelf.getPageUrls($content);
-                    paSelf.parsePageUrls(pageUrls);
+                    var pageUrls = self.getPageUrls($content, '.product-cat-holder', 'a');
+                    self.parsePageUrls(pageUrls, paSelf.parseDetailPage);
                     if (pageUrls.length >= 1) {
                         page += 1;
                         paSelf.getPages();
@@ -90,34 +70,18 @@ var crawlers = (function () {
             })
         };
 
-        paSelf.parsePageUrls = function (pageUrls) {
-            for (var i = 0; i < pageUrls.length; i++) {
-                var url = pageUrls[i];
-                request(url, function (error, response, body) {
-                    if (!error && response.statusCode == 200) {
-                        var $content = cheerio.load(body);
-                        paSelf.parseDetailPage($content)
-                    } else {
-                        return console.log(error);
-                    }
-                })
-            }
-        };
+
         paSelf.parseDetailPage = function ($page) {
             var ring = {
                 title: self.getTitle($page),
                 description: self.getDescription($page),
-                image: self.getImage($page)
+                image: self.getImage($page),
+                company_id: fixtures.pascoes.id,
+                price: self.getFirstPrice($page('.add-price').text())
             };
             return dao.createRing(ring);
         };
-        paSelf.getPageUrls = function ($page) {
-            var pageUrls = [];
-            $page('.product-cat-holder').each(function (i, obj) {
-                pageUrls.push($page(obj).find('a').attr('href'));
-            });
-            return pageUrls;
-        };
+
         return paSelf;
     })();
 
@@ -144,6 +108,40 @@ var crawlers = (function () {
                 return +word;
             }
         }
+    };
+    self.getFirstPrice = function (text) {
+        var words = text.trim()
+            .replace(/\$/g, '')
+            .replace(/\s*,\s*/g, '')
+            .split(/\s\s*/);
+        for (var i = 0; i < words.length; i++) {
+            var word = words[i];
+            if (+word) {
+                return +word;
+            }
+        }
+    };
+
+    self.parsePageUrls = function (pageUrls, callback) {
+        for (var i = 0; i < pageUrls.length; i++) {
+            var url = pageUrls[i];
+            request(url, function (error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    var $content = cheerio.load(body);
+                    callback($content)
+                } else {
+                    return console.log(error);
+                }
+            })
+        }
+    };
+
+    self.getPageUrls = function ($page, selector, find) {
+        var pageUrls = [];
+        $page(selector).each(function (i, obj) {
+            pageUrls.push($page(obj).find(find).attr('href'));
+        });
+        return pageUrls;
     };
 
 
