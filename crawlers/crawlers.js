@@ -42,7 +42,7 @@ var crawlers = (function () {
             var ring = {
                 title: self.getTitle($page),
                 description: self.getDescription($page),
-                image: self.getImage($page),
+                image: self.getImage(baseUrl, $page),
                 company_id: fixtures.michealHill.id,
                 price: self.getPrice($page('.product-add-to-cart .product-price').text())
 
@@ -79,7 +79,7 @@ var crawlers = (function () {
             var ring = {
                 title: $page('.product-text h1').text(),
                 description: $page('.product-blurb').text() || $page('.note').text(),
-                image: $page('.product-image img').attr('src'),
+                image: url.resolve(baseUrl, $page('.product-image img').attr('src')),
                 company_id: fixtures.pascoes.id,
                 price: self.getFirstPrice($page('.add-price').text())
             };
@@ -99,8 +99,8 @@ var crawlers = (function () {
         var metaDescription = $dom('meta[name="description"]').attr('content');
         return ogDescription || metaDescription;
     };
-    self.getImage = function ($dom) {
-        var ogImage = $dom('[property="og:image"]').attr('content');
+    self.getImage = function (baseUrl, $dom) {
+        var ogImage = url.resolve(baseUrl, $dom('[property="og:image"]').attr('content'));
         return ogImage;
     };
     self.getPrice = function (text) {
