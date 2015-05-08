@@ -6,8 +6,8 @@ var fixtures = (function () {
         id: 0
     };
     self.pascoes = {
-        name: 'Micheal Hill',
-        id: 0
+        name: 'Pascoes',
+        id: 1
     };
 
     self.companies = [

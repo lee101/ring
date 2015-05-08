@@ -1,5 +1,7 @@
 var cheerio = require('cheerio');
 var request = require('request');
+var url = require('url');
+
 var dao = require('../models/dao');
 var fixtures = require('../app/scripts/fixtures');
 
@@ -18,12 +20,13 @@ var crawlers = (function () {
         var mHillSelf = {};
         var start = 1;
         var step = 40;
+        var baseUrl = 'http://www.michaelhill.co.nz';
 
         mHillSelf.getPages = function () {
-            request('http://www.michaelhill.co.nz/jewellery/rings?start=' + start + '&format=page-element&sz=40&', function (error, response, body) {
+            request(baseUrl + '/jewellery/rings?start=' + start + '&format=page-element&sz=40&', function (error, response, body) {
                 if (!error && response.statusCode == 200) {
                     var $content = cheerio.load(body);
-                    var pageUrls = self.getPageUrls($content, 'li', '.thumb-link');
+                    var pageUrls = self.getPageUrls(baseUrl, $content, 'li', '.thumb-link');
                     self.parsePageUrls(pageUrls, mHillSelf.parseDetailPage);
                     if (pageUrls.length == step) {
                         start += step;
@@ -53,12 +56,13 @@ var crawlers = (function () {
     self.pascoes = (function () {
         var paSelf = {};
         var page = 1;
+        var baseUrl = 'http://www.pascoes.co.nz';
 
         paSelf.getPages = function () {
-            request('http://www.pascoes.co.nz/category/rings?i=8&page=' + page, function (error, response, body) {
+            request(baseUrl + '/category/rings?i=8&page=' + page, function (error, response, body) {
                 if (!error && response.statusCode == 200) {
                     var $content = cheerio.load(body);
-                    var pageUrls = self.getPageUrls($content, '.product-cat-holder', 'a');
+                    var pageUrls = self.getPageUrls(baseUrl, $content, '.product-cat-holder', 'a');
                     self.parsePageUrls(pageUrls, paSelf.parseDetailPage);
                     if (pageUrls.length >= 1) {
                         page += 1;
@@ -73,9 +77,9 @@ var crawlers = (function () {
 
         paSelf.parseDetailPage = function ($page) {
             var ring = {
-                title: self.getTitle($page),
-                description: self.getDescription($page),
-                image: self.getImage($page),
+                title: $page('.product-text h1').text(),
+                description: $page('.note').text(),
+                image: $page('.product-image img').attr('src'),
                 company_id: fixtures.pascoes.id,
                 price: self.getFirstPrice($page('.add-price').text())
             };
@@ -86,12 +90,14 @@ var crawlers = (function () {
     })();
 
     self.getTitle = function ($dom) {
-        var title = $dom('[property="og:title"]').attr('content');
-        return title;
+        var ogTitle = $dom('[property="og:title"]').attr('content');
+        var title = $dom('title').text();
+        return ogTitle || title;
     };
     self.getDescription = function ($dom) {
         var ogDescription = $dom('[property="og:description"]').attr('content');
-        return ogDescription;
+        var metaDescription = $dom('meta[name="description"]').attr('content');
+        return ogDescription || metaDescription;
     };
     self.getImage = function ($dom) {
         var ogImage = $dom('[property="og:image"]').attr('content');
@@ -136,10 +142,10 @@ var crawlers = (function () {
         }
     };
 
-    self.getPageUrls = function ($page, selector, find) {
+    self.getPageUrls = function (baseUrl, $page, selector, find) {
         var pageUrls = [];
         $page(selector).each(function (i, obj) {
-            pageUrls.push($page(obj).find(find).attr('href'));
+            pageUrls.push(url.resolve(baseUrl, $page(obj).find(find).attr('href')));
         });
         return pageUrls;
     };
