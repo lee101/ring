@@ -6,3 +6,8 @@ bower_components
 .tmp
 test/bower_components/
 test/sites
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
