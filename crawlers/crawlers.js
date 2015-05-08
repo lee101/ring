@@ -72,8 +72,7 @@ var crawlers = (function () {
 
     self.pascoes = (function () {
         var paSelf = {};
-        var start = 1;
-        var step = 40;
+        var page = 1;
 
         paSelf.getPages = function () {
             request('http://www.pascoes.co.nz/category/rings?i=8&page=' + page, function (error, response, body) {
@@ -81,8 +80,8 @@ var crawlers = (function () {
                     var $content = cheerio.load(body);
                     var pageUrls = paSelf.getPageUrls($content);
                     paSelf.parsePageUrls(pageUrls);
-                    if (pageUrls.length == step) {
-                        start += step;
+                    if (pageUrls.length >= 1) {
+                        page += 1;
                         paSelf.getPages();
                     }
                 } else {

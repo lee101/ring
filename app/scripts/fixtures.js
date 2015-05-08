@@ -18,10 +18,25 @@ var fixtures = (function () {
         'ring',
         'gold',
         'silver',
-        'diamond',
-        'topaz',
+        'steel',
+        'titanium',
+        'platinum',
+
         'aquamarine',
-        'ruby'
+        'amethyst',
+        'citrine',
+        'sapphire',
+        'crystal',
+        'zirconia',
+        'diamond',
+        'emerald',
+        'garnet',
+        'pearl',
+        'peridot',
+        'quartz',
+        'ruby',
+        'sapphire',
+        'topaz'
     ];
     self.tagMap = {};
     for (var i = 0; i < self.tags.length; i++) {
