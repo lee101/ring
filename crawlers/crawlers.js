@@ -54,7 +54,7 @@ var crawlers = (function () {
                 description: self.getDescription($page),
                 image: self.getImage($page),
                 company_id: fixtures.michealHill.id,
-                price: self.getPrice($page('.product-add-to-cart .product-price'))
+                price: self.getPrice($page('.product-add-to-cart .product-price').text())
 
             };
             return dao.createRing(ring);
@@ -134,11 +134,11 @@ var crawlers = (function () {
         var ogImage = $dom('[property="og:image"]').attr('content');
         return ogImage;
     };
-    self.getPrice = function ($dom) {
-        var text = $dom.text();
+    self.getPrice = function (text) {
         var words = text.trim()
-            .replace('$', '')
-            .split(/  */).reverse();
+            .replace(/\$/g, '')
+            .replace(/\s*,\s*/g, '')
+            .split(/\s\s*/).reverse();
         for (var i = 0; i < words.length; i++) {
             var word = words[i];
             if (+word) {
