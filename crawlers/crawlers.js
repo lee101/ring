@@ -38,11 +38,12 @@ var crawlers = (function () {
             })
         };
 
-        mHillSelf.parseDetailPage = function ($page) {
+        mHillSelf.parseDetailPage = function (pageUrl, $page) {
             var ring = {
                 title: self.getTitle($page),
                 description: self.getDescription($page),
                 image: self.getImage(baseUrl, $page),
+                url: pageUrl,
                 company_id: fixtures.michealHill.id,
                 price: self.getPrice($page('.product-add-to-cart .product-price').text())
 
@@ -75,11 +76,12 @@ var crawlers = (function () {
         };
 
 
-        paSelf.parseDetailPage = function ($page) {
+        paSelf.parseDetailPage = function (pageUrl, $page) {
             var ring = {
                 title: $page('.product-text h1').text(),
                 description: $page('.product-blurb').text() || $page('.note').text(),
                 image: url.resolve(baseUrl, $page('.product-image img').attr('src')),
+                url: pageUrl,
                 company_id: fixtures.pascoes.id,
                 price: self.getFirstPrice($page('.add-price').text())
             };
@@ -134,7 +136,7 @@ var crawlers = (function () {
             request(url, function (error, response, body) {
                 if (!error && response.statusCode == 200) {
                     var $content = cheerio.load(body);
-                    callback($content)
+                    callback(url, $content)
                 } else {
                     return console.log(error);
                 }
