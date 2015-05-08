@@ -67,15 +67,34 @@ var dao = (function () {
 })();
 
 var Sequelize = require('sequelize');
-var sequelize = new Sequelize('ring', 'postgres', 'postgres', {
-    host: 'localhost',
-    dialect: 'postgres',
-    pool: {
-        max: 5,
-        min: 0,
-        idle: 10000
-    }
-});
+var RDS_HOSTNAME = process.env.RDS_HOSTNAME;
+var RDS_DB_NAME = process.env.RDS_DB_NAME;
+var RDS_USERNAME = process.env.RDS_USERNAME;
+var RDS_PASSWORD = process.env.RDS_PASSWORD;
+var RDS_PORT = process.env.RDS_PORT;
+if (RDS_HOSTNAME) {
+    var sequelize = new Sequelize(RDS_DB_NAME, RDS_USERNAME, RDS_PASSWORD, {
+        host: RDS_HOSTNAME,
+        post: RDS_PORT,
+        dialect: 'postgres',
+        pool: {
+            max: 5,
+            min: 0,
+            idle: 10000
+        }
+    });
+}
+else {
+    var sequelize = new Sequelize('ring', 'postgres', 'postgres', {
+        host: 'localhost',
+        dialect: 'postgres',
+        pool: {
+            max: 5,
+            min: 0,
+            idle: 10000
+        }
+    });
+}
 
 var Ring = sequelize.define('ring', {
     title: Sequelize.TEXT,
