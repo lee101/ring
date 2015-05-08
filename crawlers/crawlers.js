@@ -78,7 +78,7 @@ var crawlers = (function () {
         paSelf.parseDetailPage = function ($page) {
             var ring = {
                 title: $page('.product-text h1').text(),
-                description: $page('.note').text(),
+                description: $page('.product-blurb').text() || $page('.note').text(),
                 image: $page('.product-image img').attr('src'),
                 company_id: fixtures.pascoes.id,
                 price: self.getFirstPrice($page('.add-price').text())
