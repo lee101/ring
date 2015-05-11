@@ -8,8 +8,5 @@
     "lesshat": "~3.0.2",
     "jquery-nstSlider": "~1.0.11",
     "nunjucks": "~1.3.4"
-  },
-  "devDependencies": {
-    "web-component-tester": "Polymer/web-component-tester#^2.2.3"
   }
 }
