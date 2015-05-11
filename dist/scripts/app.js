@@ -11,13 +11,18 @@ APP = (function (document) {
             searchData.maxPrice = self.maxPrice;
         }
         searchData.offset = self.offset;
+
         return searchData;
-    }
+    };
 
 
-    self.searchChanged = function () {
+    self.searchChanged = function (extraData) {
+        if (typeof extraData == 'undefined') {
+            extraData = {};
+        }
         var $loadMore = $('.load-more');
         var searchData = self.getSearchData();
+        searchData = $.extend(searchData, extraData);
 
         $('#main-spinner').attr('active', '');
         self.offset = 0;
@@ -43,7 +48,7 @@ APP = (function (document) {
         var $loadMore = $('.load-more');
         $loadMore.attr('disabled', 'disabled');
         $loadMore.html('<paper-spinner class="yellow" active="" role="progressbar" aria-label="loading"></paper-spinner>');
-        self.offset += fixtures.results_limit
+        self.offset += fixtures.results_limit;
         var searchData = self.getSearchData();
 
         $.ajax('/rings', {
