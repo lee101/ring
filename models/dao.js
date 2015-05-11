@@ -29,6 +29,11 @@ var dao = (function () {
             queryObj.where.price = queryObj.where.price || {};
             queryObj.where.price.$lte = maxPrice
         }
+        var companyName = req.query.company;
+        if (companyName) {
+            var company = fixtures.getCompanyByName(companyName);
+            queryObj.where.company_id = company.id
+        }
         var offset = +req.query.offset || 0;
         if (offset) {
             queryObj.offset = offset;

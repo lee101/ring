@@ -14,6 +14,14 @@ var fixtures = (function () {
         self.michealHill,
         self.pascoes
     ];
+    self.getCompanyByName = function (name) {
+        for (var i = 0; i < self.companies.length; i++) {
+            var company = self.companies[i];
+            if (company.name.toLowerCase() === name.toLowerCase()) {
+                return company;
+            }
+        }
+    };
     self.tags = [
         'ring',
         'gold',
