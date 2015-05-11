@@ -71,12 +71,14 @@
             <!-- Drawer Toolbar -->
             <core-toolbar>
                 <img src="/mstile-70x70.png" width="70" height="70" alt="Ring Logo">
+
                 <h1>Ring</h1>
             </core-toolbar>
 
             <!-- Drawer Content -->
 
-            <core-item class="price-range" icon="payment" label="Price range" horizontal="" center="" layout=""></core-item>
+            <core-item class="price-range" icon="payment" label="Price range" horizontal="" center=""
+                       layout=""></core-item>
 
             <div id="price-range" class="nstSlider" data-range_min="0" data-range_max="20"
                  data-cur_min="0" data-cur_max="20">
@@ -88,17 +90,27 @@
                 <div class="leftGrip">
 
                 </div>
-                <core-tooltip class="grip-label rightLabel" label="text" position="top" role="tooltip" tabindex="0" show large>
+                <core-tooltip class="grip-label rightLabel" label="text" position="top" role="tooltip" tabindex="0" show
+                              large>
                 </core-tooltip>
                 <div class="rightGrip">
                 </div>
             </div>
 
-            <core-submenu icon="account-balance" label="Companies" class="core-selected" active>
-                <core-item label="Pascoes" horizontal="" center="" layout=""></core-item>
-                <core-item label="Micheal Hill" horizontal="" center="" layout=""></core-item>
-            </core-submenu>
+            <core-submenu id="companies-menu" icon="account-balance" label="Companies" class="core-selected" active>
+                <div class="item-content">
 
+                </div>
+                <core-item class="core-collapse-closed" label="Pascoes" horizontal="" center="" layout=""
+                    >
+                    <a href="javascript:APP.searchChanged({company: 'pascoes'})"></a>
+                </core-item>
+                <core-item class="core-collapse-closed" label="Micheal Hill" horizontal="" center=""
+                           layout="">
+                    <a href="javascript:APP.searchChanged({company: 'micheal hill'})"></a>
+
+                </core-item>
+            </core-submenu>
 
         </core-header-panel>
 
