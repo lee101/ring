@@ -1,5 +1,6 @@
 {% for thumb in thumbs %}
     <a href="{{ thumb.url }}" title="{{ thumb.title }}" target="_blank">
-        <img alt="$ {{ thumb.price }}" src="{{ thumb.image }}"/>
+        <img alt="$ {{ thumb.price }}" src="{{ thumb.image }}"
+             onerror="if (this.src != '/images/ring-gem-icon512-rotated.png') this.src = '/images/ring-gem-icon512-rotated.png';"/>
     </a>
 {% endfor %}
