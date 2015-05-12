@@ -52,7 +52,7 @@ var fixtures = (function () {
         self.tagMap[tag] = 1;
     }
 
-    self.results_limit = 5;
+    self.results_limit = 50;
     return self;
 })();
 
