@@ -1,5 +1,5 @@
 deployment:
-  production:
+  prod:
     branch: prod
     commands:
       - bash ./setup-eb.sh
