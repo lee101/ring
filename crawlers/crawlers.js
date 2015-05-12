@@ -121,8 +121,41 @@ var crawlers = (function () {
                 // NOTE weird image stitching going on
                 image: url.resolve(baseUrl, $page('.product-image img').attr('src')),
                 url: pageUrl,
-                company_id: fixtures.pascoes.id,
+                company_id: fixtures.swarovski.id,
                 price: self.getFirstPrice($page('.add-price').text())
+            };
+            return dao.createRing(ring);
+        };
+
+        return paSelf;
+    })();
+
+
+    self.tiffany = (function () {
+        var paSelf = {};
+        var baseUrl = 'http://www.tiffany.com';
+
+        paSelf.getPages = function () {
+            request(baseUrl + '/Shopping/CategoryBrowse.aspx?cid=287466#p+1-n+10000-c+287466-s+5-r+-t+-ni+1-x+-pu+-f+-lr+-hr+-ri+-mi+-pp+', function (error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    var $content = cheerio.load(body);
+                    var pageUrls = self.getPageUrls(baseUrl, $content, 'noscript li', 'a');
+                    self.parsePageUrls(pageUrls, paSelf.parseDetailPage);
+                } else {
+                    return console.log(error);
+                }
+            })
+        };
+
+
+        paSelf.parseDetailPage = function (pageUrl, $page) {
+            var ring = {
+                title: $page('title').text(),
+                description: $page('meta[name="description"]').attr('content'),
+                image: self.getImage(baseUrl, $page),
+                url: pageUrl,
+                company_id: fixtures.tiffany.id,
+                price: self.getFirstPrice($page('#divItemTotalAndButton').text())
             };
             return dao.createRing(ring);
         };
