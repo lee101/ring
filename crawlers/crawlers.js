@@ -91,6 +91,45 @@ var crawlers = (function () {
         return paSelf;
     })();
 
+
+    self.swarovski = (function () {
+        var paSelf = {};
+        var page = 1;
+        var baseUrl = 'http://www.swarovski.com/Web_US/en/0112/category/Jewelry/Rings.html?PageSize=36&CurrentPageView=&SelectedMenuItem=CategoryPage&SortBy=';
+
+        paSelf.getPages = function () {
+            request(baseUrl + '/category/rings?i=8&page=' + page, function (error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    var $content = cheerio.load(body);
+                    var pageUrls = self.getPageUrls(baseUrl, $content, '.product-cat-holder', 'a');
+                    self.parsePageUrls(pageUrls, paSelf.parseDetailPage);
+                    if (pageUrls.length >= 1) {
+                        page += 1;
+                        paSelf.getPages();
+                    }
+                } else {
+                    return console.log(error);
+                }
+            })
+        };
+
+
+        paSelf.parseDetailPage = function (pageUrl, $page) {
+            var ring = {
+                title: self.getTitle($page),
+                description: self.getDescription($page),
+                // NOTE weird image stitching going on
+                image: url.resolve(baseUrl, $page('.product-image img').attr('src')),
+                url: pageUrl,
+                company_id: fixtures.pascoes.id,
+                price: self.getFirstPrice($page('.add-price').text())
+            };
+            return dao.createRing(ring);
+        };
+
+        return paSelf;
+    })();
+
     self.getTitle = function ($dom) {
         var ogTitle = $dom('[property="og:title"]').attr('content');
         var title = $dom('title').text();

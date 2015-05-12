@@ -5,8 +5,19 @@
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ring.nz</title>
+    {% set title = 'Ring.nz - Find Your Perfect Ring' %}
+    {% set desc = 'Find perfect rings from Pascoes, Micheal Hill, Swarovski, Pandora and more.' %}
+    <title>{{ title }}</title>
+    <meta name="description"
+          content="{{ desc }}">
 
+    <meta name="keywords"
+          content="ring, rings, engagement rings, wedding rings, gold rings, diamond rings">
+    <meta property="og:title" content="{{ title }}">
+    <meta property="og:description"
+          content="{{ desc }}">
+    <meta property="og:image"
+          content="/images/ring512-rotated.png">
 
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
