@@ -24,7 +24,7 @@ output += "\" target=\"_blank\"><img alt=\"$ ";
 output += runtime.suppressValue(runtime.memberLookup((t_4),"price", env.opts.autoescape), env.opts.autoescape);
 output += "\" src=\"";
 output += runtime.suppressValue(runtime.memberLookup((t_4),"image", env.opts.autoescape), env.opts.autoescape);
-output += "\" onerror=\"if (this.src != '/images/ring-gem-icon512-rotated.png') this.src = '/images/ring-gem-icon512-rotated.png';\"></a> ";
+output += "\" onerror=\"if (this.src != '/images/ring512-rotated.png') this.src = '/images/ring512-rotated.png';\"></a> ";
 ;
 }
 }
