@@ -37,7 +37,7 @@ describe('crawlers', function () {
         expect(title).to.equal('Showcase your flair for fashion with this sterling silver snake ring. Created to look like a snake coiled around your finger, the scale patterned body and  enhanced black diamond details bring this piece to life.')
     });
     it('#getImage(dom) should use og:image', function () {
-        var title = crawlers.getImage(mHillDetailRingSilver);
+        var title = crawlers.getImage('http://base.url', mHillDetailRingSilver);
         expect(title).to.equal('http://demandware.edgesuite.net/aanc_prd/on/demandware.static/Sites-MichaelHillNZ-Site/Sites-MHJ_Master/en_NZ/v1430441345851/hi-res/12322275_1.jpg')
     });
     it('#getPrice(dom)', function () {
@@ -47,11 +47,11 @@ describe('crawlers', function () {
     describe('micheal hill', function () {
 
         it('#getPageUrls(dom) should use og:image', function () {
-            var pageUrls = crawlers.michealHill.getPageUrls(mHillRingGalleryPage);
+            var pageUrls = crawlers.getPageUrls('http://base.url', mHillRingGalleryPage, 'li', '.thumb-link');
             expect(pageUrls.length).to.equal(12)
         });
         it('#parseDetailPage(dom) should create a ring', function () {
-            var ring = crawlers.michealHill.parseDetailPage(mHillDetailRingSilver);
+            var ring = crawlers.michealHill.parseDetailPage('http://page.url/place', mHillDetailRingSilver);
             ring.then(function (ring) {
                 expect(ring.title).to.equal('Ring with Enhanced Black Diamonds in Sterling Silver')
             })

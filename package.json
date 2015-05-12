@@ -63,6 +63,6 @@
     },
     "scripts": {
         "start": "node bin/www",
-        "test": "mocha"
+        "test": "mocha 'test/**/*.js'"
     }
 }
