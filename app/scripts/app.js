@@ -26,18 +26,24 @@ APP = (function (document) {
 
         $('#main-spinner').attr('active', '');
         self.offset = 0;
+        var errorFunc = function (data) {
+            $loadMore.attr('disabled', 'disabled');
+            $loadMore.html('No results');
+        };
         $.ajax('/rings', {
             data: searchData,
             type: 'GET',
             success: function (data) {
-                $loadMore.removeAttr('disabled');
-                $loadMore.html('Load More');
-                refreshGallery(data);
+                if (data) {
+                    $loadMore.removeAttr('disabled');
+                    $loadMore.html('Load More');
+                    refreshGallery(data);
+                }
+                else {
+                    errorFunc(data)
+                }
             },
-            error: function (data) {
-                $loadMore.attr('disabled', 'disabled');
-                $loadMore.html('No results');
-            }
+            error: errorFunc
         })
     };
 
@@ -51,17 +57,23 @@ APP = (function (document) {
         self.offset += fixtures.results_limit;
         var searchData = self.getSearchData();
 
+        var errorFunc = function (data) {
+            $loadMore.html('No more results');
+        };
         $.ajax('/rings', {
             data: searchData,
             type: 'GET',
             success: function (data) {
-                $loadMore.removeAttr('disabled');
-                $loadMore.html('Load More');
-                addToGallery(data);
+                if (data) {
+                    $loadMore.removeAttr('disabled');
+                    $loadMore.html('Load More');
+                    addToGallery(data);
+                }
+                else {
+                    errorFunc(data)
+                }
             },
-            error: function (data) {
-                $loadMore.html('No more results');
-            }
+            error: errorFunc
         })
 
     };
@@ -104,6 +116,7 @@ APP = (function (document) {
             margins: 2
         });
     }
+
     function addToGallery(results) {
         var domString = zutils.render('rings.jinja2', {
             thumbs: results
@@ -112,6 +125,7 @@ APP = (function (document) {
         $('#gallery-tiles').justifiedGallery('norewind');
         $('#main-spinner').removeAttr('active');
     }
+
     function refreshGallery(results) {
         var domString = zutils.render('rings.jinja2', {
             thumbs: results

@@ -121,8 +121,48 @@ var crawlers = (function () {
                 // NOTE weird image stitching going on
                 image: url.resolve(baseUrl, $page('.product-image img').attr('src')),
                 url: pageUrl,
-                company_id: fixtures.pascoes.id,
+                company_id: fixtures.swarovski.id,
                 price: self.getFirstPrice($page('.add-price').text())
+            };
+            return dao.createRing(ring);
+        };
+
+        return paSelf;
+    })();
+
+
+    self.tiffany = (function () {
+        var paSelf = {};
+        var baseUrl = 'http://www.tiffany.com';
+
+        paSelf.getPages = function () {
+            request({
+                url: baseUrl + '/Shopping/CategoryBrowse.aspx?cid=287466',
+                headers: {
+                    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36'
+                }
+            }, function (error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    var $content = cheerio.load(body);
+                    var pageUrls = self.getPageUrls(baseUrl, $content, 'noscript li', 'a');
+                    self.parsePageUrls(pageUrls, paSelf.parseDetailPage);
+                } else {
+                    console.log(error);
+                    console.log('error returned from ' + this.href);
+                    return console.log(response);
+                }
+            })
+        };
+
+
+        paSelf.parseDetailPage = function (pageUrl, $page) {
+            var ring = {
+                title: $page('title').text(),
+                description: $page('meta[name="description"]').attr('content'),
+                image: self.getImage(baseUrl, $page),
+                url: pageUrl,
+                company_id: fixtures.tiffany.id,
+                price: self.getFirstPrice($page('#divItemTotalAndButton').text())
             };
             return dao.createRing(ring);
         };
@@ -170,16 +210,27 @@ var crawlers = (function () {
     };
 
     self.parsePageUrls = function (pageUrls, callback) {
-        for (var i = 0; i < pageUrls.length; i++) {
+        function processUrl(i) {
             var url = pageUrls[i];
-            request(url, function (error, response, body) {
-                if (!error && response.statusCode == 200) {
-                    var $content = cheerio.load(body);
-                    callback(url, $content)
-                } else {
-                    return console.log(error);
-                }
-            })
+            setTimeout(function () {
+                request({
+                    url: url,
+                    headers: {
+                        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36'
+                    }
+                }, function (error, response, body) {
+                    if (!error && response.statusCode == 200) {
+                        var $content = cheerio.load(body);
+                        callback(url, $content)
+                    } else {
+                        return console.log(error);
+                    }
+                })
+            }, 100 * i);
+        }
+
+        for (var i = 0; i < pageUrls.length; i++) {
+            processUrl(i)
         }
     };
 

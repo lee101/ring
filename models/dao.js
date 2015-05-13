@@ -53,6 +53,8 @@ var dao = (function () {
     };
 
     self.createRing = function (config) {
+        config.title = config.title.trim();
+        config.description = config.description.trim();
         config.urltitle = zutils.urlencode(config.title);
         if (config.price >= 29) {
             var priceStr = '' + config.price;
