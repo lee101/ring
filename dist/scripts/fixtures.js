@@ -9,10 +9,20 @@ var fixtures = (function () {
         name: 'Pascoes',
         id: 1
     };
+    self.tiffany = {
+        name: 'Tiffany',
+        id: 2
+    };
+    self.swarovski = {
+        name: 'Swarovski',
+        id: 3
+    };
 
     self.companies = [
         self.michealHill,
-        self.pascoes
+        self.pascoes,
+        self.tiffany,
+        self.swarovski
     ];
     self.getCompanyByName = function (name) {
         for (var i = 0; i < self.companies.length; i++) {
