@@ -1,5 +1,3 @@
-sudo pip install -U awsebcli
-
 # set up credentials
 
 touch /home/ubuntu/.aws/config

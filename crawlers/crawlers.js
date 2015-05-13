@@ -136,13 +136,20 @@ var crawlers = (function () {
         var baseUrl = 'http://www.tiffany.com';
 
         paSelf.getPages = function () {
-            request(baseUrl + '/Shopping/CategoryBrowse.aspx?cid=287466#p+1-n+10000-c+287466-s+5-r+-t+-ni+1-x+-pu+-f+-lr+-hr+-ri+-mi+-pp+', function (error, response, body) {
+            request({
+                url: baseUrl + '/Shopping/CategoryBrowse.aspx?cid=287466',
+                headers: {
+                    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36'
+                }
+            }, function (error, response, body) {
                 if (!error && response.statusCode == 200) {
                     var $content = cheerio.load(body);
                     var pageUrls = self.getPageUrls(baseUrl, $content, 'noscript li', 'a');
                     self.parsePageUrls(pageUrls, paSelf.parseDetailPage);
                 } else {
-                    return console.log(error);
+                    console.log(error);
+                    console.log('error returned from ' + this.href);
+                    return console.log(response);
                 }
             })
         };
@@ -203,16 +210,27 @@ var crawlers = (function () {
     };
 
     self.parsePageUrls = function (pageUrls, callback) {
-        for (var i = 0; i < pageUrls.length; i++) {
+        function processUrl(i) {
             var url = pageUrls[i];
-            request(url, function (error, response, body) {
-                if (!error && response.statusCode == 200) {
-                    var $content = cheerio.load(body);
-                    callback(url, $content)
-                } else {
-                    return console.log(error);
-                }
-            })
+            setTimeout(function () {
+                request({
+                    url: url,
+                    headers: {
+                        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36'
+                    }
+                }, function (error, response, body) {
+                    if (!error && response.statusCode == 200) {
+                        var $content = cheerio.load(body);
+                        callback(url, $content)
+                    } else {
+                        return console.log(error);
+                    }
+                })
+            }, 100 * i);
+        }
+
+        for (var i = 0; i < pageUrls.length; i++) {
+            processUrl(i)
         }
     };
 
