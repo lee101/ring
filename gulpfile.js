@@ -212,7 +212,7 @@ gulp.task('default', ['clean'], function (cb) {
     gulp.watch('./views/shared/**/*.jinja2', ['nunjucks']);
     gulp.watch(['app/styles/**/*.{scss,css}'], ['styles']);
     gulp.watch(['app/elements/**/*.{scss,css}'], ['elements']);
-    gulp.watch(['app/{scripts,elements}/**/*.js'], ['copy']);
+    gulp.watch(['app/{scripts,elements}/**/*'], ['copy']);
     gulp.watch(['app/images/**/*'], ['images']);
     gulp.watch(['app/fonts/**/*'], ['fonts']);
 });
