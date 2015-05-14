@@ -80,7 +80,7 @@ var RDS_USERNAME = process.env.RDS_USERNAME;
 var RDS_PASSWORD = process.env.RDS_PASSWORD;
 var RDS_PORT = process.env.RDS_PORT;
 
-var CI = proccess.env.CI;
+var CI = process.env.CI;
 if (RDS_HOSTNAME) {
     var sequelize = new Sequelize(RDS_DB_NAME, RDS_USERNAME, RDS_PASSWORD, {
         host: RDS_HOSTNAME,
