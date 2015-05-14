@@ -14,3 +14,42 @@
 <link rel="import" href="/bower_components/font-roboto/roboto.html">
 
 <!-- Add your elements here -->
+<polymer-element name="ring-submenu" extends="core-submenu">
+    <template>
+        <link rel="stylesheet" href="/bower_components/core-menu/core-submenu.css">
+
+        <core-item id="submenuItem" src="{{src}}" label="{{label}}" icon="{{icon}}"
+                   class="{{ {'core-selected' : selected} | tokenList}}" on-tap="{{activate}}">
+            <content select=".item-content"></content>
+        </core-item>
+
+        <core-menu id="submenu" selected="{{selected}}" selectedItem="{{selectedItem}}"
+                   selectedAttribute="{{selectedAttribute}}" valueattr="{{valueattr}}">
+            <content></content>
+        </core-menu>
+
+        <core-collapse target="{{$.submenu}}" opened="{{opened}}"></core-collapse>
+
+    </template>
+    <script>
+        Polymer({
+            activate: function () {
+                if (this.hasItems() && this.active) {
+                    this.toggle();
+//                    this.unselectAllItems();
+//                    this.unselectedFunc()
+                }
+            },
+            unselectedFunc: function () {
+            },
+            activeChanged: function () {
+                if (!this.active) {
+                    this.unselectAllItems();
+                }
+            },
+            selected: function () {
+                return this.$.submenu.selected;
+            }
+        });
+    </script>
+</polymer-element>

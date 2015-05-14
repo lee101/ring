@@ -66,8 +66,6 @@ APP = (function (document) {
         })
     };
 
-    var app = document.querySelector('#app');
-
 
     // Listen for template bound event to know when bindings
     // have resolved and content has been stamped to the page
@@ -96,7 +94,16 @@ APP = (function (document) {
         $('#main-spinner').removeAttr('active');
     }
 
+    var app = document.querySelector('#app');
+
     app.addEventListener('template-bound', function () {
+        var companiesMenu = document.querySelector('#companies-menu');
+        companiesMenu.unselectedFunc = function () {
+            APP.searchChanged({
+                company: 'all'
+            });
+        }
+
         self.sliderChange = $.debounce(200, self.searchChanged);
         var firstCall = true;
 
