@@ -8,8 +8,14 @@ APP = (function (document) {
             extraData = {};
         }
         var $loadMore = $('.load-more');
-        if (! viewState.changeData(extraData)) {
-            return;
+        if (!viewState.changeData(extraData)) {
+            if (extraData.company != 'all') {
+                var companiesMenu = document.querySelector('#companies-menu');
+                companiesMenu.unselectAllItems();
+            }
+            else {
+                return;
+            }
         }
         var searchData = viewState.getData();
 
@@ -35,7 +41,6 @@ APP = (function (document) {
             error: errorFunc
         })
     };
-
 
 
     self.nextPage = function (evt) {
@@ -97,12 +102,6 @@ APP = (function (document) {
     var app = document.querySelector('#app');
 
     app.addEventListener('template-bound', function () {
-        var companiesMenu = document.querySelector('#companies-menu');
-        companiesMenu.unselectedFunc = function () {
-            APP.searchChanged({
-                company: 'all'
-            });
-        }
 
         self.sliderChange = $.debounce(200, self.searchChanged);
         var firstCall = true;
