@@ -19,7 +19,7 @@
         <link rel="stylesheet" href="/bower_components/core-menu/core-submenu.css">
 
         <core-item id="submenuItem" src="{{src}}" label="{{label}}" icon="{{icon}}"
-                   class="{{ {'core-selected' : selected} | tokenList}}" on-tap="{{activate}}">
+                   class="{{ {'core-selected' : $.submenu.selectedItem} | tokenList}}" on-tap="{{activate}}">
             <content select=".item-content"></content>
         </core-item>
 
@@ -36,19 +36,12 @@
             activate: function () {
                 if (this.hasItems() && this.active) {
                     this.toggle();
-//                    this.unselectAllItems();
-//                    this.unselectedFunc()
                 }
-            },
-            unselectedFunc: function () {
             },
             activeChanged: function () {
                 if (!this.active) {
                     this.unselectAllItems();
                 }
-            },
-            selected: function () {
-                return this.$.submenu.selected;
             }
         });
     </script>
