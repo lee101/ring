@@ -94,7 +94,7 @@ if (RDS_HOSTNAME) {
     });
 }
 else if (CI) {
-    var sequelize = new Sequelize('circle_ci', {
+    var sequelize = new Sequelize('circle_ci', null, null, {
         host: 'localhost',
         dialect: 'postgres',
         pool: {

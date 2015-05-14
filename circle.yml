@@ -4,3 +4,6 @@ deployment:
     commands:
       - bash ./setup-eb.sh
       - eb deploy
+machine:
+  node:
+    version: 0.12.0
