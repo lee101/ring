@@ -79,10 +79,23 @@ var RDS_DB_NAME = process.env.RDS_DB_NAME;
 var RDS_USERNAME = process.env.RDS_USERNAME;
 var RDS_PASSWORD = process.env.RDS_PASSWORD;
 var RDS_PORT = process.env.RDS_PORT;
+
+var CI = proccess.env.CI;
 if (RDS_HOSTNAME) {
     var sequelize = new Sequelize(RDS_DB_NAME, RDS_USERNAME, RDS_PASSWORD, {
         host: RDS_HOSTNAME,
         post: RDS_PORT,
+        dialect: 'postgres',
+        pool: {
+            max: 5,
+            min: 0,
+            idle: 10000
+        }
+    });
+}
+else if (CI) {
+    var sequelize = new Sequelize('circle_ci', {
+        host: 'localhost',
         dialect: 'postgres',
         pool: {
             max: 5,
