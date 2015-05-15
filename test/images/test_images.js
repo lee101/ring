@@ -25,7 +25,6 @@ describe('image', function () {
         })
     });
     it('#gets deltaE', function () {
-        var color = image_utils.getBackgroundColor(tiffanyRingLarge);
         var black = {
             r: 0,
             g: 0,
@@ -44,8 +43,18 @@ describe('image', function () {
                 b: 0
             });
         expect(blackVSwhite).to.be.above(blackVSred)
-
     });
+    it('crops', function () {
+        this.timeout(50000);
+        image_utils.cropImage(tiffanyRingLarge, function (image) {
+            image.
+            writeFile('./test/images/tiffany-done-cropping.jpeg', function (err) {
+                // check err...
+                // done.
+            });
+        })
+    });
+
 });
 
 

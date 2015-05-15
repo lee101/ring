@@ -81,18 +81,63 @@ image_utils = (function () {
     };
 
     self.isSameColor = function (colorA, colorB) {
-        ;
+        return self.deltaE(colorA, colorB) <= 4
     };
 
-    self.cropImage = function (image) {
+    self.cropImage = function (image, callback) {
         var backgroundColor = self.getBackgroundColor(image);
+        var minX = Infinity;
+        var minY = Infinity;
+        var maxX = 0;
+        var maxY = 0;
+
         for (var x = 0; x < image.width(); x++) {
             for (var y = 0; y < image.height(); y++) {
                 var color = image.getPixel(x, y);
-
-                ;
+                if (self.isSameColor(backgroundColor, color)) {
+                    continue;
+                }
+                minX = Math.min(minX, x);
+                minY = Math.min(minY, y);
+                maxX = Math.max(maxX, x);
+                maxY = Math.max(maxY, y);
             }
         }
+        //square up, add padding, ensure crop is inside the image
+        var width = maxX - minX;
+        var height = maxY - minY;
+        var extraSpace = Math.abs(width - height);
+        if (width > height) {
+            minY -= extraSpace/2;
+            maxY += extraSpace/2;
+        }
+        else if (height > width) {
+            minX -= extraSpace/2;
+            maxX += extraSpace/2;
+        }
+        //add padding
+
+        width = maxX - minX;
+        height = maxY - minY;
+
+        minY -= height * 0.05;
+        maxY += height * 0.05;
+        minX -= width * 0.05;
+        maxX += width * 0.05;
+
+        minY = Math.floor(minY);
+        maxY = Math.floor(maxY);
+        minX = Math.floor(minX);
+        maxX = Math.floor(maxX);
+
+        minY = Math.max(minY, 0);
+        maxY = Math.min(maxY, image.height());
+        minX = Math.max(minX, 0);
+        maxX = Math.min(maxX, image.width());
+
+        image.crop(minX, minY, maxX, maxY, function (err, image) {
+            callback(image);
+        })
     };
 
     return self;
