@@ -4,6 +4,8 @@ var cheerio = require('cheerio');
 
 
 var crawlers = require('../../crawlers/crawlers');
+var dao = require('../../models/dao');
+
 
 var mHillDetailRingSilver;
 var mHillRingGalleryPage;
@@ -54,9 +56,10 @@ describe('crawlers', function () {
             expect(pageUrls.length).to.equal(12)
         });
         it('#parseDetailPage(dom) should create a ring', function () {
-            var ring = crawlers.michealHill.parseDetailPage('http://page.url/place', mHillDetailRingSilver);
-            ring.then(function (item) {
-                expect(item.title).to.equal('Ring with Enhanced Black Diamonds in Sterling Silver')
+            crawlers.michealHill.parseDetailPage('http://page.url/place', mHillDetailRingSilver);
+            var ringsTitle = 'Ring with Enhanced Black Diamonds in Sterling Silver';
+            dao.getRingByTitle(ringsTitle).then(function (databaseRing) {
+                expect(databaseRing.title).to.equal(ringsTitle)
             })
         })
     });

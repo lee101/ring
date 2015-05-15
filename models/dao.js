@@ -4,16 +4,15 @@ var fixtures = require('../app/scripts/fixtures');
 var dao = (function () {
     var self = {};
 
+    self.getRingByTitle = function (title) {
+        return self.getRing(zutils.urlencode(title))
+    };
     self.getRing = function (urltitle) {
-        return {
-            urltitle: 'asdf-asdf',
-            title: 'asdf asdf',
-            price: 20,
-            image: '/mstile-310x310.png',
-            description: 'some description',
-            tags: ['ring', 'gold', 'diamond'],
-            url: 'http://asdfasdfasdf.originalsite'
-        };
+        return Ring.find({
+            where: {
+                urltitle: urltitle
+            }
+        });
     };
     self.getRingsFromRequest = function (req) {
         var queryObj = {

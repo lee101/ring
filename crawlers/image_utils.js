@@ -62,11 +62,18 @@ image_utils = (function () {
             g: g / totalNumPixels,
             b: b / totalNumPixels
         }
-    }
+    };
 
     self.cropImage = function (image) {
-        ;
-    }
+        var backgroundColor = self.getBackgroundColor(image);
+        for (var x = 0; x < image.width(); x++) {
+            for (var y = 0; y < image.height(); y++) {
+                var color = image.getPixel(x, y);
+
+                ;
+            }
+        }
+    };
 
     return self;
 })();
