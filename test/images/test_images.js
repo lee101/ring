@@ -47,10 +47,8 @@ describe('image', function () {
     it('crops', function () {
         this.timeout(50000);
         image_utils.cropImage(tiffanyRingLarge, function (image) {
-            image.
-            writeFile('./test/images/tiffany-done-cropping.jpeg', function (err) {
-                // check err...
-                // done.
+            image.writeFile('test/images/tiffany-done-cropping.jpeg', function (err) {
+                console.log(err)
             });
         })
     });
