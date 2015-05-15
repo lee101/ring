@@ -1,4 +1,6 @@
 var lwip = require('lwip');
+var convert = require("color-convert");
+var DeltaE = require('delta-e');
 
 image_utils = (function () {
     "use strict";
@@ -62,6 +64,24 @@ image_utils = (function () {
             g: g / totalNumPixels,
             b: b / totalNumPixels
         }
+    };
+    self.deltaE = function (colorA, colorB) {
+        var labA = convert.rgb2lab(colorA.r, colorA.g, colorA.b);
+        var labB = convert.rgb2lab(colorB.r, colorB.g, colorB.b);
+
+        return DeltaE.getDeltaE00({
+            L: labA[0],
+            A: labA[1],
+            B: labA[2],
+        }, {
+            L: labB[0],
+            A: labB[1],
+            B: labB[2],
+        })
+    };
+
+    self.isSameColor = function (colorA, colorB) {
+        ;
     };
 
     self.cropImage = function (image) {
