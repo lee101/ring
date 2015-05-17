@@ -1,3 +1,6 @@
+var request = require('request');
+var fs = require('fs');
+
 var zutils = require('../app/scripts/zutils');
 var fixtures = require('../app/scripts/fixtures');
 
