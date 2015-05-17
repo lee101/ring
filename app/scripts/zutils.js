@@ -16,6 +16,24 @@ var zutils = (function () {
         return num.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",").replace(/^/g, "$ ");
     };
 
+    self.getStringAfterLast = function (base, str) {
+        var index = base.lastIndexOf(str);
+        if (index == -1) {
+            return '';
+        }
+        return base.substring(index + str.length)
+    };
+
+    self.getFileExtension = function (str) {
+        var stringAfterLastDot = self.getStringAfterLast(str, '.');
+        if (stringAfterLastDot) {
+            return '.' + stringAfterLastDot;
+        }
+        else {
+            return '';
+        }
+    }
+
     self.urlencode = function (name) {
         return name.replace(/\s/g, '-')
             .replace(/[\.\t\,\:;\(\)'@!\\\?#/<>&]/g, '')

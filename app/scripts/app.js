@@ -12,6 +12,9 @@ APP = (function (document) {
             if (extraData.company != 'all') {
                 var companiesMenu = document.querySelector('#companies-menu');
                 companiesMenu.unselectAllItems();
+                viewState.changeData({
+                    company: 'all'
+                })
             }
             else {
                 return;

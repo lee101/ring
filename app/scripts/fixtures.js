@@ -32,6 +32,14 @@ var fixtures = (function () {
             }
         }
     };
+    self.getCompanyById = function (id) {
+        for (var i = 0; i < self.companies.length; i++) {
+            var company = self.companies[i];
+            if (company.id === id) {
+                return company;
+            }
+        }
+    };
     self.tags = [
         'ring',
         'gold',

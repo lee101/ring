@@ -61,6 +61,14 @@ var dao = (function () {
                 config.price += 1;
             }
         }
+        var companyName = zutils.urlencode(fixtures.getCompanyById(config.company_id).name);
+        request({
+            url: config.url,
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36'
+            }
+        }).pipe(fs.createWriteStream('images/' + companyName +
+            config.urltitle + zutils.getFileExtension(config.url)));
 
 
         var savedRing = Ring.create(config).get({plain: true});
