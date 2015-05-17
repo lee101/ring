@@ -10,11 +10,14 @@ APP = (function (document) {
         var $loadMore = $('.load-more');
         if (!viewState.changeData(extraData)) {
             if (extraData.company != 'all') {
-                var companiesMenu = document.querySelector('#companies-menu');
-                companiesMenu.unselectAllItems();
+                setTimeout(function () {
+                    var companiesMenu = document.querySelector('#companies-menu');
+                    companiesMenu.unselectAllItems();
+                }, 100);
                 viewState.changeData({
                     company: 'all'
                 })
+
             }
             else {
                 return;
@@ -42,7 +45,7 @@ APP = (function (document) {
                 }
             },
             error: errorFunc
-        })
+        });
     };
 
 
