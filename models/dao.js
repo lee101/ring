@@ -74,9 +74,10 @@ var dao = (function () {
             if (!error && response.statusCode == 200) {
                 var extension = zutils.getFileExtensionForContentType(response.headers['content-type']);
                 var companyName = zutils.urlencode(fixtures.getCompanyById(config.company_id).name);
-                fs.writeFile('images/' + companyName + '/' +
-                config.urltitle + extension, body, function (err) {
-                    ;
+                var fileName = 'images/' + companyName + '/' +
+                    config.urltitle + extension;
+                fs.writeFile(fileName, body, function (err) {
+
                 })
             } else {
                 console.log(error);
