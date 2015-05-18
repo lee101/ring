@@ -32,14 +32,17 @@ var zutils = (function () {
         else {
             return '';
         }
-    }
+    };
     self.contentTypes = {
         'image/jpeg': '.jpg',
-        'image/jpeg': '.jpg',
-    }
+        'image/jpg': '.jpg',
+        'image/png': '.png',
+        'image/gif': '.gif',
+        'image/bmp': '.bmp'
+    };
     self.getFileExtensionForContentType = function (type) {
-        return
-    }
+        return self.contentTypes[type];
+    };
 
     self.urlencode = function (name) {
         return name.replace(/\s/g, '-')

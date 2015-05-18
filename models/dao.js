@@ -64,7 +64,7 @@ var dao = (function () {
                 config.price += 1;
             }
         }
-        var companyName = zutils.urlencode(fixtures.getCompanyById(config.company_id).name);
+
         request({
             url: config.url,
             headers: {
@@ -72,15 +72,18 @@ var dao = (function () {
             }
         }, function (error, response, body) {
             if (!error && response.statusCode == 200) {
-                zutils.getFileExtensionForContentType(response.headers['content-type'])
-
+                var extension = zutils.getFileExtensionForContentType(response.headers['content-type']);
+                var companyName = zutils.urlencode(fixtures.getCompanyById(config.company_id).name);
+                fs.writeFile('images/' + companyName + '/' +
+                config.urltitle + extension, body, function (err) {
+                    ;
+                })
             } else {
                 console.log(error);
                 console.log('error returned from ' + this.href);
                 return console.log(response);
             }
-        }).pipe(fs.createWriteStream('images/' + companyName + '/' +
-            config.urltitle + zutils.getFileExtension(config.url)));
+        });
 
 
         var savedRing = Ring.create(config).get({plain: true});
