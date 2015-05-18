@@ -140,6 +140,18 @@ image_utils = (function () {
         })
     };
 
+    self.processFile = function (fileName) {
+        lwip.open(fileName, function (err, image) {
+            self.cropImage(image, function (image) {
+                image.writeFile(fileName, function (err) {
+                    if (err) {
+                        console.log(err)
+                    }
+                })
+            })
+        });
+    }
+
     return self;
 })();
 

@@ -3,6 +3,7 @@ var fs = require('fs');
 
 var zutils = require('../app/scripts/zutils');
 var fixtures = require('../app/scripts/fixtures');
+var image_utils = require('../crawlers/image_utils');
 
 var dao = (function () {
     var self = {};
@@ -66,7 +67,7 @@ var dao = (function () {
         }
 
         request({
-            url: config.url,
+            url: config.image,
             headers: {
                 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36'
             }
@@ -77,7 +78,7 @@ var dao = (function () {
                 var fileName = 'images/' + companyName + '/' +
                     config.urltitle + extension;
                 fs.writeFile(fileName, body, function (err) {
-
+                    image_utils.processFile(fileName)
                 })
             } else {
                 console.log(error);
