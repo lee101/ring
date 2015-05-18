@@ -132,10 +132,10 @@ var crawlers = (function () {
 
 
     self.tiffany = (function () {
-        var paSelf = {};
+        var tfSelf = {};
         var baseUrl = 'http://www.tiffany.com';
 
-        paSelf.getPages = function () {
+        tfSelf.getPages = function () {
             request({
                 url: baseUrl + '/Shopping/CategoryBrowse.aspx?cid=287466',
                 headers: {
@@ -145,7 +145,7 @@ var crawlers = (function () {
                 if (!error && response.statusCode == 200) {
                     var $content = cheerio.load(body);
                     var pageUrls = self.getPageUrls(baseUrl, $content, 'noscript li', 'a');
-                    self.parsePageUrls(pageUrls, paSelf.parseDetailPage);
+                    self.parsePageUrls(pageUrls, tfSelf.parseDetailPage);
                 } else {
                     console.log(error);
                     console.log('error returned from ' + this.href);
@@ -155,19 +155,25 @@ var crawlers = (function () {
         };
 
 
-        paSelf.parseDetailPage = function (pageUrl, $page) {
-            var ring = {
-                title: $page('title').text(),
-                description: $page('meta[name="description"]').attr('content'),
-                image: self.getImage(baseUrl, $page),
-                url: pageUrl,
-                company_id: fixtures.tiffany.id,
-                price: self.getFirstPrice($page('#divItemTotalAndButton').text())
-            };
-            return dao.createRing(ring);
+        tfSelf.parseDetailPage = function (pageUrl, $page) {
+            try {
+                var ring = {
+                    title: $page('title').text(),
+                    description: $page('meta[name="description"]').attr('content'),
+                    image: self.getImage(baseUrl, $page),
+                    url: pageUrl,
+                    company_id: fixtures.tiffany.id,
+                    price: self.getFirstPrice($page('#divItemTotalAndButton').text())
+                };
+                return dao.createRing(ring);
+            } catch(e) {
+                console.log('error parsing detail page at url:' + pageUrl);
+                console.log(e)
+            }
+
         };
 
-        return paSelf;
+        return tfSelf;
     })();
 
     self.getTitle = function ($dom) {

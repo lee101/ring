@@ -33,6 +33,13 @@ var zutils = (function () {
             return '';
         }
     }
+    self.contentTypes = {
+        'image/jpeg': '.jpg',
+        'image/jpeg': '.jpg',
+    }
+    self.getFileExtensionForContentType = function (type) {
+        return
+    }
 
     self.urlencode = function (name) {
         return name.replace(/\s/g, '-')
