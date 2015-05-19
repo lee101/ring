@@ -3,11 +3,9 @@
 // Include Gulp & Tools We'll Use
 var gulp = require('gulp');
 var gutil = require('gulp-util');
-var $ = require('gulp-load-plugins')();
+var gulpPlugins = require('gulp-load-plugins')();
 var del = require('del');
 var runSequence = require('run-sequence');
-var browserSync = require('browser-sync');
-var reload = browserSync.reload;
 var merge = require('merge-stream');
 var path = require('path');
 
@@ -27,18 +25,18 @@ var styleTask = function (stylesPath, srcs) {
     return gulp.src(srcs.map(function (src) {
         return path.join('app', stylesPath, src);
     }))
-        .pipe($.changed(stylesPath, {extension: '.scss'}))
-        .pipe($.rubySass({
+        .pipe(gulpPlugins.changed(stylesPath, {extension: '.scss'}))
+        .pipe(gulpPlugins.rubySass({
             style: 'expanded',
             precision: 10
         })
             .on('error', console.error.bind(console))
     )
-        .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
+        .pipe(gulpPlugins.autoprefixer(AUTOPREFIXER_BROWSERS))
         .pipe(gulp.dest('.tmp/' + stylesPath))
-        .pipe($.if('*.css', $.cssmin()))
+        .pipe(gulpPlugins.if('*.css', gulpPlugins.cssmin()))
         .pipe(gulp.dest('dist/' + stylesPath))
-        .pipe($.size({title: stylesPath}));
+        .pipe(gulpPlugins.size({title: stylesPath}));
 };
 
 // Compile and Automatically Prefix Stylesheets
@@ -57,22 +55,20 @@ gulp.task('jshint', function () {
         'app/elements/**/*.js',
         'app/elements/**/*.html'
     ])
-        .pipe(reload({stream: true, once: true}))
-        .pipe($.jshint.extract()) // Extract JS from .html files
-        .pipe($.jshint())
-        .pipe($.jshint.reporter('jshint-stylish'))
-        .pipe($.if(!browserSync.active, $.jshint.reporter('fail')));
+        .pipe(gulpPlugins.jshint.extract()) // Extract JS from .html files
+        .pipe(gulpPlugins.jshint())
+        .pipe(gulpPlugins.jshint.reporter('jshint-stylish'))
 });
 
 // Optimize Images
 gulp.task('images', function () {
     return gulp.src('app/images/**/*')
-        .pipe($.cache($.imagemin({
+        .pipe(gulpPlugins.cache(gulpPlugins.imagemin({
             progressive: true,
             interlaced: true
         })))
         .pipe(gulp.dest('dist/images'))
-        .pipe($.size({title: 'images'}));
+        .pipe(gulpPlugins.size({title: 'images'}));
 });
 
 // Copy All Files At The Root Level (app)
@@ -95,43 +91,43 @@ gulp.task('copy', function () {
         .pipe(gulp.dest('dist/scripts'));
 
     var vulcanized = gulp.src(['app/elements/elements.html'])
-        .pipe($.rename('elements.vulcanized.html'))
+        .pipe(gulpPlugins.rename('elements.vulcanized.html'))
         .pipe(gulp.dest('dist/elements'));
 
-    return merge(app, bower, scripts, elements, vulcanized).pipe($.size({title: 'copy'}));
+    return merge(app, bower, scripts, elements, vulcanized).pipe(gulpPlugins.size({title: 'copy'}));
 });
 
 // Copy Web Fonts To Dist
 gulp.task('fonts', function () {
     return gulp.src(['app/fonts/**'])
         .pipe(gulp.dest('dist/fonts'))
-        .pipe($.size({title: 'fonts'}));
+        .pipe(gulpPlugins.size({title: 'fonts'}));
 });
 
 // Scan Your HTML For Assets & Optimize Them
 gulp.task('html', function () {
-    var assets = $.useref.assets({searchPath: ['.tmp', 'app', 'dist']});
+    var assets = gulpPlugins.useref.assets({searchPath: ['.tmp', 'app', 'dist']});
 
     return gulp.src(['app/**/*.html', '!app/{elements,test}/**/*.html'])
         // Replace path for vulcanized assets
-        .pipe($.if('*.html', $.replace('elements/elements.html', 'elements/elements.vulcanized.html')))
+        .pipe(gulpPlugins.if('*.html', gulpPlugins.replace('elements/elements.html', 'elements/elements.vulcanized.html')))
         .pipe(assets)
         // Concatenate And Minify JavaScript
-        .pipe($.if('*.js', $.uglify({preserveComments: 'some'})))
+        .pipe(gulpPlugins.if('*.js', gulpPlugins.uglify({preserveComments: 'some'})))
         // Concatenate And Minify Styles
         // In case you are still using useref build blocks
-        .pipe($.if('*.css', $.cssmin()))
+        .pipe(gulpPlugins.if('*.css', gulpPlugins.cssmin()))
         .pipe(assets.restore())
-        .pipe($.useref())
+        .pipe(gulpPlugins.useref())
         // Minify Any HTML
-        .pipe($.if('*.html', $.minifyHtml({
+        .pipe(gulpPlugins.if('*.html', gulpPlugins.minifyHtml({
             quotes: true,
             empty: true,
             spare: true
         })))
         // Output Files
         .pipe(gulp.dest('dist'))
-        .pipe($.size({title: 'html'}));
+        .pipe(gulpPlugins.size({title: 'html'}));
 });
 
 // Vulcanize imports
@@ -139,64 +135,30 @@ gulp.task('vulcanize', function () {
     var DEST_DIR = 'dist/elements';
 
     return gulp.src('dist/elements/elements.vulcanized.html')
-        .pipe($.vulcanize({
+        .pipe(gulpPlugins.vulcanize({
             dest: DEST_DIR,
             strip: true,
             inline: true
         }))
         .pipe(gulp.dest(DEST_DIR))
-        .pipe($.size({title: 'vulcanize'}));
+        .pipe(gulpPlugins.size({title: 'vulcanize'}));
 });
 
 // Clean Output Directory
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
-// Watch Files For Changes & Reload
-gulp.task('serve', ['styles', 'elements'], function () {
-    browserSync({
-        notify: false,
-        // Run as an https by uncommenting 'https: true'
-        // Note: this uses an unsigned certificate which on first access
-        //       will present a certificate warning in the browser.
-        // https: true,
-        server: {
-            baseDir: ['.tmp', 'app'],
-            routes: {
-                '/bower_components': 'bower_components'
-            }
-        }
-    });
-
-    gulp.watch(['app/**/*.html'], reload);
-    gulp.watch(['app/styles/**/*.{scss,css}'], ['styles', reload]);
-    gulp.watch(['app/elements/**/*.{scss,css}'], ['elements', reload]);
-    gulp.watch(['app/{scripts,elements}/**/*.js'], ['jshint']);
-    gulp.watch(['app/images/**/*'], reload);
-});
-
-// Build and serve the output from the dist build
-gulp.task('serve:dist', ['default'], function () {
-    browserSync({
-        notify: false,
-        // Run as an https by uncommenting 'https: true'
-        // Note: this uses an unsigned certificate which on first access
-        //       will present a certificate warning in the browser.
-        // https: true,
-        server: 'dist'
-    });
-});
 
 gulp.task('nunjucks', function () {
     gulp.src('./views/shared/**/*.jinja2')
-        .pipe($.minifyHtml({
+        .pipe(gulpPlugins.minifyHtml({
             quotes: true,
             empty: true,
             spare: true
         }))
-        .pipe($.nunjucks()).on('error', function (err) {
+        .pipe(gulpPlugins.nunjucks()).on('error', function (err) {
             gutil.log(err.message);
         })
-        .pipe($.concat('templates.js'))
+        .pipe(gulpPlugins.concat('templates.js'))
         .pipe(gulp.dest('./app/scripts/templates'));
 });
 
@@ -216,13 +178,6 @@ gulp.task('default', ['clean'], function (cb) {
     gulp.watch(['app/images/**/*'], ['images']);
     gulp.watch(['app/fonts/**/*'], ['fonts']);
 });
-
-// Load tasks for web-component-tester
-// Adds tasks for `gulp test:local` and `gulp test:remote`
-try {
-    require('web-component-tester').gulp.init(gulp);
-} catch (err) {
-}
 
 // Load custom tasks from the `tasks` directory
 try {

@@ -3,7 +3,6 @@ var fs = require('fs');
 
 var zutils = require('../app/scripts/zutils');
 var fixtures = require('../app/scripts/fixtures');
-var image_utils = require('../crawlers/image_utils');
 
 var dao = (function () {
     var self = {};
@@ -54,6 +53,12 @@ var dao = (function () {
         var rings = Ring.findAll(config);
         return rings;
     };
+    self.getAllRings = function () {
+        var rings = Ring.findAll({
+            //group: ['image']
+        });
+        return rings;
+    };
 
     self.createRing = function (config) {
         config.title = config.title.trim();
@@ -65,28 +70,6 @@ var dao = (function () {
                 config.price += 1;
             }
         }
-
-        request({
-            url: config.image,
-            headers: {
-                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36'
-            }
-        }, function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                var extension = zutils.getFileExtensionForContentType(response.headers['content-type']);
-                var companyName = zutils.urlencode(fixtures.getCompanyById(config.company_id).name);
-                var fileName = 'images/' + companyName + '/' +
-                    config.urltitle + extension;
-                fs.writeFile(fileName, body, function (err) {
-                    image_utils.processFile(fileName)
-                })
-            } else {
-                console.log(error);
-                console.log('error returned from ' + this.href);
-                return console.log(response);
-            }
-        });
-
 
         var savedRing = Ring.create(config).get({plain: true});
 
