@@ -54,7 +54,7 @@ APP = (function (document) {
         $loadMore.attr('disabled', 'disabled');
         $loadMore.html('<paper-spinner class="yellow" active="" role="progressbar" aria-label="loading"></paper-spinner>');
         self.offset += fixtures.results_limit;
-        var searchData = self.getData();
+        var searchData = viewState.getData();
         searchData.offset = self.offset;
 
         var errorFunc = function (data) {
@@ -144,6 +144,15 @@ APP = (function (document) {
         });
 
     });
+
+    self.thumbFallback = function (img, url) {
+        if (img.src != '/images/ring512-rotated.png' && img.src != url) {
+            img.src = url;
+        }
+        else if (img.src != '/images/ring512-rotated.png') {
+            img.src = '/images/ring512-rotated.png';
+        }
+    }
 
 
     return self;

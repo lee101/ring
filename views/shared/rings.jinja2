@@ -1,6 +1,6 @@
-{% for thumb in thumbs %}
-    <a href="{{ thumb.url }}" title="{{ thumb.title }}" target="_blank">
-        <img alt="$ {{ thumb.price }}" src="{{ thumb.image }}"
-             onerror="if (this.src != '/images/ring512-rotated.png') this.src = '/images/ring512-rotated.png';"/>
+{% for ring in thumbs %}
+    <a href="{{ ring.url }}" title="{{ ring.title }}" target="_blank">
+        <img alt="$ {{ ring.price }}" src="http://cdn.ring.nz/{{ zutils.urlencode(fixtures.getCompanyById(ring.company_id).name) }}/{{ ring.urltitle }}.jpg"
+             onerror="APP.thumbFallback(this, '{{ ring.image }}')"/>
     </a>
 {% endfor %}

@@ -20,7 +20,7 @@ function GetRingImage(ring) {
     }, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             var extension = zutils.getFileExtensionForContentType(response.headers['content-type']);
-            var companyName = zutils.urlencode(fixtures.getCompanyById(ring.company_id).name);
+            var companyName = fixtures.getCompanyUrlTitle(ring);
             var fileName = 'images/raw/' + companyName + '/' +
                 ring.urltitle + extension;
             request.get({

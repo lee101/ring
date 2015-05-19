@@ -8,7 +8,7 @@ var t_3 = runtime.contextOrFrameLookup(context, frame, "thumbs");
 if(t_3) {var t_2 = t_3.length;
 for(var t_1=0; t_1 < t_3.length; t_1++) {
 var t_4 = t_3[t_1];
-frame.set("thumb", t_4);
+frame.set("ring", t_4);
 frame.set("loop.index", t_1 + 1);
 frame.set("loop.index0", t_1);
 frame.set("loop.revindex", t_2 - t_1);
@@ -22,9 +22,13 @@ output += "\" title=\"";
 output += runtime.suppressValue(runtime.memberLookup((t_4),"title", env.opts.autoescape), env.opts.autoescape);
 output += "\" target=\"_blank\"><img alt=\"$ ";
 output += runtime.suppressValue(runtime.memberLookup((t_4),"price", env.opts.autoescape), env.opts.autoescape);
-output += "\" src=\"";
+output += "\" src=\"http://cdn.ring.nz/";
+output += runtime.suppressValue((lineno = 0, colno = 146, runtime.callWrap(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "zutils")),"urlencode", env.opts.autoescape), "zutils[\"urlencode\"]", [runtime.memberLookup(((lineno = 0, colno = 170, runtime.callWrap(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "fixtures")),"getCompanyById", env.opts.autoescape), "fixtures[\"getCompany\"]", [runtime.memberLookup((t_4),"company_id", env.opts.autoescape)]))),"name", env.opts.autoescape)])), env.opts.autoescape);
+output += "/";
+output += runtime.suppressValue(runtime.memberLookup((t_4),"urltitle", env.opts.autoescape), env.opts.autoescape);
+output += ".jpg\" onerror=\"APP.thumbFallback(this, '";
 output += runtime.suppressValue(runtime.memberLookup((t_4),"image", env.opts.autoescape), env.opts.autoescape);
-output += "\" onerror=\"if (this.src != '/images/ring512-rotated.png') this.src = '/images/ring512-rotated.png';\"></a> ";
+output += "')\"></a> ";
 ;
 }
 }

@@ -95,6 +95,14 @@ var fixtures = (function () {
         5000,
         7500
     ];
+    self.getCompanyUrlTitle = function (ring) {
+        return zutils.urlencode(fixtures.getCompanyById(ring.company_id).name)
+    };
+
+    self.getRingImageUrl = function (ring) {
+        return 'http://cdn.ring.nz/' + self.getCompanyUrlTitle(ring) + '/' + ring.urltitle + '.jpg'
+    };
+
     return self;
 })();
 

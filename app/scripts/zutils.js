@@ -72,10 +72,13 @@ var zutils = (function () {
             url: window.location.href,
             urlencode: encodeURIComponent,
             window: window,
+            fixtures: fixtures,
+            zutils: self,
             client_side: true
         });
         return nunjucks.render(template, opts);
     };
+
 
     return self;
 })();
