@@ -148,9 +148,11 @@ APP = (function (document) {
     self.thumbFallback = function (img, url) {
         if (img.src != '/images/ring512-rotated.png' && img.src != url) {
             img.src = url;
+            $('#gallery-tiles').justifiedGallery('norewind');
         }
         else if (img.src != '/images/ring512-rotated.png') {
             img.src = '/images/ring512-rotated.png';
+            $('#gallery-tiles').justifiedGallery('norewind');
         }
     }
 
