@@ -109,6 +109,8 @@ APP = (function (document) {
 
     app.addEventListener('template-bound', function () {
 
+        search.init();
+
         self.sliderChange = $.debounce(200, self.searchChanged);
         var firstCall = true;
 

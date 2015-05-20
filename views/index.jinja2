@@ -53,6 +53,7 @@
     <script src="/bower_components/jquery/dist/jquery.min.js"></script>
 
     <script src="/bower_components/Justified-Gallery/dist/js/jquery.justifiedGallery.js"></script>
+    <script src="/bower_components/typeahead.js/dist/typeahead.jquery.min.js"></script>
     <script src="/bower_components/jquery-nstSlider/dist/jquery.nstSlider.js"></script>
     <script src="/bower_components/nunjucks/browser/nunjucks-slim.min.js"></script>
 
@@ -182,6 +183,7 @@
             <core-toolbar class="main-core-toolbar">
                 <paper-icon-button icon="menu" core-drawer-toggle></paper-icon-button>
                 <h2>All Rings</h2>
+                <!--<input class="typeahead" type="text" placeholder="Search Rings">-->
             </core-toolbar>
 
             <!-- Main Content -->
@@ -201,6 +203,7 @@
 </template>
 
 <script src="/scripts/zutils.js"></script>
+<script src="/scripts/search.js"></script>
 <!-- build:js scripts/app.js -->
 <script src="/scripts/app.js"></script>
 <!-- endbuild-->

@@ -36,7 +36,7 @@
     "gulp-imagemin": "^1.0.0",
     "gulp-jshint": "^1.6.3",
     "gulp-less": "^3.0.2",
-    "gulp-load-plugins": "^0.5.3",
+    "gulp-load-plugins": "^0.10.0",
     "gulp-minify-html": "^0.1.4",
     "gulp-nunjucks": "^1.0.3",
     "gulp-rename": "^1.2.0",
@@ -57,7 +57,7 @@
     "psi": "^1.0.4",
     "require-dir": "^0.1.0",
     "run-sequence": "^0.3.6",
-    "sinon": "^1.14.1",
+    "sinon": "^1.14.1"
   },
   "engines": {
     "node": ">=0.10.0"

@@ -53,10 +53,11 @@ var dao = (function () {
         var rings = Ring.findAll(config);
         return rings;
     };
-    self.getAllRings = function () {
-        var rings = Ring.findAll({
-            //group: ['image']
-        });
+    self.getAllRings = function (config) {
+        if (typeof config === 'undefined') {
+            config = {}
+        }
+        var rings = Ring.findAll(config);
         return rings;
     };
 
