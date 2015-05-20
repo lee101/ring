@@ -1,28 +1,29 @@
 APP = (function (document) {
     'use strict';
     var self = {};
-
-    self.getSearchData = function () {
-        var searchData = {};
-        if (self.minPrice !== 0) {
-            searchData.minPrice = self.minPrice;
-        }
-        if (self.maxPrice !== priceHistogram[priceHistogram.length - 1]) {
-            searchData.maxPrice = self.maxPrice;
-        }
-        searchData.offset = self.offset;
-
-        return searchData;
-    };
-
+    self.offset = 0;
 
     self.searchChanged = function (extraData) {
         if (typeof extraData == 'undefined') {
             extraData = {};
         }
         var $loadMore = $('.load-more');
-        var searchData = self.getSearchData();
-        searchData = $.extend(searchData, extraData);
+        if (!viewState.changeData(extraData)) {
+            if (extraData.company != 'all') {
+                setTimeout(function () {
+                    var companiesMenu = document.querySelector('#companies-menu');
+                    companiesMenu.unselectAllItems();
+                }, 100);
+                viewState.changeData({
+                    company: 'all'
+                })
+
+            }
+            else {
+                return;
+            }
+        }
+        var searchData = viewState.getData();
 
         $('#main-spinner').attr('active', '');
         self.offset = 0;
@@ -44,10 +45,8 @@ APP = (function (document) {
                 }
             },
             error: errorFunc
-        })
+        });
     };
-
-    self.offset = 0;
 
 
     self.nextPage = function (evt) {
@@ -55,7 +54,8 @@ APP = (function (document) {
         $loadMore.attr('disabled', 'disabled');
         $loadMore.html('<paper-spinner class="yellow" active="" role="progressbar" aria-label="loading"></paper-spinner>');
         self.offset += fixtures.results_limit;
-        var searchData = self.getSearchData();
+        var searchData = viewState.getData();
+        searchData.offset = self.offset;
 
         var errorFunc = function (data) {
             $loadMore.html('No more results');
@@ -75,37 +75,7 @@ APP = (function (document) {
             },
             error: errorFunc
         })
-
     };
-
-
-    var priceHistogram = [
-        0,
-        10,
-        25,
-        50,
-        75,
-        100,
-        150,
-        200,
-        250,
-        300,
-        350,
-        400,
-        500,
-        750,
-        1000,
-        1500,
-        2000,
-        3000,
-        4000,
-        5000,
-        7500
-    ];
-    self.minPrice = 0;
-    self.maxPrice = priceHistogram[priceHistogram.length - 1];
-
-    var app = document.querySelector('#app');
 
 
     // Listen for template bound event to know when bindings
@@ -135,7 +105,12 @@ APP = (function (document) {
         $('#main-spinner').removeAttr('active');
     }
 
+    var app = document.querySelector('#app');
+
     app.addEventListener('template-bound', function () {
+
+        search.init();
+
         self.sliderChange = $.debounce(200, self.searchChanged);
         var firstCall = true;
 
@@ -146,18 +121,21 @@ APP = (function (document) {
             "right_grip_selector": ".rightGrip",
             "value_bar_selector": ".bar",
             "value_changed_callback": function (cause, leftValue, rightValue) {
-                self.minPrice = priceHistogram[leftValue];
-                self.maxPrice = priceHistogram[rightValue];
+                var minPrice = fixtures.priceHistogram[leftValue];
+                var maxPrice = fixtures.priceHistogram[rightValue];
 
-                $(this).parent().find('.leftLabel').attr('label', zutils.numberToCurrency(self.minPrice));
-                var rightText = zutils.numberToCurrency(self.maxPrice);
-                if (self.maxPrice == priceHistogram[priceHistogram.length - 1]) {
+                $(this).parent().find('.leftLabel').attr('label', zutils.numberToCurrency(minPrice));
+                var rightText = zutils.numberToCurrency(maxPrice);
+                if (maxPrice == fixtures.priceHistogram[fixtures.priceHistogram.length - 1]) {
                     rightText += '+'
                 }
 
                 $(this).parent().find('.rightLabel').attr('label', rightText);
                 if (!firstCall) {
-                    self.sliderChange();
+                    self.sliderChange({
+                        minPrice: minPrice,
+                        maxPrice: maxPrice
+                    });
                 }
                 else {
                     firstCall = false;
@@ -168,6 +146,17 @@ APP = (function (document) {
         });
 
     });
+
+    self.thumbFallback = function (img, url) {
+        if (img.src != '/images/ring512-rotated.png' && img.src != url) {
+            img.src = url;
+            $('#gallery-tiles').justifiedGallery('norewind');
+        }
+        else if (img.src != '/images/ring512-rotated.png') {
+            img.src = '/images/ring512-rotated.png';
+            $('#gallery-tiles').justifiedGallery('norewind');
+        }
+    }
 
 
     return self;
