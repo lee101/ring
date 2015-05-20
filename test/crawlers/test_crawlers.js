@@ -4,24 +4,29 @@ var cheerio = require('cheerio');
 
 
 var crawlers = require('../../crawlers/crawlers');
+var dao = require('../../models/dao');
+
 
 var mHillDetailRingSilver;
 var mHillRingGalleryPage;
 describe('setup', function () {
 
-    it('sets up', function () {
+    it('sets up', function (done) {
+
         fs.readFile('./test/crawlers/micheal-hill-detail-ring-silver.html', 'utf8', function (err, data) {
             if (err) {
                 return console.log(err);
             }
             mHillDetailRingSilver = cheerio.load(data);
+            fs.readFile('./test/crawlers/micheal-hill-ring-gallery-page.html', 'utf8', function (err, data) {
+                if (err) {
+                    return console.log(err);
+                }
+                mHillRingGalleryPage = cheerio.load(data);
+                done()
+            });
         });
-        fs.readFile('./test/crawlers/micheal-hill-ring-gallery-page.html', 'utf8', function (err, data) {
-            if (err) {
-                return console.log(err);
-            }
-            mHillRingGalleryPage = cheerio.load(data);
-        });
+
     })
 });
 
@@ -51,9 +56,10 @@ describe('crawlers', function () {
             expect(pageUrls.length).to.equal(12)
         });
         it('#parseDetailPage(dom) should create a ring', function () {
-            var ring = crawlers.michealHill.parseDetailPage('http://page.url/place', mHillDetailRingSilver);
-            ring.then(function (ring) {
-                expect(ring.title).to.equal('Ring with Enhanced Black Diamonds in Sterling Silver')
+            crawlers.michealHill.parseDetailPage('http://page.url/place', mHillDetailRingSilver);
+            var ringsTitle = 'Ring with Enhanced Black Diamonds in Sterling Silver';
+            dao.getRingByTitle(ringsTitle).then(function (databaseRing) {
+                expect(databaseRing.title).to.equal(ringsTitle)
             })
         })
     });

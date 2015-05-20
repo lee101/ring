@@ -1,19 +1,21 @@
+var request = require('request');
+var fs = require('fs');
+
 var zutils = require('../app/scripts/zutils');
 var fixtures = require('../app/scripts/fixtures');
 
 var dao = (function () {
     var self = {};
 
+    self.getRingByTitle = function (title) {
+        return self.getRing(zutils.urlencode(title))
+    };
     self.getRing = function (urltitle) {
-        return {
-            urltitle: 'asdf-asdf',
-            title: 'asdf asdf',
-            price: 20,
-            image: '/mstile-310x310.png',
-            description: 'some description',
-            tags: ['ring', 'gold', 'diamond'],
-            url: 'http://asdfasdfasdf.originalsite'
-        };
+        return Ring.find({
+            where: {
+                urltitle: urltitle
+            }
+        });
     };
     self.getRingsFromRequest = function (req) {
         var queryObj = {
@@ -51,6 +53,13 @@ var dao = (function () {
         var rings = Ring.findAll(config);
         return rings;
     };
+    self.getAllRings = function (config) {
+        if (typeof config === 'undefined') {
+            config = {}
+        }
+        var rings = Ring.findAll(config);
+        return rings;
+    };
 
     self.createRing = function (config) {
         config.title = config.title.trim();
@@ -62,7 +71,6 @@ var dao = (function () {
                 config.price += 1;
             }
         }
-
 
         var savedRing = Ring.create(config).get({plain: true});
 
@@ -79,10 +87,23 @@ var RDS_DB_NAME = process.env.RDS_DB_NAME;
 var RDS_USERNAME = process.env.RDS_USERNAME;
 var RDS_PASSWORD = process.env.RDS_PASSWORD;
 var RDS_PORT = process.env.RDS_PORT;
+
+var CI = process.env.CI;
 if (RDS_HOSTNAME) {
     var sequelize = new Sequelize(RDS_DB_NAME, RDS_USERNAME, RDS_PASSWORD, {
         host: RDS_HOSTNAME,
         post: RDS_PORT,
+        dialect: 'postgres',
+        pool: {
+            max: 5,
+            min: 0,
+            idle: 10000
+        }
+    });
+}
+else if (CI) {
+    var sequelize = new Sequelize('circle_ci', null, null, {
+        host: 'localhost',
         dialect: 'postgres',
         pool: {
             max: 5,

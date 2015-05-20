@@ -1,4 +1,5 @@
 @import 'variables';
+@import 'search';
 
 body {
     background: #fafafa;
@@ -34,6 +35,10 @@ h1 {
 
 core-toolbar {
     background-color: #fff;
+}
+
+ring-submenu {
+    margin-left: 20px;
 }
 
 paper-button {

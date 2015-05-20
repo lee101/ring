@@ -32,6 +32,14 @@ var fixtures = (function () {
             }
         }
     };
+    self.getCompanyById = function (id) {
+        for (var i = 0; i < self.companies.length; i++) {
+            var company = self.companies[i];
+            if (company.id === id) {
+                return company;
+            }
+        }
+    };
     self.tags = [
         'ring',
         'gold',
@@ -63,6 +71,31 @@ var fixtures = (function () {
     }
 
     self.results_limit = 50;
+
+    self.priceHistogram = [
+        0,
+        10,
+        25,
+        50,
+        75,
+        100,
+        150,
+        200,
+        250,
+        300,
+        350,
+        400,
+        500,
+        750,
+        1000,
+        1500,
+        2000,
+        3000,
+        4000,
+        5000,
+        7500
+    ];
+
     return self;
 })();
 

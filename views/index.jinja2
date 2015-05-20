@@ -53,6 +53,7 @@
     <script src="/bower_components/jquery/dist/jquery.min.js"></script>
 
     <script src="/bower_components/Justified-Gallery/dist/js/jquery.justifiedGallery.js"></script>
+    <script src="/bower_components/typeahead.js/dist/typeahead.jquery.min.js"></script>
     <script src="/bower_components/jquery-nstSlider/dist/jquery.nstSlider.js"></script>
     <script src="/bower_components/nunjucks/browser/nunjucks-slim.min.js"></script>
 
@@ -63,6 +64,53 @@
         nunjucks.configure({autoescape: true});
     </script>
     <script src="/scripts/fixtures.js"></script>
+    <script>
+        viewState = (function () {
+            'use strict';
+            var self = {};
+
+            self.minPrice = 0;
+            self.maxPrice = fixtures.priceHistogram[fixtures.priceHistogram.length - 1];
+            self.company = 'all';
+
+
+            self.getData = function () {
+                var searchData = {};
+                if (self.minPrice !== 0) {
+                    searchData.minPrice = self.minPrice;
+                }
+                if (self.maxPrice !== fixtures.priceHistogram[fixtures.priceHistogram.length - 1]) {
+                    searchData.maxPrice = self.maxPrice;
+                }
+                if (self.company !== 'all') {
+                    searchData.company = self.company;
+                }
+
+                return searchData;
+            };
+
+            self.changeData = function (newData) {
+                var hasChanged = false;
+                if (newData.company && newData.company != self.company) {
+                    self.company = newData.company;
+                    hasChanged = true;
+                }
+                if (newData.minPrice && newData.minPrice != self.minPrice) {
+                    self.minPrice = newData.minPrice;
+                    hasChanged = true;
+                }
+                if (newData.maxPrice && newData.maxPrice != self.maxPrice) {
+                    self.maxPrice = newData.maxPrice;
+                    hasChanged = true;
+                }
+
+                return hasChanged;
+            };
+            return self;
+
+        })();
+
+    </script>
 
     <!-- will be replaced with elements/elements.vulcanized.html -->
     <link rel="import" href="elements/elements.html">
@@ -107,24 +155,24 @@
                 <div class="rightGrip">
                 </div>
             </div>
+                <ring-submenu id="companies-menu" icon="account-balance" label="Companies"  active>
+                    <div class="item-content">
+                        <!--<a href="asdf"></a>-->
+                    </div>
+                    <core-item label="Pascoes" horizontal="" center="" layout=""
+                        >
+                        <a href="javascript:APP.searchChanged({company: 'pascoes'})"></a>
+                    </core-item>
+                    <core-item label="Micheal Hill" horizontal="" center=""
+                               layout="">
+                        <a href="javascript:APP.searchChanged({company: 'micheal hill'})"></a>
+                    </core-item>
+                    <core-item label="Tiffany" horizontal="" center=""
+                               layout="">
+                        <a href="javascript:APP.searchChanged({company: 'tiffany'})"></a>
+                    </core-item>
+                </ring-submenu>
 
-            <core-submenu id="companies-menu" icon="account-balance" label="Companies" class="core-selected" active>
-                <div class="item-content">
-
-                </div>
-                <core-item class="core-collapse-closed" label="Pascoes" horizontal="" center="" layout=""
-                    >
-                    <a href="javascript:APP.searchChanged({company: 'pascoes'})"></a>
-                </core-item>
-                <core-item class="core-collapse-closed" label="Micheal Hill" horizontal="" center=""
-                           layout="">
-                    <a href="javascript:APP.searchChanged({company: 'micheal hill'})"></a>
-                </core-item>
-                <core-item class="core-collapse-closed" label="Tiffany" horizontal="" center=""
-                           layout="">
-                    <a href="javascript:APP.searchChanged({company: 'tiffany'})"></a>
-                </core-item>
-            </core-submenu>
 
         </core-header-panel>
 
@@ -135,6 +183,7 @@
             <core-toolbar class="main-core-toolbar">
                 <paper-icon-button icon="menu" core-drawer-toggle></paper-icon-button>
                 <h2>All Rings</h2>
+                <!--<input class="typeahead" type="text" placeholder="Search Rings">-->
             </core-toolbar>
 
             <!-- Main Content -->
@@ -154,6 +203,7 @@
 </template>
 
 <script src="/scripts/zutils.js"></script>
+<script src="/scripts/search.js"></script>
 <!-- build:js scripts/app.js -->
 <script src="/scripts/app.js"></script>
 <!-- endbuild-->
