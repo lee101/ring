@@ -39,6 +39,7 @@ core-toolbar {
 
 ring-submenu {
     margin-left: 20px;
+    margin-bottom: 20px;
 }
 
 paper-button {
@@ -161,4 +162,13 @@ paper-spinner.yellow::shadow .circle {
             border-width: 10px;
         }
     }
+}
+
+.sidebar-ad {
+    min-height: 400px;
+}
+
+.main-body-ad {
+    width: 100%;
+    min-height: 500px;
 }
