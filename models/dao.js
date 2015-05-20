@@ -50,6 +50,7 @@ var dao = (function () {
         }
         config.limit = fixtures.results_limit;
         config.offset = config.offset || 0;
+        config.order = 'id * 997 % 41 * 773 % 37 * 1103 % 7 * 599 % 17 * 571 % 23';
         var rings = Ring.findAll(config);
         return rings;
     };
