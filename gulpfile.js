@@ -25,15 +25,11 @@ var styleTask = function (stylesPath, srcs) {
     return gulp.src(srcs.map(function (src) {
         return path.join('app', stylesPath, src);
     }))
-        .pipe(gulpPlugins.changed(stylesPath, {extension: '.scss'}))
-        .pipe(gulpPlugins.rubySass({
-            style: 'expanded',
-            precision: 10
-        })
-            .on('error', console.error.bind(console))
-    )
+        .pipe(gulpPlugins.changed(stylesPath, {extension: '.less'}))
+        .pipe(gulpPlugins.less())
+        .on('error', console.error.bind(console))
+
         .pipe(gulpPlugins.autoprefixer(AUTOPREFIXER_BROWSERS))
-        .pipe(gulp.dest('.tmp/' + stylesPath))
         .pipe(gulpPlugins.if('*.css', gulpPlugins.cssmin()))
         .pipe(gulp.dest('dist/' + stylesPath))
         .pipe(gulpPlugins.size({title: stylesPath}));
@@ -41,11 +37,11 @@ var styleTask = function (stylesPath, srcs) {
 
 // Compile and Automatically Prefix Stylesheets
 gulp.task('styles', function () {
-    return styleTask('styles', ['**/*.css', '*.scss']);
+    return styleTask('styles', ['**/*.css', '*.less']);
 });
 
 gulp.task('elements', function () {
-    return styleTask('elements', ['**/*.css', '**/*.scss']);
+    return styleTask('elements', ['**/*.css', '**/*.less']);
 });
 
 // Lint JavaScript
@@ -172,8 +168,8 @@ gulp.task('default', ['clean'], function (cb) {
         //'vulcanize',
         cb);
     gulp.watch('./views/shared/**/*.jinja2', ['nunjucks']);
-    gulp.watch(['app/styles/**/*.{scss,css}'], ['styles']);
-    gulp.watch(['app/elements/**/*.{scss,css}'], ['elements']);
+    gulp.watch(['app/styles/**/*.{less,css}'], ['styles']);
+    gulp.watch(['app/elements/**/*.{less,css}'], ['elements']);
     gulp.watch(['app/{scripts,elements}/**/*'], ['copy']);
     gulp.watch(['app/images/**/*'], ['images']);
     gulp.watch(['app/fonts/**/*'], ['fonts']);
