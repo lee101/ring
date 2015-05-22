@@ -21,27 +21,16 @@ var AUTOPREFIXER_BROWSERS = [
     'bb >= 10'
 ];
 
-var styleTask = function (stylesPath, srcs) {
-    return gulp.src(srcs.map(function (src) {
-        return path.join('app', stylesPath, src);
-    }))
-        .pipe(gulpPlugins.changed(stylesPath, {extension: '.less'}))
+// Compile and Automatically Prefix Stylesheets
+gulp.task('styles', function () {
+    return gulp.src('app/styles/main.less')
         .pipe(gulpPlugins.less())
         .on('error', console.error.bind(console))
 
         .pipe(gulpPlugins.autoprefixer(AUTOPREFIXER_BROWSERS))
-        .pipe(gulpPlugins.if('*.css', gulpPlugins.cssmin()))
-        .pipe(gulp.dest('dist/' + stylesPath))
-        .pipe(gulpPlugins.size({title: stylesPath}));
-};
-
-// Compile and Automatically Prefix Stylesheets
-gulp.task('styles', function () {
-    return styleTask('styles', ['**/*.css', '*.less']);
-});
-
-gulp.task('elements', function () {
-    return styleTask('elements', ['**/*.css', '**/*.less']);
+        .pipe(gulpPlugins.cssmin())
+        .pipe(gulp.dest('dist/styles'))
+        .pipe(gulpPlugins.size({title: 'styles'}));
 });
 
 // Lint JavaScript
@@ -159,17 +148,18 @@ gulp.task('nunjucks', function () {
 });
 
 // Build Production Files, the Default Task
-gulp.task('default', ['clean'], function (cb) {
+gulp.task('build', ['clean'], function (cb) {
     runSequence(
         ['nunjucks'],
         ['copy', 'styles'],
-        'elements',
         ['images', 'fonts'],
         //'vulcanize',
         cb);
+});
+
+gulp.task('default', ['build'], function (cb) {
     gulp.watch('./views/shared/**/*.jinja2', ['nunjucks']);
     gulp.watch(['app/styles/**/*.{less,css}'], ['styles']);
-    gulp.watch(['app/elements/**/*.{less,css}'], ['elements']);
     gulp.watch(['app/{scripts,elements}/**/*'], ['copy']);
     gulp.watch(['app/images/**/*'], ['images']);
     gulp.watch(['app/fonts/**/*'], ['fonts']);
