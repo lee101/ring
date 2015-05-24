@@ -40,9 +40,9 @@ var search = (function () {
                 source: substringMatcher(fixtures.suggestions)
             });
         if ($(window).height() > 700) {
-            ('#searchbar').focus();
+            $('#searchbar').focus();
             setTimeout(function () {
-                ('#searchbar').select()
+                $('#searchbar').select()
             }, 100);
         }
 
