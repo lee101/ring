@@ -30,7 +30,7 @@ var search = (function () {
         };
     };
     self.init = function () {
-        $('.typeahead').typeahead({
+        $('#searchbar').typeahead({
                 hint: true,
                 highlight: true,
                 minLength: 1
@@ -39,6 +39,13 @@ var search = (function () {
                 name: 'tags',
                 source: substringMatcher(fixtures.suggestions)
             });
+        if ($(window).height() > 700) {
+            ('#searchbar').focus();
+            setTimeout(function () {
+                ('#searchbar').select()
+            }, 100);
+        }
+
     };
 
 
