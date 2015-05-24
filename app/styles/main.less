@@ -102,6 +102,9 @@ paper-button[disabled] {
     .bar {
         opacity: 0.7;
     }
+    core-tooltip::shadow div {
+        cursor: default;
+    }
 }
 
 // Tooltips
@@ -115,6 +118,10 @@ paper-button[disabled] {
     left: @range-slider-width - @range-slider-grip-radius - 4;
 }
 
+core-tooltip::shadow *,
+{
+    cursor: default;
+}
 core-tooltip::shadow div,
 {
     background-color: #607D8B;

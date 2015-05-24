@@ -16,9 +16,15 @@ var search = (function () {
             // contains the substring `q`, add it to the `matches` array
             $.each(strs, function (i, str) {
                 if (substrRegex.test(str)) {
-                    matches.push(str);
+                    matches.push([str, str.indexOf(q)]);
                 }
             });
+            matches.sort(function (a, b) {
+                return a[1] - b[1];
+            });
+            for (var i = 0; i < matches.length; i++) {
+                matches[i] = matches[i][0];
+            }
 
             cb(matches);
         };
@@ -31,7 +37,7 @@ var search = (function () {
             },
             {
                 name: 'tags',
-                source: substringMatcher(fixtures.tags)
+                source: substringMatcher(fixtures.suggestions)
             });
     };
 
