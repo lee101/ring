@@ -42,9 +42,25 @@ var search = (function () {
         if ($(window).height() > 700) {
             $('#searchbar').focus();
             setTimeout(function () {
-                $('#searchbar').select()
+                $('#searchbar').select();
             }, 100);
         }
+        var searchHandler = function () {
+            var search = $.trim($('#searchbar').val());
+            APP.searchChanged({
+                search: search
+            })
+        };
+        var bouncedSearchHandler = $.debounce(300, searchHandler);
+        var changeHandler = function (event) {
+            if (event.which == 13) {
+                searchHandler()
+            }
+            else {
+                bouncedSearchHandler();
+            }
+        };
+        $('#searchbar').on('keydown', changeHandler);
 
     };
 

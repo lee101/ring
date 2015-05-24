@@ -72,6 +72,7 @@
             self.minPrice = 0;
             self.maxPrice = fixtures.priceHistogram[fixtures.priceHistogram.length - 1];
             self.company = 'all';
+            self.search = '';
 
 
             self.getData = function () {
@@ -84,6 +85,9 @@
                 }
                 if (self.company !== 'all') {
                     searchData.company = self.company;
+                }
+                if (self.search !== '') {
+                    searchData.search = self.search;
                 }
 
                 return searchData;
@@ -101,6 +105,10 @@
                 }
                 if (newData.maxPrice && newData.maxPrice != self.maxPrice) {
                     self.maxPrice = newData.maxPrice;
+                    hasChanged = true;
+                }
+                if (newData.search && newData.search != self.search) {
+                    self.search = newData.search;
                     hasChanged = true;
                 }
 
@@ -196,7 +204,9 @@
             <core-toolbar class="main-core-toolbar">
                 <paper-icon-button icon="menu" core-drawer-toggle></paper-icon-button>
                 <h2>All Rings</h2>
-                <input id="searchbar" class="typeahead" type="text" placeholder="Search Rings" autofocus autocomplete="off">
+                <div class="right-bar">
+                    <input id="searchbar" class="typeahead" type="text" placeholder="Search Rings" autofocus autocomplete="off">
+                </div>
             </core-toolbar>
 
             <!-- Main Content -->

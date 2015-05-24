@@ -40,6 +40,15 @@ var dao = (function () {
         if (offset) {
             queryObj.offset = offset;
         }
+        var search = req.query.search || '';
+        if (search) {
+            var searches = search.split(/\s\s*/);
+            for (var i = 0; i < searches.length; i++) {
+                var searchTerm = searches[i];
+                queryObj.where.urltitle = {};
+                queryObj.where.urltitle.like = '%' + searchTerm + '%'
+            }
+        }
 
         return dao.getRings(queryObj)
     };
