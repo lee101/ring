@@ -25,7 +25,12 @@ var AUTOPREFIXER_BROWSERS = [
 gulp.task('styles', function () {
     return gulp.src('app/styles/main.less')
         .pipe(gulpPlugins.less())
-        .on('error', console.error.bind(console))
+        .on('error', function (err) {
+            console.error(err);
+            if (process.env.CI) {
+                process.exit(1);
+            }
+        })
 
         .pipe(gulpPlugins.autoprefixer(AUTOPREFIXER_BROWSERS))
         .pipe(gulpPlugins.cssmin())
