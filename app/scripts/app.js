@@ -156,7 +156,19 @@ APP = (function (document) {
             img.src = '/images/ring512-rotated.png';
             $('#gallery-tiles').justifiedGallery('norewind');
         }
-    }
+    };
+
+    $(document).on('click', '.jg-entry', function (evt) {
+        var $target = $(evt.currentTarget);
+        $target.css({
+            width: '100%',
+            height: '100%',
+            position: 'fixed',
+            'z-index': 99999,
+            'background-color': '#ffffff'
+        })
+        return false;
+    });
 
 
     return self;
