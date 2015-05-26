@@ -1,3 +1,7 @@
+dependencies:
+  pre:
+    - npm install -g gulp
+
 deployment:
   prod:
     branch: prod
