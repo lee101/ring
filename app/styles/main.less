@@ -1,4 +1,6 @@
 @import 'variables';
+@import '../../bower_components/lesshat/build/lesshat';
+@import 'mixins/box-shadow';
 @import 'search';
 
 body {
@@ -19,7 +21,7 @@ body {
 }
 
 h1 {
-    color: $main-color;
+    color: @main-color;
 }
 
 .browsehappy {
@@ -43,12 +45,12 @@ ring-submenu {
 }
 
 paper-button {
-    background-color: $secondary-color;
+    background-color: @secondary-color;
     color: #FAFAFA;
 }
 
 paper-button[disabled] {
-    background-color: lighten($secondary-color, 30%);
+    background-color: lighten(@secondary-color, 30%);
     color: #FAFAFA;
     cursor: auto;
     pointer-events: none;
@@ -56,7 +58,7 @@ paper-button[disabled] {
 
 .main-core-toolbar {
     color: #FAFAFA;
-    background-color: $secondary-color;
+    background-color: @secondary-color;
 }
 
 /// Justified Gallery
@@ -71,16 +73,16 @@ paper-button[disabled] {
     font-size: 16px;
     font-weight: 500;
     font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
-    background-color: $secondary-color;
+    background-color: @secondary-color;
 
 }
 
 /// Nst Slider
-$range-slider-width: 195px;
-$range-slider-grip-radius: 10px;
+@range-slider-width: 195px;
+@range-slider-grip-radius: 10px;
 .nstSlider {
-    width: $range-slider-width;
-    background-color: $secondary-color;
+    width: @range-slider-width;
+    background-color: @secondary-color;
     border: 2px solid gray;
     margin: 23px;
 
@@ -100,19 +102,26 @@ $range-slider-grip-radius: 10px;
     .bar {
         opacity: 0.7;
     }
+    core-tooltip::shadow div {
+        cursor: default;
+    }
 }
 
 // Tooltips
 
 .grip-label {
     top: -11px;
-    left: $range-slider-grip-radius;
+    left: @range-slider-grip-radius;
 }
 
 .rightLabel {
-    left: $range-slider-width - $range-slider-grip-radius - 4;
+    left: @range-slider-width - @range-slider-grip-radius - 4;
 }
 
+core-tooltip::shadow *,
+{
+    cursor: default;
+}
 core-tooltip::shadow div,
 {
     background-color: #607D8B;
@@ -120,7 +129,7 @@ core-tooltip::shadow div,
 
 core-tooltip::shadow .top::after,
 {
-    border-top-color: $secondary-color;
+    border-top-color: @secondary-color;
 }
 
 .price-range {
@@ -134,7 +143,7 @@ core-submenu {
 }
 
 paper-spinner.yellow::shadow .circle {
-    border-color: $main-color;
+    border-color: @main-color;
 }
 
 // load more
@@ -172,4 +181,9 @@ paper-spinner.yellow::shadow .circle {
 .main-body-ad {
     width: 100%;
     min-height: 500px;
+}
+.right-bar {
+    position: absolute;
+    right: 0px;
+    top: 9px;
 }

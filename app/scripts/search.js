@@ -16,23 +16,52 @@ var search = (function () {
             // contains the substring `q`, add it to the `matches` array
             $.each(strs, function (i, str) {
                 if (substrRegex.test(str)) {
-                    matches.push(str);
+                    matches.push([str, str.indexOf(q)]);
                 }
             });
+            matches.sort(function (a, b) {
+                return a[1] - b[1];
+            });
+            for (var i = 0; i < matches.length; i++) {
+                matches[i] = matches[i][0];
+            }
 
             cb(matches);
         };
     };
     self.init = function () {
-        $('.typeahead').typeahead({
+        $('#searchbar').typeahead({
                 hint: true,
                 highlight: true,
                 minLength: 1
             },
             {
                 name: 'tags',
-                source: substringMatcher(fixtures.tags)
+                source: substringMatcher(fixtures.suggestions)
             });
+        if ($(window).height() > 700) {
+            $('#searchbar').focus();
+            setTimeout(function () {
+                $('#searchbar').select();
+            }, 100);
+        }
+        var searchHandler = function () {
+            var search = $.trim($('#searchbar').val());
+            APP.searchChanged({
+                search: search
+            })
+        };
+        var bouncedSearchHandler = $.debounce(300, searchHandler);
+        var changeHandler = function (event) {
+            if (event.which == 13) {
+                searchHandler()
+            }
+            else {
+                bouncedSearchHandler();
+            }
+        };
+        $('#searchbar').on('keydown', changeHandler);
+
     };
 
 

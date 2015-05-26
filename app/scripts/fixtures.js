@@ -47,6 +47,7 @@ var fixtures = (function () {
         'steel',
         'titanium',
         'platinum',
+        'copper',
 
         'aquamarine',
         'amethyst',
@@ -61,9 +62,33 @@ var fixtures = (function () {
         'peridot',
         'quartz',
         'ruby',
-        'sapphire',
         'topaz'
     ];
+    self.suggestions = [
+        'white gold',
+        'gold',
+        'silver',
+        'steel',
+        'titanium',
+        'platinum',
+        'copper',
+
+        'aquamarine',
+        'amethyst',
+        'citrine',
+        'sapphire',
+        'crystal',
+        'zirconia',
+        'diamond',
+        'emerald',
+        'garnet',
+        'pearl',
+        'peridot',
+        'quartz',
+        'ruby',
+        'topaz'
+    ];
+
     self.tagMap = {};
     for (var i = 0; i < self.tags.length; i++) {
         var tag = self.tags[i];
