@@ -3,14 +3,15 @@ dependencies:
     - npm install -g gulp
 
 deployment:
-  prod:
-    branch: prod
+  master:
+    branch: master
     commands:
       - bash ./setup-eb.sh
       - gulp build
       - git config --global user.email "leepenkman@gmail.com"
       - git config --global user.name "Lee"
       - git add -A
+      - git add -f dist
       - git commit -a -m "ci gulp"
       - eb deploy
 machine:
