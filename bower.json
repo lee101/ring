@@ -9,5 +9,8 @@
     "jquery-nstSlider": "~1.0.11",
     "nunjucks": "~1.3.4",
     "typeahead.js": "~0.11.1"
+  },
+  "resolutions": {
+    "webcomponentsjs": "0.7.1"
   }
 }
