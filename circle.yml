@@ -8,6 +8,8 @@ deployment:
     commands:
       - bash ./setup-eb.sh
       - gulp build
+      - git config --global user.email "leepenkman@gmail.com"
+      - git config --global user.name "Lee"
       - git commit -a -m "ci gulp"
       - eb deploy
 machine:
