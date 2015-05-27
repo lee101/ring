@@ -1,6 +1,18 @@
 {% for ring in thumbs %}
-    <a href="{{ ring.url }}" title="{{ ring.title }}" target="_blank">
+<div class="jg-item" title="{{ ring.title }}">
+
+    <a href="/ring/{{ ring.urltitle }}" title="{{ ring.title }}">
         <img alt="$ {{ ring.price }}" src="http://cdn.ring.nz/{{ zutils.urlencode(fixtures.getCompanyById(ring.company_id).name) }}/{{ ring.urltitle }}.jpg"
              onerror="APP.thumbFallback(this, '{{ ring.image }}')"/>
     </a>
+    <div class="hidden-detail" style="display: none">
+        <core-icon class="close-icon" icon="close" onmousedown="APP.destroyRingView()"></core-icon>
+        <a class="ring-link" href="{{ ring.url }}" target="_blank">{{ ring.title }}</a>
+        <p class="ring-description">
+            {{ ring.description }}
+        </p>
+        <p class="ring-company">{{ fixtures.getCompanyById(ring.company_id).name }}</p>
+    </div>
+</div>
+
 {% endfor %}

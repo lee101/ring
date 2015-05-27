@@ -158,15 +158,59 @@ APP = (function (document) {
         }
     };
 
+    var $zoomedTarget = null;
+
+    var oldLeft, oldTop, oldHeight, oldWidth;
+    self.destroyRingView = function () {
+        if ($zoomedTarget) {
+            $('.load-more').show();
+            $zoomedTarget.find('.hidden-detail').fadeOut();
+            $zoomedTarget.css({
+                'z-index': 0,
+                'height': oldHeight,
+                'width': oldWidth,
+                'left': oldLeft,
+                'top': oldTop
+            });
+            $('#gallery-tiles').css({
+                'max-height': 'inherit'
+            });
+            $('#gallery-tiles').justifiedGallery('norewind');
+        }
+    };
     $(document).on('click', '.jg-entry', function (evt) {
         var $target = $(evt.currentTarget);
+        if ($target === $zoomedTarget) {
+            return true;
+        }
+        $zoomedTarget = $(evt.currentTarget);
+        oldTop = parseInt($target.css('height'));
+        oldLeft = parseInt($target.css('left'));
+        oldHeight = $target.height();
+        oldWidth = $target.width();
         $target.css({
             width: '100%',
             height: '100%',
-            position: 'fixed',
-            'z-index': 99999,
-            'background-color': '#ffffff'
-        })
+            left: 2,
+            'z-index': 99999
+        });
+
+        setTimeout(function () {
+            $target.find('.hidden-detail').fadeIn();
+        }, 300);
+
+        var fullHeight = $('core-header-panel').height() - $('core-toolbar').height();
+        $('#gallery-tiles').css({
+            'max-height': fullHeight
+        });
+        //$('#gallery-tiles').justifiedGallery({
+        //    fixedHeight: true,
+        //    rowHeight: fullHeight
+        //});
+
+
+        $('.load-more').hide();
+        //gallery rowHeight
         return false;
     });
 
