@@ -26,7 +26,7 @@ gulp.task('styles', function () {
     return gulp.src('app/styles/main.less')
         .pipe(gulpPlugins.less())
         .on('error', function (err) {
-            console.error(err);
+            gutil.log(err);
             if (process.env.CI) {
                 process.exit(1);
             }
