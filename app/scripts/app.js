@@ -85,6 +85,7 @@ APP = (function (document) {
             rowHeight: 300,
             margins: 2
         });
+        $('#gallery-tiles').on('jg.resize', self.destroyRingView)
     }
 
     function addToGallery(results) {
@@ -161,7 +162,7 @@ APP = (function (document) {
     var $zoomedTarget = null;
 
     var oldLeft, oldTop, oldHeight, oldWidth;
-    self.destroyRingView = function () {
+    self.destroyRingView = function (evt) {
         if ($zoomedTarget) {
             $('.load-more').show();
             $zoomedTarget.find('.hidden-detail').fadeOut();
@@ -176,18 +177,19 @@ APP = (function (document) {
                 'max-height': 'inherit'
             });
             $('#gallery-tiles').justifiedGallery('norewind');
-            $zoomedTarget = null;
+            setTimeout(function () {
+                $zoomedTarget = null;
+            }, 100)
         }
     };
-    window.onpopstate = function (evt) {
-        return false;
-    }
     $(document).on('click', '.jg-entry', function (evt) {
         var $target = $(evt.currentTarget);
         if ($target === $zoomedTarget) {
             return true;
         }
-        history.pushState({}, '', '/ring');
+        if ($zoomedTarget) {
+            return false;
+        }
         $zoomedTarget = $(evt.currentTarget);
         oldTop = parseInt($target.css('top'));
         oldLeft = parseInt($target.css('left'));
@@ -211,6 +213,7 @@ APP = (function (document) {
         $('#gallery-tiles').css({
             'max-height': fullHeight
         });
+        $('#main-header-panel').scrollTop(0);
         //$('#gallery-tiles').justifiedGallery({
         //    fixedHeight: true,
         //    rowHeight: fullHeight
