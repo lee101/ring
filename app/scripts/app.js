@@ -1,6 +1,6 @@
-APP = (function (document) {
+(function (document) {
     'use strict';
-    var self = {};
+    var self = APP || {};
     self.offset = 0;
 
     self.searchChanged = function (extraData) {
@@ -157,61 +157,6 @@ APP = (function (document) {
             $('#gallery-tiles').justifiedGallery('norewind');
         }
     };
-
-    var $zoomedTarget = null;
-
-    var oldLeft, oldTop, oldHeight, oldWidth;
-    self.destroyRingView = function (evt) {
-        if ($zoomedTarget) {
-            $zoomedTarget.find('.hidden-detail').fadeOut();
-            $zoomedTarget.css({
-                'z-index': 0,
-                'height': oldHeight,
-                'width': oldWidth,
-                'left': oldLeft,
-                'top': oldTop,
-                'position': 'absolute'
-            });
-            $zoomedTarget.find('.gallery-image').removeClass('img-fullscreen');
-
-            setTimeout(function () {
-                $zoomedTarget = null;
-            }, 100)
-        }
-    };
-    $(document).on('click', '.jg-entry', function (evt) {
-        var $target = $(evt.currentTarget);
-        if ($target === $zoomedTarget) {
-            return true;
-        }
-        if ($zoomedTarget) {
-            return false;
-        }
-        $zoomedTarget = $(evt.currentTarget);
-        oldTop = parseInt($target.css('top'));
-        oldLeft = parseInt($target.css('left'));
-        oldHeight = $target.height();
-        oldWidth = $target.width();
-        $target.css({
-            width: '100%',
-            height: '100%',
-            left: 0,
-            top: 0,
-            position: 'fixed',
-            'z-index': 99999
-        });
-        $target.find('.gallery-image').addClass('img-fullscreen');
-        var $currentZoomedTarget = $zoomedTarget;
-        setTimeout(function () {
-            if ($currentZoomedTarget === $zoomedTarget) {
-                $target.find('.hidden-detail').fadeIn();
-            }
-        }, 300);
-
-        //gallery rowHeight
-        return false;
-    });
-
 
     return self;
 // wrap document so it plays nice with other libraries

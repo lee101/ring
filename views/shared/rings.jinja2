@@ -1,5 +1,5 @@
 {% for ring in thumbs %}
-<div class="jg-item" title="{{ ring.title }}">
+<div id="ring-{{ ring.urltitle }}" class="jg-item" title="{{ ring.title }}">
 
     <a href="/ring/{{ ring.urltitle }}" title="{{ ring.title }}">
         <img class="gallery-image" alt="$ {{ ring.price }}" src="http://cdn.ring.nz/{{ zutils.urlencode(fixtures.getCompanyById(ring.company_id).name) }}/{{ ring.urltitle }}.jpg"
