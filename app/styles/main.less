@@ -82,6 +82,11 @@ paper-button[disabled] {
     background-color: #fff;
 }
 
+.justified-gallery .img-fullscreen {
+    pointer-events: none;
+    opacity: .5;
+    z-index: -5;
+}
 /// Nst Slider
 @range-slider-width: 195px;
 @range-slider-grip-radius: 10px;
@@ -197,6 +202,11 @@ paper-spinner.yellow::shadow .circle {
 
 .hidden-detail {
     margin: 20px;
+    @media (min-width: 550px) {
+        margin: 20px;
+    }
+
+    text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff;
 }
 
 .close-icon {

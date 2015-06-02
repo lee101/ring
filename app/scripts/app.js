@@ -163,7 +163,6 @@ APP = (function (document) {
     var oldLeft, oldTop, oldHeight, oldWidth;
     self.destroyRingView = function (evt) {
         if ($zoomedTarget) {
-            $('.load-more').show();
             $zoomedTarget.find('.hidden-detail').fadeOut();
             $zoomedTarget.css({
                 'z-index': 0,
@@ -173,10 +172,8 @@ APP = (function (document) {
                 'top': oldTop,
                 'position': 'absolute'
             });
-            $('#gallery-tiles').css({
-                'max-height': 'inherit'
-            });
-            $('#gallery-tiles').justifiedGallery('norewind');
+            $zoomedTarget.find('.gallery-image').removeClass('img-fullscreen');
+
             setTimeout(function () {
                 $zoomedTarget = null;
             }, 100)
@@ -203,6 +200,7 @@ APP = (function (document) {
             position: 'fixed',
             'z-index': 99999
         });
+        $target.find('.gallery-image').addClass('img-fullscreen');
         var $currentZoomedTarget = $zoomedTarget;
         setTimeout(function () {
             if ($currentZoomedTarget === $zoomedTarget) {
@@ -210,7 +208,6 @@ APP = (function (document) {
             }
         }, 300);
 
-        $('.load-more').hide();
         //gallery rowHeight
         return false;
     });

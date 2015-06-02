@@ -22,10 +22,10 @@ output += "\"><a href=\"/ring/";
 output += runtime.suppressValue(runtime.memberLookup((t_4),"urltitle", env.opts.autoescape), env.opts.autoescape);
 output += "\" title=\"";
 output += runtime.suppressValue(runtime.memberLookup((t_4),"title", env.opts.autoescape), env.opts.autoescape);
-output += "\"><img alt=\"$ ";
+output += "\"><img class=\"gallery-image\" alt=\"$ ";
 output += runtime.suppressValue(runtime.memberLookup((t_4),"price", env.opts.autoescape), env.opts.autoescape);
 output += "\" src=\"http://cdn.ring.nz/";
-output += runtime.suppressValue((lineno = 0, colno = 182, runtime.callWrap(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "zutils")),"urlencode", env.opts.autoescape), "zutils[\"urlencode\"]", [runtime.memberLookup(((lineno = 0, colno = 206, runtime.callWrap(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "fixtures")),"getCompanyById", env.opts.autoescape), "fixtures[\"getCompany\"]", [runtime.memberLookup((t_4),"company_id", env.opts.autoescape)]))),"name", env.opts.autoescape)])), env.opts.autoescape);
+output += runtime.suppressValue((lineno = 0, colno = 204, runtime.callWrap(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "zutils")),"urlencode", env.opts.autoescape), "zutils[\"urlencode\"]", [runtime.memberLookup(((lineno = 0, colno = 228, runtime.callWrap(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "fixtures")),"getCompanyById", env.opts.autoescape), "fixtures[\"getCompany\"]", [runtime.memberLookup((t_4),"company_id", env.opts.autoescape)]))),"name", env.opts.autoescape)])), env.opts.autoescape);
 output += "/";
 output += runtime.suppressValue(runtime.memberLookup((t_4),"urltitle", env.opts.autoescape), env.opts.autoescape);
 output += ".jpg\" onerror=\"APP.thumbFallback(this, '";
@@ -37,7 +37,7 @@ output += runtime.suppressValue(runtime.memberLookup((t_4),"title", env.opts.aut
 output += "</a><p class=\"ring-description\">";
 output += runtime.suppressValue(runtime.memberLookup((t_4),"description", env.opts.autoescape), env.opts.autoescape);
 output += "</p><p class=\"ring-company\">";
-output += runtime.suppressValue(runtime.memberLookup(((lineno = 0, colno = 626, runtime.callWrap(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "fixtures")),"getCompanyById", env.opts.autoescape), "fixtures[\"getCompany\"]", [runtime.memberLookup((t_4),"company_id", env.opts.autoescape)]))),"name", env.opts.autoescape), env.opts.autoescape);
+output += runtime.suppressValue(runtime.memberLookup(((lineno = 0, colno = 648, runtime.callWrap(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "fixtures")),"getCompanyById", env.opts.autoescape), "fixtures[\"getCompany\"]", [runtime.memberLookup((t_4),"company_id", env.opts.autoescape)]))),"name", env.opts.autoescape), env.opts.autoescape);
 output += "</p></div></div>";
 ;
 }
