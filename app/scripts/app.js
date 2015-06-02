@@ -107,7 +107,6 @@ APP = (function (document) {
     }
 
     var app = document.querySelector('#app');
-
     app.addEventListener('template-bound', function () {
 
         search.init();
@@ -171,7 +170,8 @@ APP = (function (document) {
                 'height': oldHeight,
                 'width': oldWidth,
                 'left': oldLeft,
-                'top': oldTop
+                'top': oldTop,
+                'position': 'absolute'
             });
             $('#gallery-tiles').css({
                 'max-height': 'inherit'
@@ -198,8 +198,9 @@ APP = (function (document) {
         $target.css({
             width: '100%',
             height: '100%',
-            left: 2,
-            top: 2,
+            left: 0,
+            top: 0,
+            position: 'fixed',
             'z-index': 99999
         });
         var $currentZoomedTarget = $zoomedTarget;
@@ -208,17 +209,6 @@ APP = (function (document) {
                 $target.find('.hidden-detail').fadeIn();
             }
         }, 300);
-
-        var fullHeight = $('core-header-panel').height() - $('core-toolbar').height();
-        $('#gallery-tiles').css({
-            'max-height': fullHeight
-        });
-        $('#main-header-panel').scrollTop(0);
-        //$('#gallery-tiles').justifiedGallery({
-        //    fixedHeight: true,
-        //    rowHeight: fullHeight
-        //});
-
 
         $('.load-more').hide();
         //gallery rowHeight

@@ -21,16 +21,20 @@ var AUTOPREFIXER_BROWSERS = [
     'bb >= 10'
 ];
 
+var errorHandler = function (err) {
+    gutil.log(err);
+    if (process.env.CI) {
+        process.exit(1);
+    }
+    this.emit('end');
+};
+
 // Compile and Automatically Prefix Stylesheets
 gulp.task('styles', function () {
+
     return gulp.src('app/styles/main.less')
         .pipe(gulpPlugins.less())
-        .on('error', function (err) {
-            gutil.log(err);
-            if (process.env.CI) {
-                process.exit(1);
-            }
-        })
+        .on('error', errorHandler)
 
         .pipe(gulpPlugins.autoprefixer(AUTOPREFIXER_BROWSERS))
         .pipe(gulpPlugins.cssmin())
@@ -145,9 +149,8 @@ gulp.task('nunjucks', function () {
             empty: true,
             spare: true
         }))
-        .pipe(gulpPlugins.nunjucks()).on('error', function (err) {
-            gutil.log(err.message);
-        })
+        .pipe(gulpPlugins.nunjucks())
+        .on('error', errorHandler)
         .pipe(gulpPlugins.concat('templates.js'))
         .pipe(gulp.dest('./app/scripts/templates'));
 });
