@@ -1,0 +1,14 @@
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>http://ring.nz</loc>
+        <changefreq>weekly</changefreq>
+        <priority>1</priority>
+    </url>
+    {% for ring in rings %}
+        <url>
+            <loc>http://ring.nz/ring/{{ ring.urltitle }}</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.7</priority>
+        </url>
+    {% endfor %}
+</urlset>

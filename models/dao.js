@@ -74,6 +74,13 @@ var dao = (function () {
         var rings = Ring.findAll(config);
         return rings;
     };
+    self.getAllUrlTitles = function () {
+
+        var rings = Ring.findAll({
+            attributes: ['urltitle'],
+        });
+        return rings;
+    };
 
     self.createRing = function (config) {
         config.title = config.title.trim();
@@ -89,8 +96,9 @@ var dao = (function () {
         var savedRing = Ring.create(config).get({plain: true});
 
         return savedRing;
-
     };
+
+
 
     return self;
 })();

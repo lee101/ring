@@ -4,7 +4,6 @@ var fixtures = require('../app/scripts/fixtures');
 var zutils = require('../app/scripts/zutils');
 
 var router = express.Router();
-/* GET home page. */
 
 var dao = require('../models/dao');
 router.get('/:name', function (req, res) {
