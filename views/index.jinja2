@@ -7,17 +7,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% set title = 'Ring.nz - Find Your Perfect Ring' %}
     {% set desc = 'Find perfect rings from Pascoes, Micheal Hill, Swarovski, Pandora and more.' %}
+    {% set tags = 'ring, rings, engagement rings, wedding rings, gold rings, diamond rings' %}
+    {% set image = '/images/ring512-rotated.png' %}
+    {% if ring %}
+        {% set title = ring.title %}
+        {% set desc = ring.description %}
+        {% set tags = ring.tags | join(', ') %}
+        {% set image = 'http://cdn.ring.nz/' + zutils.urlencode(fixtures.getCompanyById(ring.company_id).name) + '/' +
+            ring.urltitle + '.jpg' %}
+
+    {% endif %}
     <title>{{ title }}</title>
     <meta name="description"
           content="{{ desc }}">
 
     <meta name="keywords"
-          content="ring, rings, engagement rings, wedding rings, gold rings, diamond rings">
+          content="{{ tags }}">
     <meta property="og:title" content="{{ title }}">
     <meta property="og:description"
           content="{{ desc }}">
     <meta property="og:image"
-          content="/images/ring512-rotated.png">
+          content="{{ image }}">
 
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
@@ -42,12 +52,12 @@
     <link rel="stylesheet" href="/bower_components/Justified-Gallery/dist/css/justifiedGallery.css">
     <link rel="stylesheet" href="/bower_components/jquery-nstSlider/dist/jquery.nstSlider.min.css">
 
-    <!-- build:css styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
+    <!-- build:css /styles/main.css -->
+    <link rel="stylesheet" href="/styles/main.css">
     <!-- endbuild-->
 
-    <!-- build:js bower_components/webcomponentsjs/webcomponents.min.js -->
-    <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
+    <!-- build:js /bower_components/webcomponentsjs/webcomponents.min.js -->
+    <script src="/bower_components/webcomponentsjs/webcomponents.js"></script>
     <!-- endbuild -->
 
     <script src="/bower_components/jquery/dist/jquery.min.js"></script>
@@ -125,7 +135,7 @@
     </script>
 
     <!-- will be replaced with elements/elements.vulcanized.html -->
-    <link rel="import" href="elements/elements.html">
+    <link rel="import" href="/elements/elements.html">
     <!-- endreplace-->
     <script>
         (function (i, s, o, g, r, a, m) {

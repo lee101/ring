@@ -37,15 +37,16 @@
     APP.currentView = location.pathname;
     function defaultHandler(pathname) {
         return function () {
-            var args = arguments;
             if (APP.currentView == pathname && prerenderedPages[APP.currentView]) {
                 return;
             }
-
-            APP.Views[APP.currentView].destroy();
+            var currentView = APP.Views[APP.currentView];
+            if (currentView) {
+                currentView.destroy();
+            }
 
             APP.currentView = pathname;
-            APP.Views[pathname]({args: args});
+            APP.Views[pathname].construct(arguments);
         }
     }
 
@@ -69,12 +70,15 @@
     });
 
 
-    $(document).ready(function () {
+    APP.constructRouter = function () {
         APP.router = new Router();
-        APP.Views['/'] = $.noop;
+        APP.Views['/'] = {
+            'destroy': $.noop,
+            'construct': $.noop
+        };
         Backbone.history.start({
             pushState: true
 //            silent: true
         });
-    });
+    };
 }());

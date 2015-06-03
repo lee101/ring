@@ -6,7 +6,7 @@
              onerror="APP.thumbFallback(this, '{{ ring.image }}')"/>
     </a>
     <div class="hidden-detail" style="display: none">
-        <core-icon class="close-icon" icon="close" onclick="APP.destroyRingView(); return false;"></core-icon>
+        <core-icon class="close-icon" icon="close" onclick="APP.goto('/'); return false;"></core-icon>
         <a class="ring-link" href="{{ ring.url }}" target="_blank">{{ ring.title }}</a>
         <p class="ring-description">
             {{ ring.description }}

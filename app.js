@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var rings = require('./routes/rings');
+var ring = require('./routes/ring');
 
 var app = express();
 var nunjucks = require('nunjucks');
@@ -30,6 +31,7 @@ app.use(express.static(path.join(__dirname, 'dist')));
 
 app.use('/', routes);
 app.use('/rings', rings);
+app.use('/ring', ring);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

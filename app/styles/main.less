@@ -87,6 +87,7 @@ paper-button[disabled] {
     opacity: .5;
     z-index: -5;
 }
+
 /// Nst Slider
 @range-slider-width: 195px;
 @range-slider-grip-radius: 10px;
@@ -227,4 +228,13 @@ paper-spinner.yellow::shadow .circle {
     margin-top: 3px;
     margin-bottom: 3px;
     max-width: 400px;
+}
+
+.fullscreen-tile {
+    width: 100% !important;
+    height: 100% !important;
+    position: fixed !important;
+    left: 0 !important;
+    top: 0 !important;
+    z-index: 99999;
 }

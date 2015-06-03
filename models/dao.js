@@ -18,6 +18,10 @@ var dao = (function () {
         });
     };
     self.getRingsFromRequest = function (req) {
+        var name = req.params.name || '';
+        if (name) {
+            return self.getRing(name)
+        }
         var queryObj = {
             where: {}
         };
@@ -46,7 +50,7 @@ var dao = (function () {
             for (var i = 0; i < searches.length; i++) {
                 var searchTerm = searches[i];
                 queryObj.where.urltitle = {};
-                queryObj.where.urltitle.like = '%' + searchTerm + '%'
+                queryObj.where.urltitle.ilike = '%' + searchTerm + '%'
             }
         }
 

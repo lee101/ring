@@ -80,12 +80,19 @@
 
     // Listen for template bound event to know when bindings
     // have resolved and content has been stamped to the page
-    function initGallery() {
-        $('#gallery-tiles').justifiedGallery({
+    function initGallery(done) {
+        var $gallery = $('#gallery-tiles');
+        $gallery.justifiedGallery({
             rowHeight: 300,
             margins: 2
         });
-        $('#gallery-tiles').on('jg.resize', self.destroyRingView)
+        var firstTime = true;
+        $gallery.on('jg.complete', function () {
+            if (firstTime) {
+                done();
+            }
+            firstTime = false;
+        })
     }
 
     function addToGallery(results) {
@@ -115,7 +122,9 @@
         var firstCall = true;
 
         $('.load-more').click(self.nextPage);
-        initGallery();
+        initGallery(function done() {
+            APP.constructRouter();
+        });
         $('#price-range').nstSlider({
             "left_grip_selector": ".leftGrip",
             "right_grip_selector": ".rightGrip",

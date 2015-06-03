@@ -8,14 +8,7 @@ var ringView = (function ($) {
     self.destroyRingView = function (evt) {
         if ($zoomedTarget) {
             $zoomedTarget.find('.hidden-detail').fadeOut();
-            $zoomedTarget.css({
-                'z-index': 0,
-                'height': oldHeight,
-                'width': oldWidth,
-                'left': oldLeft,
-                'top': oldTop,
-                'position': 'absolute'
-            });
+            $zoomedTarget.removeClass('fullscreen-tile');
             $zoomedTarget.find('.gallery-image').removeClass('img-fullscreen');
 
             setTimeout(function () {
@@ -37,14 +30,7 @@ var ringView = (function ($) {
         oldLeft = parseInt($target.css('left'));
         oldHeight = $target.height();
         oldWidth = $target.width();
-        $target.css({
-            width: '100%',
-            height: '100%',
-            left: 0,
-            top: 0,
-            position: 'fixed',
-            'z-index': 99999
-        });
+        $target.addClass('fullscreen-tile');
         $target.find('.gallery-image').addClass('img-fullscreen');
         var $currentZoomedTarget = $zoomedTarget;
         setTimeout(function () {
@@ -56,10 +42,13 @@ var ringView = (function ($) {
         return false;
     };
 
-    APP.Views['/ring/:ringname'] = function construct(args) {
-        self.ringName = args[0];
-        var $target = $('#gallery-tiles').find('ring-' + self.ringName)
-        initView($target)
+    APP.Views['/ring/:ringname'] = {
+        'construct': function construct(args) {
+            self.ringName = args[0];
+            var $target = $(document.getElementById('ring-' + self.ringName));
+            initView($target)
+        },
+        'destroy': self.destroyRingView
     };
     return self;
 })(jQuery);
