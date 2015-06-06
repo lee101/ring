@@ -14,10 +14,10 @@ var app = express();
 var nunjucks = require('nunjucks');
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'dist/views'));
 app.set('view engine', 'jinja2');
 
-nunjucks.configure('views', {
+nunjucks.configure('dist/views', {
     autoescape: true,
     express: app
 });

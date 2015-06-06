@@ -4,6 +4,7 @@
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var gulpPlugins = require('gulp-load-plugins')();
+var inlinesource = require('gulp-inline-source');
 var del = require('del');
 var runSequence = require('run-sequence');
 var merge = require('merge-stream');
@@ -98,14 +99,15 @@ gulp.task('fonts', function () {
         .pipe(gulpPlugins.size({title: 'fonts'}));
 });
 
-// Scan Your HTML For Assets & Optimize Them
-gulp.task('html', function () {
+gulp.task('jinja2', function () {
     var assets = gulpPlugins.useref.assets({searchPath: ['.tmp', 'app', 'dist']});
 
-    return gulp.src(['app/**/*.html', '!app/{elements,test}/**/*.html'])
+    return gulp.src(['views/**/*.jinja2'])
         // Replace path for vulcanized assets
-        .pipe(gulpPlugins.if('*.html', gulpPlugins.replace('elements/elements.html', 'elements/elements.vulcanized.html')))
+        .pipe(inlinesource())
         .pipe(assets)
+
+        .pipe(gulpPlugins.if('*.html', gulpPlugins.replace('elements/elements.html', 'elements/elements.vulcanized.html')))
         // Concatenate And Minify JavaScript
         .pipe(gulpPlugins.if('*.js', gulpPlugins.uglify({preserveComments: 'some'})))
         // Concatenate And Minify Styles
@@ -113,14 +115,13 @@ gulp.task('html', function () {
         .pipe(gulpPlugins.if('*.css', gulpPlugins.cssmin()))
         .pipe(assets.restore())
         .pipe(gulpPlugins.useref())
-        // Minify Any HTML
         .pipe(gulpPlugins.if('*.html', gulpPlugins.minifyHtml({
             quotes: true,
             empty: true,
             spare: true
         })))
         // Output Files
-        .pipe(gulp.dest('dist'))
+        .pipe(gulp.dest('dist/views'))
         .pipe(gulpPlugins.size({title: 'html'}));
 });
 
@@ -158,8 +159,9 @@ gulp.task('nunjucks', function () {
 // Build Production Files, the Default Task
 gulp.task('build', ['clean'], function (cb) {
     runSequence(
-        ['nunjucks'],
         ['copy', 'styles'],
+        ['jinja2'],
+        ['nunjucks'],
         ['images', 'fonts'],
         //'vulcanize',
         cb);

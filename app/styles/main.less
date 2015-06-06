@@ -65,9 +65,12 @@ paper-icon-button.close-icon::shadow #icon {
     width: 32px;
     height: 32px;
     cursor: pointer;
-
 }
 
+paper-menu.paper-menu-0 {
+    background: none;
+    padding-left: 50px;
+}
 .main-core-toolbar {
     color: #FAFAFA !important;
     background-color: @secondary-color !important;
@@ -164,9 +167,11 @@ paper-tooltip::shadow .top::after,
     margin-left: 20px;
 }
 
-
-paper-spinner.yellow::shadow .circle {
-    border-color: @main-color;
+paper-spinner.yellow {
+    --paper-spinner-layer-1-color: @main-color;
+    --paper-spinner-layer-2-color: @main-color;
+    --paper-spinner-layer-3-color: @main-color;
+    --paper-spinner-layer-4-color: @main-color;
 }
 
 // load more
