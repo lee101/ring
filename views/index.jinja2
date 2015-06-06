@@ -57,7 +57,7 @@
     <!-- endbuild-->
 
     <!-- build:js /bower_components/webcomponentsjs/webcomponents.min.js -->
-    <script src="/bower_components/webcomponentsjs/webcomponents.js"></script>
+    <script src="/bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
     <!-- endbuild -->
 
     <script src="/bower_components/jquery/dist/jquery.min.js"></script>
@@ -158,24 +158,23 @@
 </head>
 
 <body unresolved fullbleed layout vertical>
-<template is="auto-binding" id="app">
+<template is="dom-bind" id="app">
 
-    <core-drawer-panel>
+    <paper-drawer-panel>
 
-        <!-- Drawer -->
-        <core-header-panel drawer>
+        <paper-header-panel drawer>
 
             <!-- Drawer Toolbar -->
-            <core-toolbar>
+            <paper-toolbar class="default-toolbar">
                 <img src="/mstile-70x70.png" width="70" height="70" alt="Ring Logo">
 
                 <h1>Ring</h1>
-            </core-toolbar>
+            </paper-toolbar>
 
             <!-- Drawer Content -->
 
-            <core-item class="price-range" icon="payment" label="Price range" horizontal="" center=""
-                       layout=""></core-item>
+            <paper-item class="price-range" icon="payment" horizontal="" center=""
+                       layout="">Price range</paper-item>
 
             <div id="price-range" class="nstSlider" data-range_min="0" data-range_max="20"
                  data-cur_min="0" data-cur_max="20">
@@ -193,23 +192,23 @@
                 <div class="rightGrip">
                 </div>
             </div>
-            <ring-submenu id="companies-menu" icon="account-balance" label="Companies" active>
-                <div class="item-content">
-                    <!--<a href="asdf"></a>-->
-                </div>
-                <core-item label="Pascoes" horizontal="" center="" layout=""
+            <paper-item icon="account-balance"
+                    >Companies
+            </paper-item>
+            <paper-menu id="companies-menu" active>
+                <paper-item horizontal="" center="" layout=""
                     >
-                    <a href="javascript:APP.searchChanged({company: 'pascoes'})"></a>
-                </core-item>
-                <core-item label="Micheal Hill" horizontal="" center=""
+                    <a href="javascript:APP.searchChanged({company: 'pascoes'})">Pascoes</a>
+                </paper-item>
+                <paper-item horizontal="" center=""
                            layout="">
-                    <a href="javascript:APP.searchChanged({company: 'micheal hill'})"></a>
-                </core-item>
-                <core-item label="Tiffany" horizontal="" center=""
+                    <a href="javascript:APP.searchChanged({company: 'micheal hill'})">Micheal Hill</a>
+                </paper-item>
+                <paper-item horizontal="" center=""
                            layout="">
-                    <a href="javascript:APP.searchChanged({company: 'tiffany'})"></a>
-                </core-item>
-            </ring-submenu>
+                    <a href="javascript:APP.searchChanged({company: 'tiffany'})">Tiffany</a>
+                </paper-item>
+            </paper-menu>
 
             <div class="sidebar-ad">
                 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -225,19 +224,19 @@
             </div>
 
 
-        </core-header-panel>
+        </paper-header-panel>
 
         <!-- Main -->
-        <core-header-panel id="main-header-panel" main>
+        <paper-header-panel id="main-header-panel" main>
 
             <!-- Main Toolbar -->
-            <core-toolbar class="main-core-toolbar">
-                <paper-icon-button icon="menu" core-drawer-toggle></paper-icon-button>
+            <paper-toolbar class="main-core-toolbar">
+                <paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
                 <h2>All Rings</h2>
                 <div class="right-bar">
                     <input id="searchbar" class="typeahead" type="text" placeholder="Search Rings" autofocus autocomplete="off">
                 </div>
-            </core-toolbar>
+            </paper-toolbar>
 
             <!-- Main Content -->
             <div id="gallery-tiles">
@@ -265,8 +264,8 @@
                 <paper-spinner id="main-spinner" class="yellow" role="progressbar" aria-label="loading"></paper-spinner>
             </div>
 
-        </core-header-panel>
-    </core-drawer-panel>
+        </paper-header-panel>
+    </paper-drawer-panel>
 
 </template>
 

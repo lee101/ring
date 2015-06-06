@@ -114,7 +114,7 @@
     }
 
     var app = document.querySelector('#app');
-    app.addEventListener('template-bound', function () {
+    app.addEventListener('dom-change', function () {
 
         search.init();
 

@@ -32,14 +32,14 @@ output += "/";
 output += runtime.suppressValue(runtime.memberLookup((t_4),"urltitle", env.opts.autoescape), env.opts.autoescape);
 output += ".jpg\" onerror=\"APP.thumbFallback(this, '";
 output += runtime.suppressValue(runtime.memberLookup((t_4),"image", env.opts.autoescape), env.opts.autoescape);
-output += "')\"></a><div class=\"hidden-detail\" style=\"display: none\"><core-icon class=\"close-icon\" icon=\"close\" onclick=\"APP.goto('/'); return false;\"></core-icon><a class=\"ring-link\" href=\"";
+output += "')\"></a><div class=\"hidden-detail\" style=\"display: none\"><paper-icon-button class=\"close-icon\" icon=\"clear\" title=\"clear\" onclick=\"APP.goto('/'); return false;\"></paper-icon-button><a class=\"ring-link\" href=\"";
 output += runtime.suppressValue(runtime.memberLookup((t_4),"url", env.opts.autoescape), env.opts.autoescape);
 output += "\" target=\"_blank\">";
 output += runtime.suppressValue(runtime.memberLookup((t_4),"title", env.opts.autoescape), env.opts.autoescape);
 output += "</a><p class=\"ring-description\">";
 output += runtime.suppressValue(runtime.memberLookup((t_4),"description", env.opts.autoescape), env.opts.autoescape);
 output += "</p><p class=\"ring-company\">";
-output += runtime.suppressValue(runtime.memberLookup(((lineno = 0, colno = 666, runtime.callWrap(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "fixtures")),"getCompanyById", env.opts.autoescape), "fixtures[\"getCompany\"]", [runtime.memberLookup((t_4),"company_id", env.opts.autoescape)]))),"name", env.opts.autoescape), env.opts.autoescape);
+output += runtime.suppressValue(runtime.memberLookup(((lineno = 0, colno = 696, runtime.callWrap(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "fixtures")),"getCompanyById", env.opts.autoescape), "fixtures[\"getCompany\"]", [runtime.memberLookup((t_4),"company_id", env.opts.autoescape)]))),"name", env.opts.autoescape), env.opts.autoescape);
 output += "</p></div></div>";
 ;
 }
