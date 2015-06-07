@@ -9,15 +9,14 @@
         }
         var $loadMore = $('.load-more');
         if (!viewState.changeData(extraData)) {
-            if (extraData.company != 'all') {
+            if (extraData.company && extraData.company != 'all') {
                 setTimeout(function () {
                     var companiesMenu = document.querySelector('#companies-menu');
-                    companiesMenu.unselectAllItems();
+                    companiesMenu.select(null);
                 }, 100);
                 viewState.changeData({
                     company: 'all'
                 })
-
             }
             else {
                 return;
