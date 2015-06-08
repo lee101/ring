@@ -2,6 +2,8 @@
     'use strict';
     var self = APP || {};
     self.offset = 0;
+    var companiesMenu = null;
+
 
     self.searchChanged = function (extraData) {
         if (typeof extraData == 'undefined') {
@@ -11,7 +13,6 @@
         if (!viewState.changeData(extraData)) {
             if (extraData.company && extraData.company != 'all') {
                 setTimeout(function () {
-                    var companiesMenu = document.querySelector('#companies-menu');
                     companiesMenu.select(null);
                 }, 100);
                 viewState.changeData({
@@ -114,6 +115,13 @@
 
     var app = document.querySelector('#app');
     app.addEventListener('dom-change', function () {
+        companiesMenu = document.querySelector('#companies-menu');
+        //Object.observe()
+        var oldHandler = companiesMenu._focusedItemChanged
+        companiesMenu._focusedItemChanged = function (focusedItem, old) {
+            oldHandler(focusedItem, old);
+            $(focusedItem).text;
+        }
 
         search.init();
 

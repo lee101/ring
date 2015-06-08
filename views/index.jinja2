@@ -172,8 +172,9 @@
 
             <!-- Drawer Content -->
 
-            <paper-item class="price-range" icon="payment" horizontal="" center=""
-                        layout="">Price range
+            <paper-item class="price-range">
+                <iron-icon icon="payment" class="padded-icon"></iron-icon>
+                Price range
             </paper-item>
 
             <div id="price-range" class="nstSlider" data-range_min="0" data-range_max="20"
@@ -193,18 +194,18 @@
                 </div>
             </div>
             <paper-item>
-                <iron-icon icon="account-balance" item-icon></iron-icon>
+                <iron-icon icon="account-balance" class="padded-icon"></iron-icon>
                 Companies
             </paper-item>
             <paper-menu id="companies-menu" active>
                 <paper-item>
-                    <a href="javascript:APP.searchChanged({company: 'pascoes'})">Pascoes</a>
+                    Pascoes
                 </paper-item>
                 <paper-item>
-                    <a href="javascript:APP.searchChanged({company: 'micheal hill'})">Micheal Hill</a>
+                    Micheal Hill
                 </paper-item>
                 <paper-item>
-                    <a href="javascript:APP.searchChanged({company: 'tiffany'})">Tiffany</a>
+                    Tiffany
                 </paper-item>
             </paper-menu>
 
@@ -261,7 +262,7 @@
             </div>
 
             <div class="ring-spinner">
-                <paper-spinner id="main-spinner" class="yellow" role="progressbar" aria-label="loading" active></paper-spinner>
+                <paper-spinner id="main-spinner" role="progressbar" aria-label="loading"></paper-spinner>
             </div>
 
         </paper-header-panel>
@@ -274,7 +275,7 @@
 <script src="/scripts/ringview.js"></script>
 
 <script src="/scripts/search.js"></script>
-<!-- build:js scripts/app.js -->
+<!-- build:js /scripts/app.js -->
 <script src="/scripts/app.js"></script>
 <!-- endbuild-->
 </body>

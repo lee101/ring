@@ -167,12 +167,6 @@ paper-tooltip::shadow .top::after,
     margin-left: 20px;
 }
 
-paper-spinner.yellow {
-    --paper-spinner-layer-1-color: @main-color;
-    --paper-spinner-layer-2-color: @main-color;
-    --paper-spinner-layer-3-color: @main-color;
-    --paper-spinner-layer-4-color: @main-color;
-}
 
 // load more
 .gallery-load-more {
@@ -198,8 +192,14 @@ paper-spinner.yellow {
         height: 100px;
         .circle {
             border-width: 10px;
+            border-color: @main-color;
         }
     }
+}
+
+iron-icon.padded-icon {
+    width: 42px;
+    margin-right: 8px;
 }
 
 .sidebar-ad {
