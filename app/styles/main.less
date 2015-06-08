@@ -164,7 +164,6 @@ paper-tooltip::shadow .top::after,
 .price-range {
     margin-bottom: 54px;
     margin-top: 9px;
-    margin-left: 20px;
 }
 
 
@@ -195,6 +194,20 @@ paper-tooltip::shadow .top::after,
             border-color: @main-color;
         }
     }
+}
+
+paper-radio-group {
+    padding-top: 0;
+    padding-right: 35px;
+    padding-left: 35px;
+    padding-bottom: 16px;
+}
+
+paper-radio-button {
+    --paper-radio-button-checked-color: @main-color;
+    --paper-radio-button-checked-ink-color: @main-color;
+    --paper-radio-button-unchecked-color: @secondary-color;
+    --paper-radio-button-unchecked-ink-color: @secondary-color;
 }
 
 iron-icon.padded-icon {

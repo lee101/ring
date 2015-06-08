@@ -117,11 +117,19 @@
     app.addEventListener('dom-change', function () {
         companiesMenu = document.querySelector('#companies-menu');
         //Object.observe()
-        var oldHandler = companiesMenu._focusedItemChanged
-        companiesMenu._focusedItemChanged = function (focusedItem, old) {
-            oldHandler(focusedItem, old);
-            $(focusedItem).text;
-        }
+        var oldHandler = companiesMenu._selectedChanged
+        companiesMenu._selectedChanged = function () {
+            oldHandler();
+            var selected = companiesMenu.selected;
+            if (!selected) {
+                return self.searchChanged({
+                    company: 'all'
+                })
+            }
+            self.searchChanged({
+                company: selected.name
+            })
+        };
 
         search.init();
 

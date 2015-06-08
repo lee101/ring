@@ -167,10 +167,20 @@ gulp.task('build', ['clean'], function (cb) {
         cb);
 });
 
+// Build Production Files, the Default Task
+gulp.task('restyle', function (cb) {
+    runSequence(
+        ['styles'],
+        ['jinja2'],
+        ['nunjucks'],
+        //'vulcanize',
+        cb);
+});
+
 gulp.task('default', ['build'], function (cb) {
     gulp.watch('./views/**/*.jinja2', ['jinja2']);
     gulp.watch('./views/shared/**/*.jinja2', ['nunjucks']);
-    gulp.watch(['app/styles/**/*.{less,css}'], ['styles', 'jinja2']);
+    gulp.watch(['app/styles/**/*.{less,css}'], ['restyle']);
     gulp.watch(['app/{scripts,elements}/**/*'], ['copy']);
     gulp.watch(['app/images/**/*'], ['images']);
     gulp.watch(['app/fonts/**/*'], ['fonts']);
