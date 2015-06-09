@@ -138,17 +138,6 @@
             var item = companiesMenu.items[itemIdx];
             addItemChangeHandler(item)
         }
-        //companiesMenu.addEventListener('paper-radio-group-changed', function (evt) {
-        //    var selected = companiesMenu.selected;
-        //    if (!selected) {
-        //        return self.searchChanged({
-        //            company: 'all'
-        //        })
-        //    }
-        //    self.searchChanged({
-        //        company: selected
-        //    })
-        //});
 
         search.init();
 
