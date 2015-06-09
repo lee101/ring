@@ -5,7 +5,7 @@
     var companiesMenu = null;
 
 
-    self.searchChanged = $.debounce(300, function (extraData) {
+    self.searchChanged = function (extraData) {
         if (typeof extraData == 'undefined') {
             extraData = {};
         }
@@ -46,19 +46,20 @@
             },
             error: errorFunc
         });
-    });
+    };
+    self.debouncedSearchChanged = $.debounce(300, self.searchChanged);
 
 
     self.nextPage = function (evt) {
         var $loadMore = $('.load-more');
         $loadMore.attr('disabled', 'disabled');
-        $loadMore.html('<paper-spinner class="yellow" active="" role="progressbar" aria-label="loading"></paper-spinner>');
+        $loadMore.find('.content').html('<paper-spinner class="yellow" active="" role="progressbar" aria-label="loading"></paper-spinner>');
         self.offset += fixtures.results_limit;
         var searchData = viewState.getData();
         searchData.offset = self.offset;
 
         var errorFunc = function (data) {
-            $loadMore.html('No more results');
+            $loadMore.find('.content').html('No more results');
         };
         $.ajax('/rings', {
             data: searchData,
@@ -66,7 +67,7 @@
             success: function (data) {
                 if (data) {
                     $loadMore.removeAttr('disabled');
-                    $loadMore.html('Load More');
+                    $loadMore.find('.content').html('Load More');
                     addToGallery(data);
                 }
                 else {
@@ -115,18 +116,39 @@
 
     var app = document.querySelector('#app');
     app.addEventListener('dom-change', function () {
-        companiesMenu = document.querySelector('#companies-menu');
-        companiesMenu.addEventListener('paper-radio-group-changed', function (evt) {
-            var selected = companiesMenu.selected;
-            if (!selected) {
-                return self.searchChanged({
-                    company: 'all'
+        function addItemChangeHandler(item) {
+            item.addEventListener('iron-change', function (evt) {
+                var checked = item.checked;
+                if (!checked) {
+                    if (companiesMenu.selected !== item.getAttribute('name')) {
+                        //deselect is triggered by changing selection
+                        return;
+                    }
+                    return self.debouncedSearchChanged({
+                        company: 'all'
+                    })
+                }
+                self.debouncedSearchChanged({
+                    company: item.getAttribute('name')
                 })
-            }
-            self.searchChanged({
-                company: selected
-            })
-        });
+            });
+        }
+        companiesMenu = document.querySelector('#companies-menu');
+        for (var itemIdx = 0; itemIdx < companiesMenu.items.length; itemIdx++) {
+            var item = companiesMenu.items[itemIdx];
+            addItemChangeHandler(item)
+        }
+        //companiesMenu.addEventListener('paper-radio-group-changed', function (evt) {
+        //    var selected = companiesMenu.selected;
+        //    if (!selected) {
+        //        return self.searchChanged({
+        //            company: 'all'
+        //        })
+        //    }
+        //    self.searchChanged({
+        //        company: selected
+        //    })
+        //});
 
         search.init();
 
