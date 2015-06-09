@@ -5,7 +5,7 @@
     var companiesMenu = null;
 
 
-    self.searchChanged = function (extraData) {
+    self.searchChanged = $.debounce(300, function (extraData) {
         if (typeof extraData == 'undefined') {
             extraData = {};
         }
@@ -46,7 +46,7 @@
             },
             error: errorFunc
         });
-    };
+    });
 
 
     self.nextPage = function (evt) {
@@ -116,10 +116,7 @@
     var app = document.querySelector('#app');
     app.addEventListener('dom-change', function () {
         companiesMenu = document.querySelector('#companies-menu');
-        //Object.observe()
-        var oldHandler = companiesMenu._selectedChanged
-        companiesMenu._selectedChanged = function () {
-            oldHandler();
+        companiesMenu.addEventListener('paper-radio-group-changed', function (evt) {
             var selected = companiesMenu.selected;
             if (!selected) {
                 return self.searchChanged({
@@ -127,13 +124,13 @@
                 })
             }
             self.searchChanged({
-                company: selected.name
+                company: selected
             })
-        };
+        });
 
         search.init();
 
-        self.sliderChange = $.debounce(200, self.searchChanged);
+        self.sliderChange = $.debounce(300, self.searchChanged);
         var firstCall = true;
 
         $('.load-more').click(self.nextPage);
