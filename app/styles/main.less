@@ -71,13 +71,16 @@ paper-menu.paper-menu-0 {
     background: none;
     padding-left: 50px;
 }
+
 .main-core-toolbar {
     color: #FAFAFA !important;
     background-color: @secondary-color !important;
 }
+
 .default-toolbar {
     background-color: #fff !important;
 }
+
 /// Justified Gallery
 
 .justified-gallery > a > .caption,
@@ -166,6 +169,18 @@ paper-tooltip::shadow .top::after,
     margin-top: 9px;
 }
 
+paper-header-panel::shadow {
+    #topBar.paper-toolbar {
+        z-index: 3;
+    }
+    paper-toolbar:after, .paper-header:after {
+//        z-index: 0;
+    }
+}
+
+paper-drawer-panel::shadow #drawer.offcanvas {
+    transform: translateX(-256px);
+}
 
 // load more
 .gallery-load-more {
@@ -195,6 +210,7 @@ paper-tooltip::shadow .top::after,
         }
     }
 }
+
 paper-spinner::shadow #spinnerContainer {
     .circle {
         border-color: @main-color;
@@ -227,12 +243,6 @@ iron-icon.padded-icon {
 .main-body-ad {
     width: 100%;
     min-height: 500px;
-}
-
-.right-bar {
-    position: absolute;
-    right: 0px;
-    top: 9px;
 }
 
 .hidden-detail {
