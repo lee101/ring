@@ -190,6 +190,15 @@
         }
     };
 
+    //share buttons
+    $(document).on('click', '.facebook-share-btn', function () {
+        FB.ui({
+            method: 'share',
+            href: window.location.href
+        }, function (response) {
+        });
+    });
+
     return self;
 // wrap document so it plays nice with other libraries
 // http://www.polymer-project.org/platform/shadow-dom.html#wrappers
