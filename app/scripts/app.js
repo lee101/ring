@@ -156,13 +156,13 @@
                 var minPrice = fixtures.priceHistogram[leftValue];
                 var maxPrice = fixtures.priceHistogram[rightValue];
 
-                $(this).parent().find('.leftLabel').attr('label', zutils.numberToCurrency(minPrice));
+                $('.leftLabel').html(zutils.numberToCurrency(minPrice));
                 var rightText = zutils.numberToCurrency(maxPrice);
                 if (maxPrice == fixtures.priceHistogram[fixtures.priceHistogram.length - 1]) {
                     rightText += '+'
                 }
 
-                $(this).parent().find('.rightLabel').attr('label', rightText);
+                $('.rightLabel').html(rightText);
                 if (!firstCall) {
                     self.sliderChange({
                         minPrice: minPrice,

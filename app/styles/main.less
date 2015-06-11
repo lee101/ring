@@ -112,11 +112,15 @@ paper-menu.paper-menu-0 {
 /// Nst Slider
 @range-slider-width: 195px;
 @range-slider-grip-radius: 10px;
+@slider-margin: 23px;
 .nstSlider {
     width: @range-slider-width;
     background-color: @secondary-color;
     border: 2px solid gray;
-    margin: 23px;
+    margin-top: 4px;
+    margin-right: @slider-margin;
+    margin-left: @slider-margin;
+    margin-bottom: 10px;
 
     .bar,
     .leftGrip,
@@ -142,12 +146,16 @@ paper-menu.paper-menu-0 {
 // Tooltips
 
 .grip-label {
-    top: -11px;
-    left: @range-slider-grip-radius;
+    font-size: 18px;
 }
 
 .rightLabel {
-    left: @range-slider-width - @range-slider-grip-radius - 4;
+    float: right;
+    margin-right: @slider-margin + 11;
+}
+.leftLabel {
+    float: left;
+    margin-left: @slider-margin;
 }
 
 paper-tooltip::shadow *,
@@ -166,7 +174,6 @@ paper-tooltip::shadow .top::after,
 }
 
 .price-range {
-    margin-bottom: 54px;
     margin-top: 9px;
 }
 
