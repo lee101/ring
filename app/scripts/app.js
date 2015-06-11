@@ -2,6 +2,8 @@
     'use strict';
     var self = APP || {};
     self.offset = 0;
+    var companiesMenu = null;
+
 
     self.searchChanged = function (extraData) {
         if (typeof extraData == 'undefined') {
@@ -9,15 +11,13 @@
         }
         var $loadMore = $('.load-more');
         if (!viewState.changeData(extraData)) {
-            if (extraData.company != 'all') {
+            if (extraData.company && extraData.company != 'all') {
                 setTimeout(function () {
-                    var companiesMenu = document.querySelector('#companies-menu');
-                    companiesMenu.unselectAllItems();
+                    companiesMenu.select(null);
                 }, 100);
                 viewState.changeData({
                     company: 'all'
                 })
-
             }
             else {
                 return;
@@ -47,18 +47,19 @@
             error: errorFunc
         });
     };
+    self.debouncedSearchChanged = $.debounce(300, self.searchChanged);
 
 
     self.nextPage = function (evt) {
         var $loadMore = $('.load-more');
         $loadMore.attr('disabled', 'disabled');
-        $loadMore.html('<paper-spinner class="yellow" active="" role="progressbar" aria-label="loading"></paper-spinner>');
+        $loadMore.find('.content').html('<paper-spinner class="yellow" active="" role="progressbar" aria-label="loading"></paper-spinner>');
         self.offset += fixtures.results_limit;
         var searchData = viewState.getData();
         searchData.offset = self.offset;
 
         var errorFunc = function (data) {
-            $loadMore.html('No more results');
+            $loadMore.find('.content').html('No more results');
         };
         $.ajax('/rings', {
             data: searchData,
@@ -66,7 +67,7 @@
             success: function (data) {
                 if (data) {
                     $loadMore.removeAttr('disabled');
-                    $loadMore.html('Load More');
+                    $loadMore.find('.content').html('Load More');
                     addToGallery(data);
                 }
                 else {
@@ -114,11 +115,33 @@
     }
 
     var app = document.querySelector('#app');
-    app.addEventListener('template-bound', function () {
+    app.addEventListener('dom-change', function () {
+        function addItemChangeHandler(item) {
+            item.addEventListener('iron-change', function (evt) {
+                var checked = item.checked;
+                if (!checked) {
+                    if (companiesMenu.selected !== item.getAttribute('name')) {
+                        //deselect is triggered by changing selection
+                        return;
+                    }
+                    return self.debouncedSearchChanged({
+                        company: 'all'
+                    })
+                }
+                self.debouncedSearchChanged({
+                    company: item.getAttribute('name')
+                })
+            });
+        }
+        companiesMenu = document.querySelector('#companies-menu');
+        for (var itemIdx = 0; itemIdx < companiesMenu.items.length; itemIdx++) {
+            var item = companiesMenu.items[itemIdx];
+            addItemChangeHandler(item)
+        }
 
         search.init();
 
-        self.sliderChange = $.debounce(200, self.searchChanged);
+        self.sliderChange = $.debounce(300, self.searchChanged);
         var firstCall = true;
 
         $('.load-more').click(self.nextPage);
@@ -133,13 +156,13 @@
                 var minPrice = fixtures.priceHistogram[leftValue];
                 var maxPrice = fixtures.priceHistogram[rightValue];
 
-                $(this).parent().find('.leftLabel').attr('label', zutils.numberToCurrency(minPrice));
+                $('.leftLabel').html(zutils.numberToCurrency(minPrice));
                 var rightText = zutils.numberToCurrency(maxPrice);
                 if (maxPrice == fixtures.priceHistogram[fixtures.priceHistogram.length - 1]) {
                     rightText += '+'
                 }
 
-                $(this).parent().find('.rightLabel').attr('label', rightText);
+                $('.rightLabel').html(rightText);
                 if (!firstCall) {
                     self.sliderChange({
                         minPrice: minPrice,
@@ -166,6 +189,15 @@
             $('#gallery-tiles').justifiedGallery('norewind');
         }
     };
+
+    //share buttons
+    $(document).on('click', '.facebook-share-btn', function () {
+        FB.ui({
+            method: 'share',
+            href: window.location.href
+        }, function (response) {
+        });
+    });
 
     return self;
 // wrap document so it plays nice with other libraries

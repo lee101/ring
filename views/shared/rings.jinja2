@@ -6,12 +6,38 @@
              onerror="APP.thumbFallback(this, '{{ ring.image }}')"/>
     </a>
     <div class="hidden-detail" style="display: none">
-        <core-icon class="close-icon" icon="close" onclick="APP.goto('/'); return false;"></core-icon>
+        <paper-icon-button class="close-icon" icon="clear" title="clear" onclick="APP.goto('/'); return false;"></paper-icon-button>
+
         <a class="ring-link" href="{{ ring.url }}" target="_blank">{{ ring.title }}</a>
         <p class="ring-description">
             {{ ring.description }}
         </p>
         <p class="ring-company">{{ fixtures.getCompanyById(ring.company_id).name }}</p>
+
+        <p class="mm-sharing-btns">
+            {% set encoded_desc = urlencode(ring.title) -%}
+            {% set encoded_desc_short = urlencode(ring.title) -%}
+            {% set encoded_url = urlencode('http://ring.nz/ring/' + ring.urltitle) -%}
+            <a href="#" class="facebook-share-btn" title="Share {{ ring.title }} on Facebook">
+                <i class="fa fa-facebook-square mm-share-btn"></i>
+            </a>
+            <a href="https://twitter.com/intent/tweet?url={{ encoded_url }}&text={{ encoded_desc_short }}"
+               target="_blank" rel="nofollow" title="Tweet {{ ring.title }} on Twitter">
+                <i class="fa fa-twitter-square mm-share-btn mm-share-btn--twitter"></i>
+            </a>
+            <a href="https://pinterest.com/pin/create/bookmarklet/?url={{ encoded_url }}&description={{ encoded_desc }}"
+               target="_blank" rel="nofollow" title="Pin {{ ring.title }} on pinterest">
+                <i class="fa fa-pinterest-square mm-share-btn mm-share-btn--pinterest"></i>
+            </a>
+            <a href="https://plus.google.com/share?url={{ encoded_url }}"
+               target="_blank" rel="nofollow" title="Share {{ ring.title }} on Google Plus">
+                <i class="fa fa-google-plus-square mm-share-btn mm-share-btn--google-plus"></i>
+            </a>
+            <a href="http://www.stumbleupon.com/submit?url={{ encoded_url }}&title={{ encoded_desc }}"
+               target="_blank" rel="nofollow" title="Share {{ ring.title }} on Stumble Upon">
+                <i class="fa fa-stumbleupon-circle mm-share-btn mm-share-btn--stumbleupon"></i>
+            </a>
+        </p>
     </div>
 </div>
 

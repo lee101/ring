@@ -1,23 +1,26 @@
-<link rel="import" href="/bower_components/core-drawer-panel/core-drawer-panel.html">
-<link rel="import" href="/bower_components/core-header-panel/core-header-panel.html">
-<link rel="import" href="/bower_components/core-toolbar/core-toolbar.html">
-<link rel="import" href="/bower_components/core-icons/core-icons.html">
+<link rel="import" href="/bower_components/paper-drawer-panel/paper-drawer-panel.html">
+
+<link rel="import" href="/bower_components/paper-header-panel/paper-header-panel.html">
+<link rel="import" href="/bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="/bower_components/iron-icons/iron-icons.html">
 
 <link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="/bower_components/paper-button/paper-button.html">
 <link rel="import" href="/bower_components/paper-spinner/paper-spinner.html">
 <link rel="import" href="/bower_components/paper-input/paper-input.html">
 
-<link rel="import" href="/bower_components/core-menu/core-menu.html">
-<link rel="import" href="/bower_components/core-menu/core-submenu.html">
-<link rel="import" href="/bower_components/core-item/core-item.html">
+<link rel="import" href="/bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="/bower_components/paper-item/paper-item.html">
 
+<link rel="import" href="/bower_components/paper-radio-button/paper-radio-button.html">
+<link rel="import" href="/bower_components/paper-radio-group/paper-radio-group.html">
+<!--
 <link rel="import" href="/bower_components/core-tooltip/core-tooltip.html">
-
 <link rel="import" href="/bower_components/font-roboto/roboto.html">
+-->
 
 <!-- Add your elements here -->
-<polymer-element name="ring-submenu" extends="core-submenu">
+<dom-module id="ring-submenu" extends="core-submenu">
     <template>
         <link rel="stylesheet" href="/bower_components/core-menu/core-submenu.css">
 
@@ -34,18 +37,19 @@
         <core-collapse target="{{$.submenu}}" opened="{{opened}}"></core-collapse>
 
     </template>
-    <script>
-        Polymer({
-            activate: function () {
-                if (this.hasItems() && this.active) {
-                    this.toggle();
-                }
-            },
-            activeChanged: function () {
-                if (!this.active) {
-                    this.unselectAllItems();
-                }
+</dom-module>
+<script>
+    Polymer({
+        is: 'ring-submenu',
+        activate: function () {
+            if (this.hasItems() && this.active) {
+                this.toggle();
             }
-        });
-    </script>
-</polymer-element>
+        },
+        activeChanged: function () {
+            if (!this.active) {
+                this.unselectAllItems();
+            }
+        }
+    });
+</script>

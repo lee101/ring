@@ -1,6 +1,7 @@
 @import 'variables';
 @import '../../bower_components/lesshat/build/lesshat';
 @import 'mixins/box-shadow';
+@import 'mixins/mixins';
 @import 'search';
 
 body {
@@ -35,7 +36,7 @@ h1 {
     background-color: #EEEEEE;
 }
 
-core-toolbar {
+paper-toolbar {
     background-color: #fff;
 }
 
@@ -56,9 +57,29 @@ paper-button[disabled] {
     pointer-events: none;
 }
 
+paper-icon-button.close-icon:hover {
+    background: var(--paper-light-blue-50);
+    border-radius: 50%;
+}
+
+paper-icon-button.close-icon::shadow #icon {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+
+paper-menu.paper-menu-0 {
+    background: none;
+    padding-left: 50px;
+}
+
 .main-core-toolbar {
-    color: #FAFAFA;
-    background-color: @secondary-color;
+    color: #FAFAFA !important;
+    background-color: @secondary-color !important;
+}
+
+.default-toolbar {
+    background-color: #fff !important;
 }
 
 /// Justified Gallery
@@ -91,11 +112,15 @@ paper-button[disabled] {
 /// Nst Slider
 @range-slider-width: 195px;
 @range-slider-grip-radius: 10px;
+@slider-margin: 23px;
 .nstSlider {
     width: @range-slider-width;
     background-color: @secondary-color;
     border: 2px solid gray;
-    margin: 23px;
+    margin-top: 4px;
+    margin-right: @slider-margin;
+    margin-left: @slider-margin;
+    margin-bottom: 10px;
 
     .bar,
     .leftGrip,
@@ -113,7 +138,7 @@ paper-button[disabled] {
     .bar {
         opacity: 0.7;
     }
-    core-tooltip::shadow div {
+    paper-tooltip::shadow div {
         cursor: default;
     }
 }
@@ -121,41 +146,48 @@ paper-button[disabled] {
 // Tooltips
 
 .grip-label {
-    top: -11px;
-    left: @range-slider-grip-radius;
+    font-size: 18px;
 }
 
 .rightLabel {
-    left: @range-slider-width - @range-slider-grip-radius - 4;
+    float: right;
+    margin-right: @slider-margin + 11;
+}
+.leftLabel {
+    float: left;
+    margin-left: @slider-margin;
 }
 
-core-tooltip::shadow *,
+paper-tooltip::shadow *,
 {
     cursor: default;
 }
 
-core-tooltip::shadow div,
+paper-tooltip::shadow div,
 {
     background-color: #607D8B;
 }
 
-core-tooltip::shadow .top::after,
+paper-tooltip::shadow .top::after,
 {
     border-top-color: @secondary-color;
 }
 
 .price-range {
-    margin-bottom: 54px;
     margin-top: 9px;
-    margin-left: 20px;
 }
 
-core-submenu {
-    margin-left: 20px;
+paper-header-panel::shadow {
+    #topBar.paper-toolbar {
+        z-index: 3;
+    }
+    paper-toolbar:after, .paper-header:after {
+        //        z-index: 0;
+    }
 }
 
-paper-spinner.yellow::shadow .circle {
-    border-color: @main-color;
+paper-drawer-panel::shadow #drawer.offcanvas {
+    transform: translateX(-256px);
 }
 
 // load more
@@ -182,8 +214,34 @@ paper-spinner.yellow::shadow .circle {
         height: 100px;
         .circle {
             border-width: 10px;
+            border-color: @main-color;
         }
     }
+}
+
+paper-spinner::shadow #spinnerContainer {
+    .circle {
+        border-color: @main-color;
+    }
+}
+
+paper-radio-group {
+    padding-top: 0;
+    padding-right: 35px;
+    padding-left: 35px;
+    padding-bottom: 16px;
+}
+
+paper-radio-button {
+    --paper-radio-button-checked-color: @main-color;
+    --paper-radio-button-checked-ink-color: @main-color;
+    --paper-radio-button-unchecked-color: @secondary-color;
+    --paper-radio-button-unchecked-ink-color: @secondary-color;
+}
+
+iron-icon.padded-icon {
+    width: 42px;
+    margin-right: 8px;
 }
 
 .sidebar-ad {
@@ -193,12 +251,6 @@ paper-spinner.yellow::shadow .circle {
 .main-body-ad {
     width: 100%;
     min-height: 500px;
-}
-
-.right-bar {
-    position: absolute;
-    right: 0px;
-    top: 9px;
 }
 
 .hidden-detail {
@@ -212,9 +264,6 @@ paper-spinner.yellow::shadow .circle {
 
 .close-icon {
     float: right;
-    width: 32px;
-    height: 32px;
-    cursor: pointer;
 }
 
 .ring-link {
@@ -237,4 +286,44 @@ paper-spinner.yellow::shadow .circle {
     left: 0 !important;
     top: 0 !important;
     z-index: 99999;
+}
+
+.mm-sharing-btns {
+    position: absolute;
+    right: 0;
+    bottom: 50px;
+    .font-size(1.9);
+    a {
+        text-decoration: none;
+        display: block;
+    }
+}
+
+.mm-share-btn {
+    font-size: @base-font-size *2;
+    color: @facebook-blue;
+}
+
+.mm-share-btn--twitter {
+    color: @twitter-blue;
+}
+
+.mm-share-btn--google-plus {
+    color: @google-plus-red;
+}
+
+.mm-share-btn--pinterest {
+    color: @pinterest-red;
+}
+
+.mm-share-btn--linked-in {
+    color: @linked-in-blue;
+}
+
+.mm-share-btn--reddit {
+    color: @reddit-blue;
+}
+
+.mm-share-btn--stumbleupon {
+    color: @stumble-upon-orange;
 }
