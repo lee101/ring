@@ -1,6 +1,12 @@
 (function () {
     "use strict";
-    window.APP = window.APP || {Routers: {}, Collections: {}, Models: {}, Views: {}};
+    if (typeof APP == 'undefined') {
+        APP = {}
+    }
+    APP.Routers = APP.Routers || {};
+    APP.Collections = APP.Collections || {};
+    APP.Models = APP.Models || {};
+    APP.Views = APP.Views || {};
 
     APP.goto = function (name) {
         APP.router.navigate(name, {trigger: true});

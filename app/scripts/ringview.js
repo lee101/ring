@@ -1,5 +1,8 @@
 var ringView = (function ($) {
     "use strict";
+    if (typeof APP == 'undefined') {
+        APP = {}
+    }
     var self = {};
 
     var $zoomedTarget = null;

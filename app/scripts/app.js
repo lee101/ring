@@ -1,6 +1,10 @@
 (function (document) {
     'use strict';
-    var self = APP || {};
+    if (typeof APP == 'undefined') {
+        APP = {}
+    }
+    var self = APP;
+
     self.offset = 0;
     var companiesMenu = null;
 
