@@ -180,7 +180,7 @@
         }).on('touchstart mousedown', function () {
             return false;
         });
-
+        APP.hasRendered = true;
     });
 
     //share buttons
