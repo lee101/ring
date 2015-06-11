@@ -33,7 +33,7 @@
         self.offset = 0;
         var errorFunc = function (data) {
             $loadMore.attr('disabled', 'disabled');
-            $loadMore.html('No results');
+            $loadMore.find('.content').html('No results');
         };
         $.ajax('/rings', {
             data: searchData,
@@ -41,7 +41,7 @@
             success: function (data) {
                 if (data) {
                     $loadMore.removeAttr('disabled');
-                    $loadMore.html('Load More');
+                    $loadMore.find('.content').html('Load More');
                     refreshGallery(data);
                 }
                 else {
