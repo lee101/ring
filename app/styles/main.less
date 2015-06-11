@@ -1,6 +1,7 @@
 @import 'variables';
 @import '../../bower_components/lesshat/build/lesshat';
 @import 'mixins/box-shadow';
+@import 'mixins/mixins';
 @import 'search';
 
 body {
@@ -174,7 +175,7 @@ paper-header-panel::shadow {
         z-index: 3;
     }
     paper-toolbar:after, .paper-header:after {
-//        z-index: 0;
+        //        z-index: 0;
     }
 }
 
@@ -284,4 +285,37 @@ iron-icon.padded-icon {
     position: absolute;
     right: 0;
     bottom: 50px;
+    .font-size(1.9);
+    a {
+        text-decoration: none;
+        display: block;
+    }
+}
+
+.mm-share-btn {
+    font-size: @base-font-size *2;
+}
+
+.mm-share-btn--twitter {
+    color: @twitter-blue;
+}
+
+.mm-share-btn--google-plus {
+    color: @google-plus-red;
+}
+
+.mm-share-btn--pinterest {
+    color: @pinterest-red;
+}
+
+.mm-share-btn--linked-in {
+    color: @linked-in-blue;
+}
+
+.mm-share-btn--reddit {
+    color: @reddit-blue;
+}
+
+.mm-share-btn--stumbleupon {
+    color: @stumble-upon-orange;
 }
