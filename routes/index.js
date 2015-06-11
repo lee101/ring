@@ -13,6 +13,8 @@ router.get('/', function (req, res) {
             thumbs: rings,
             fixtures: fixtures,
             zutils: zutils,
+            urlencode: encodeURIComponent,
+
         });
     })
 });

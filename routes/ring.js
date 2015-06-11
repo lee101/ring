@@ -17,7 +17,8 @@ router.get('/:name', function (req, res) {
             ring: ring,
             thumbs: rings,
             fixtures: fixtures,
-            zutils: zutils
+            zutils: zutils,
+            urlencode: encodeURIComponent,
         });
     })
 });
