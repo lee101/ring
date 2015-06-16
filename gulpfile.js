@@ -133,7 +133,9 @@ gulp.task('vulcanize', function () {
         .pipe(gulpPlugins.vulcanize({
             dest: DEST_DIR,
             strip: true,
-            inline: true
+            inline: true,
+            inlineCss: true,
+            inlineScripts: true
         }))
         .pipe(gulp.dest(DEST_DIR))
         .pipe(gulpPlugins.size({title: 'vulcanize'}));
@@ -163,7 +165,7 @@ gulp.task('build', ['clean'], function (cb) {
         ['jinja2'],
         ['nunjucks'],
         ['images', 'fonts'],
-        //'vulcanize',
+        'vulcanize',
         cb);
 });
 
@@ -173,7 +175,7 @@ gulp.task('restyle', function (cb) {
         ['styles'],
         ['jinja2'],
         ['nunjucks'],
-        //'vulcanize',
+        'vulcanize',
         cb);
 });
 
@@ -181,7 +183,7 @@ gulp.task('default', ['build'], function (cb) {
     gulp.watch('./views/**/*.jinja2', ['jinja2']);
     gulp.watch('./views/shared/**/*.jinja2', ['nunjucks']);
     gulp.watch(['app/styles/**/*.{less,css}'], ['restyle']);
-    gulp.watch(['app/{scripts,elements}/**/*'], ['copy']);
+    gulp.watch(['app/{scripts,elements}/**/*'], ['build']);
     gulp.watch(['app/images/**/*'], ['images']);
     gulp.watch(['app/fonts/**/*'], ['fonts']);
 });
