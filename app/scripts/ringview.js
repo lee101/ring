@@ -13,6 +13,8 @@ var ringView = (function ($) {
             $zoomedTarget.find('.hidden-detail').fadeOut();
             $zoomedTarget.removeClass('fullscreen-tile');
             $('#drawer').removeClass('offcanvas');
+            $('.main-core-toolbar').slideDown();
+
             $zoomedTarget.find('.gallery-image').removeClass('img-fullscreen');
 
             setTimeout(function () {
@@ -38,6 +40,7 @@ var ringView = (function ($) {
         $target.find('.gallery-image').addClass('img-fullscreen');
         var $currentZoomedTarget = $zoomedTarget;
         $('#drawer').addClass('offcanvas');
+        $('.main-core-toolbar').slideUp();
 
         setTimeout(function () {
             if ($currentZoomedTarget === $zoomedTarget) {
