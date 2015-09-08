@@ -11,6 +11,8 @@ var ring = require('./routes/ring');
 var sitemap = require('./routes/sitemap');
 
 var app = express();
+var compression = require('compression');
+app.use(compression());
 var nunjucks = require('nunjucks');
 
 // view engine setup

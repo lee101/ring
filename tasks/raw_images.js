@@ -66,9 +66,10 @@ gulp.task('parseimages', function () {
                     }
 
                     image_utils.cropImage(image, function (image) {
+                        //TODO compress these images
                         image.writeFile('images/processed/' + file.relative, function (err) {
                             if (err) {
-                                console.log(err)
+                                console.log(err);
                                 console.log('Err writing image at: images/processed/' + file.relative);
 
                             }
